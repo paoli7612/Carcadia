@@ -15,17 +15,20 @@ class Player {
         void animate(){
             int x=0, y=0;
             if (dx == dy || dx == -dy){
-                if (dx == 0) frame = 0;
+                if (dx == 0){
+                    frame = 0;
+                    y = (lx+1)/2;
+                } 
                 else {
                     x = 1;
-                    y = 1 == dx;
+                    y = (1 == dx);
                 }
             } else if (dy == 0){
                 x = 1;
                 if (dx == -1) y=0;
                 else if (dx == 1) y=1;
             } else if (dx == 0){
-                x = 7;
+                x = 6;
                 if (dy == 1) y = 0;
                 else if (dy == -1) y = 1;
             }
@@ -37,6 +40,7 @@ class Player {
         Sprite sprite;
         int dx = 0;
         int dy = 0;
+        int lx = -1;
         int speed = 5;
 
         void load(){
@@ -55,6 +59,8 @@ class Player {
                 frame = (frame+1)%3;
                 animate();
                 t = 0;
+                if (dx != 0)
+                    lx = dx;
             }
             sprite.move(dx*speed, dy*speed);
         }
