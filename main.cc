@@ -24,7 +24,7 @@ float dt;
 void _load(){
 
     player = Player();
-    player.load(100, 39,'2');
+    player.load(100, 39,'1');
     tutorial.load();
 }
 
@@ -56,6 +56,9 @@ void _event(){
                         player.use(kick); break;
                     case Keyboard::W:
                         player.use(punch); break;
+                    // P
+                    case Keyboard::P:
+                        player.change(); break;
                 }
                 break;
             }

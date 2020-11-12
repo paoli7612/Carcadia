@@ -11,6 +11,7 @@ enum Action{none, kick, punch};
 class Player {
 
     private:
+        char costume = '1';
         Texture texture;
         int frame = 0;
         Action action = none;
@@ -52,14 +53,9 @@ class Player {
         int lx = -1;
         int speed = 5;
 
-        void load(int x, int y, char img){
+        void load(int x, int y, char costume){
             animate();
-            char path[] = "img/character/1.png";
-            path[14] = img;
-            if (!texture.loadFromFile(path));
-                texture.setSmooth(true);
-            sprite.setTexture(texture);
-            sprite.setScale(Vector2f(2, 2));
+            change(costume);
             sprite.setPosition(Vector2f(x, y));
         }
 
@@ -78,6 +74,18 @@ class Player {
 
         void use(Action a){
             action = a;
+        }
+
+        void change(char c='0'){
+            char path[] = "img/character/1.png";
+            if (c == '0')
+                c = ++costume;
+            path[14] = c;
+            cout << path << endl;
+            if (!texture.loadFromFile(path));
+                texture.setSmooth(true);
+            sprite.setTexture(texture);
+            sprite.setScale(Vector2f(2, 2));
         }
 
 
