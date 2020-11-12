@@ -51,9 +51,11 @@ void _event(){
                         player.dx = -1; break;
                     case Keyboard::Right:
                         player.dx = 1; break;
-                    // Space
-                    case Keyboard::Space:
-                        player.action();
+                    // Q W
+                    case Keyboard::Q:
+                        player.use(kick); break;
+                    case Keyboard::W:
+                        player.use(punch); break;
                 }
                 break;
             }

@@ -5,11 +5,15 @@
 using namespace sf;
 using namespace std;
 
+enum Action{none, kick, punch};
+
+
 class Player {
 
     private:
         Texture texture;
         int frame = 0;
+        Action action = none;
 
         void animate(){
             frame = (frame+1)%3;
@@ -32,11 +36,13 @@ class Player {
                 if (dy == 1) y = 0;
                 else if (dy == -1) y = 1;
             }
-            if (cick){
+            if (action == punch)
+                sprite.setTextureRect(IntRect((8)*48, (2+((lx+1)/2))*48, 48, 48));
+            else if (action == kick)
                 sprite.setTextureRect(IntRect((9)*48, (2+((lx+1)/2))*48, 48, 48));
-                cick--;
-            } else
+            else
                 sprite.setTextureRect(IntRect((x+frame)*48, y*48, 48, 48));
+            action = none;
         }
 
     public:
@@ -45,7 +51,6 @@ class Player {
         int dy = 0;
         int lx = -1;
         int speed = 5;
-        int cick = 0;
 
         void load(int x, int y, char img){
             animate();
@@ -71,8 +76,9 @@ class Player {
             sprite.move(dx*speed, dy*speed);
         }
 
-        void action(){
-            cick = 1;
+        void use(Action a){
+            action = a;
         }
+
 
 };
