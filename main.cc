@@ -2,7 +2,6 @@
 #include <iostream>
 #include "player.cc"
 #include "tutorial.cc"
-#include "character.cc"
 
 #define WIDTH 960
 #define HEIGHT 640
@@ -29,7 +28,7 @@ void _load(){
 }
 
 void _event(){
-    while (window.pollEvent(event)){        
+    while (window.pollEvent(event)){
         switch (event.type) {
             // QUIT
             case Event::Closed:{
@@ -84,7 +83,8 @@ void _update(float dt){
 }
 
 void _draw(){
-    window.clear();
+    window.clear(Color(100,100,100,1));
+
     window.draw(player.sprite);
     tutorial.draw(window);
     window.display();

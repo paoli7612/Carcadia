@@ -7,9 +7,7 @@ using namespace std;
 
 enum Action{none, kick, punch};
 
-
 class Player {
-
     private:
         char costume = '1';
         Texture texture;
@@ -23,7 +21,7 @@ class Player {
                 if (dx == 0){
                     frame = 0;
                     y = (lx+1)/2;
-                } 
+                }
                 else {
                     x = 1;
                     y = (1 == dx);
@@ -63,13 +61,14 @@ class Player {
         void update(float dt){
             t += dt;
             if (t > 0.1){
-                
                 animate();
                 t = 0;
                 if (dx != 0)
                     lx = dx;
             }
             sprite.move(dx*speed, dy*speed);
+            if (sprite.getPosition().y > 300)
+                sprite.setPosition(Vector2f(sprite.getPosition().x, 300)) ;
         }
 
         void use(Action a){
@@ -80,6 +79,8 @@ class Player {
             char path[] = "img/character/1.png";
             if (c == '0')
                 c = ++costume;
+            if (c == '8')
+                costume = '1';
             path[14] = c;
             cout << path << endl;
             if (!texture.loadFromFile(path));

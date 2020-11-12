@@ -16,6 +16,7 @@ class Tutorial {
             if (!texture.loadFromFile("img/tutorial.png"));
                 texture.setSmooth(true);
             sprite.setTexture(texture);
+            sprite.scale(Vector2f(1.5, 1));
 
             sprite.setPosition(Vector2f(0, 400));
 
