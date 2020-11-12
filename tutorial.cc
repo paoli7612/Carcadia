@@ -7,18 +7,32 @@ using namespace std;
 
 class Tutorial {
     private:
-        Texture texture;
+        Texture texture_arrows;
+        Texture texture_space;
 
     public:
-        Sprite sprite;
+        Sprite arrows;
+        Sprite space;
+
         
         void load(){
-            if (!texture.loadFromFile("img/arrows.png"));
-                texture.setSmooth(true);
-            sprite.setTexture(texture);
-            sprite.setScale(Vector2f(.5f, .5f));
+            if (!texture_arrows.loadFromFile("img/tutorial/arrows.png"));
+                texture_arrows.setSmooth(true);
+            if (!texture_space.loadFromFile("img/tutorial/space.png"));
+                texture_space.setSmooth(true);
+            arrows.setTexture(texture_arrows);
+            space.setTexture(texture_space);
 
-            sprite.setPosition(Vector2f(0, 400));
+            arrows.setScale(Vector2f(.5f, .5f));
+            space.setScale(Vector2f(.1f, .1f));
 
+            arrows.setPosition(Vector2f(0, 400));
+            space.setPosition(Vector2f(300, 400));
+
+        }
+
+        void draw(RenderWindow &window){
+            window.draw(arrows);
+            window.draw(space);
         }
 };
