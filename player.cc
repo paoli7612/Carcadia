@@ -5,6 +5,8 @@
 using namespace sf;
 using namespace std;
 
+#define S 48
+
 enum Action{none, kick, punch};
 
 class Player {
@@ -36,11 +38,11 @@ class Player {
                 else if (dy == -1) y = 1;
             }
             if (action == punch)
-                sprite.setTextureRect(IntRect((8)*48, (2+((lx+1)/2))*48, 48, 48));
+                sprite.setTextureRect(IntRect(8*S, ((2+(lx+1)/2))*S, S, S));
             else if (action == kick)
-                sprite.setTextureRect(IntRect((9)*48, (2+((lx+1)/2))*48, 48, 48));
+                sprite.setTextureRect(IntRect(9*S, ((2+(lx+1)/2))*S, S, S));
             else
-                sprite.setTextureRect(IntRect((x+frame)*48, y*48, 48, 48));
+                sprite.setTextureRect(IntRect((x+frame)*S, y*S, S, S));
             action = none;
         }
 
@@ -67,8 +69,14 @@ class Player {
                     lx = dx;
             }
             sprite.move(dx*speed, dy*speed);
-            if (sprite.getPosition().y > 300)
-                sprite.setPosition(Vector2f(sprite.getPosition().x, 300)) ;
+
+            // Touch edge
+            Vector2f pos = sprite.getPosition();
+            if (pos.x < -20) pos.x = -20;
+            if (pos.x > 960-S-20) pos.x = 960-S-20;
+            if (pos.y < 0) pos.y = 0;
+            if (pos.y > 400-S-40) pos.y = 400-S-40;
+            sprite.setPosition(pos);
         }
 
         void use(Action a){
@@ -82,11 +90,10 @@ class Player {
             if (c == '8')
                 costume = '1';
             path[14] = c;
-            cout << path << endl;
             if (!texture.loadFromFile(path));
                 texture.setSmooth(true);
             sprite.setTexture(texture);
-            sprite.setScale(Vector2f(2, 2));
+            sprite.scale(Vector2f(1.8f, 1.8f));
         }
 
 
