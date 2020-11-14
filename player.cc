@@ -57,6 +57,8 @@ class Player {
             animate();
             change(costume);
             sprite.setPosition(Vector2f(x, y));
+            sprite.scale(Vector2f(1.8f, 1.8f));
+            
         }
 
         float t = 0;
@@ -93,7 +95,6 @@ class Player {
             if (!texture.loadFromFile(path));
                 texture.setSmooth(true);
             sprite.setTexture(texture);
-            sprite.scale(Vector2f(1.8f, 1.8f));
         }
 
 
