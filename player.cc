@@ -38,9 +38,9 @@ class Player {
                 else if (dy == -1) y = 1;
             }
             if (action == punch)
-                sprite.setTextureRect(IntRect(8*S, ((2+(lx+1)/2))*S, S, S));
+                sprite.setTextureRect(IntRect(8*S, (2+(lx+1)/2)*S, S, S));
             else if (action == kick)
-                sprite.setTextureRect(IntRect(9*S, ((2+(lx+1)/2))*S, S, S));
+                sprite.setTextureRect(IntRect(9*S, (2+(lx+1)/2)*S, S, S));
             else
                 sprite.setTextureRect(IntRect((x+frame)*S, y*S, S, S));
             action = none;
@@ -58,7 +58,7 @@ class Player {
             change(costume);
             sprite.setPosition(Vector2f(x, y));
             sprite.scale(Vector2f(1.8f, 1.8f));
-            
+
         }
 
         float t = 0;
