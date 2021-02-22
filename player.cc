@@ -7,8 +7,6 @@ using namespace std;
 
 #define S 48
 
-enum Action{none, kick, punch};
-
 class Player {
     private:
         char costume = '1';
