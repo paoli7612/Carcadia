@@ -1,105 +1,38 @@
 #include <SFML/Graphics.hpp>
-#include <iostream>
-#include "player.cc"
-#include "tutorial.cc"
 
-#define WIDTH 960
-#define HEIGHT 640
-#define TITLE "Carcadia"
-
-// g++ main.cc -lsfml-graphics -lsfml-window -lsfml-system
-
-using namespace sf;
-using namespace std;
-
-RenderWindow window(VideoMode(WIDTH, HEIGHT), TITLE);;
-
-Event event;
-Player player;
-Tutorial tutorial;
-Clock c;
-float dt;
-
-void _load(){
-
-    player = Player();
-    player.load(100, 39,'1');
-    tutorial.load();
-}
-
-void _event(){
-    while (window.pollEvent(event)){
-        switch (event.type) {
-            // QUIT
-            case Event::Closed:{
+int main()
+{
+    // Create the main window
+    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    // Load a sprite to display
+    sf::Texture texture;
+    if (!texture.loadFromFile("img/tutorial.png"))
+        return EXIT_FAILURE;
+    sf::Sprite sprite(texture);
+    // Create a graphical text to display
+    sf::Font font;
+    if (!font.loadFromFile("arial.ttf"))
+        return EXIT_FAILURE;
+    sf::Text text("Hello SFML", font, 50);
+    // Start the game loop
+    while (window.isOpen())
+    {
+        // Process events
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            // Close window: exit
+            if (event.type == sf::Event::Closed)
                 window.close();
-                break;
-            }
-            // KEYPRESSED
-            case Event::KeyPressed:{
-                switch (event.key.code) {
-                    // Escape
-                    case  Keyboard::Escape:
-                        window.close(); break;
-                    // Arrow
-                    case Keyboard::Up:
-                        player.dy = -1; break;
-                    case Keyboard::Down:
-                        player.dy = 1; break;
-                    case Keyboard::Left:
-                        player.dx = -1; break;
-                    case Keyboard::Right:
-                        player.dx = 1; break;
-                    // Q W
-                    case Keyboard::Q:
-                        player.use(kick); break;
-                    case Keyboard::W:
-                        player.use(punch); break;
-                    // P
-                    case Keyboard::P:
-                        player.change(); break;
-                }
-                break;
-            }
-            // KEYRELEASED
-            case Event::KeyReleased:{
-                switch (event.key.code) {
-                    // Arrow
-                    case Keyboard::Up:
-                    case Keyboard::Down:
-                        player.dy = 0; break;
-                    case Keyboard::Left:
-                    case Keyboard::Right:
-                        player.dx = 0; break;
-                }
-                break;
-            }
         }
+        // Clear screen
+        window.clear();
+        // Draw the sprite
+        window.draw(sprite);
+        // Draw the string
+        window.draw(text);
+        // Update the window
+        window.display();
     }
-}
-
-void _update(float dt){
-        player.update(dt);
-}
-
-void _draw(){
-    window.clear(Color(100,100,100,1));
-
-    window.draw(player.sprite);
-    tutorial.draw(window);
-    window.display();
-}
-
-int main(int argc, char** argv){
-    _load();
-    while (window.isOpen()){
-        if (c.getElapsedTime().asSeconds() >= 1.0f / 60){
-            dt = c.getElapsedTime().asSeconds();
-            c.restart();
-        } else continue;
-        _event();
-        _update(dt);
-        _draw();
-    }
-    return 0;
+    return EXIT_SUCCESS;
 }
