@@ -4,7 +4,10 @@
 #define H 25
 #define T 32
 
+
+
 typedef uint16_t code_t;
+const code_t EMPTY = 76;
 
 struct tile_t {
   bool collide;

@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 #include "classes/map.h"
 
@@ -11,7 +12,7 @@ using namespace sf;
 void map_draw(sf::RenderWindow &window, map_t &map)
 {
   sf::Texture texture;
-  texture.loadFromFile("img/wall.png", sf::IntRect(0, 0, 32, 32));
+  texture.loadFromFile("img/wall.png", sf::IntRect(0, 0, T, T));
   sf::Sprite sprite(texture);
 
   for (int y=0; y<H; y++)
@@ -19,10 +20,12 @@ void map_draw(sf::RenderWindow &window, map_t &map)
     {
       code_t &c = map.tiles[y][x].code;
 
-      if (c > 10)
+      std::cout << c << ": " << EMPTY << std::endl;
+
+      if (c == EMPTY)
         continue;
 
-      texture.loadFromFile("img/wall.png", sf::IntRect(T*c, 0, T, T));
+      texture.loadFromFile("img/wall.png", sf::IntRect(c, 0, T, T));
       sprite.setPosition(x*32, y*32);
       window.draw(sprite);
     }
@@ -34,15 +37,13 @@ int main()
     map_load(map, "maps/spawn.dat");
 
     RenderWindow window(VideoMode(WIDTH, HEIGHT), TITLE, Style::Close);
-    /*Texture texture;
-    if (!texture.loadFromFile("img/back.png"))
-        return EXIT_FAILURE;
-    Sprite sprite(texture);*/
+
     Font font;
     if (!font.loadFromFile("fonts/arial.ttf"))
         return EXIT_FAILURE;
     Text text("Paoli7612 Carcadia", font, 50);
-    text.setPosition(WIDTH/2, HEIGHT/2);
+    text.setPosition(WIDTH/3, HEIGHT/2);
+
     while (window.isOpen())
     {
         Event event;
@@ -53,9 +54,9 @@ int main()
         }
         window.clear(Color(160, 20, 50));
         map_draw(window, map);
-        //window.draw(sprite);
         window.draw(text);
         window.display();
+
     }
     return EXIT_SUCCESS;
 }

@@ -1,14 +1,17 @@
-run: play
+run: play.out
 	./play.out
 
-game: map.o
+play.out: map.o
 	g++ main.cc map.o -lsfml-graphics -lsfml-window -lsfml-system -o play.out
 
-create_map: map.o
-	g++ editor/create.cc map.o -o create.out
+editor: map.o
+	g++ maps/editor.cc map.o -o editor.out
 
 map.o: classes/map.cc
 	g++ classes/map.cc -c
+
+change_spawn: editor
+	./editor.out spawn
 
 clean:
 	rm *.out *.o -r

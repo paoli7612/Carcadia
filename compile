@@ -1,1 +1,0 @@
-g++ main.cc -lsfml-graphics -lsfml-window -lsfml-system -o play
