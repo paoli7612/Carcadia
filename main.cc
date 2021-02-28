@@ -11,8 +11,7 @@ using namespace sf;
 int main()
 {
     map_t map;
-    map_init(map);
-    map_print(map);
+    map_load(map, "maps/spawn.dat");
 
     RenderWindow window(VideoMode(WIDTH, HEIGHT), TITLE, Style::Close);
     /*Texture texture;

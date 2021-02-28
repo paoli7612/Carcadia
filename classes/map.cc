@@ -58,3 +58,21 @@ void map_draw(sf::RenderWindow &window, map_t &map)
 
 
 }
+
+void map_save(const map_t &map, const char filename[])
+{
+  std::ofstream file(filename);
+
+  file.write((char*)&map, sizeof(map_t));
+
+  file.close();
+}
+
+void map_load(map_t &map, const char filename[])
+{
+  std::ifstream file(filename);
+
+  file.read((char*)&map, sizeof(map_t));
+
+  file.close();
+}
