@@ -1,12 +1,16 @@
 #include <SFML/Graphics.hpp>
 
+const int WIDTH = 1080, HEIGHT = 1080;
+const char TITLE[] = "paoli7612 - Carcadia";
+
+
 int main()
 {
     // Create the main window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), TITLE);
     // Load a sprite to display
     sf::Texture texture;
-    if (!texture.loadFromFile("img/tutorial.png"))
+    if (!texture.loadFromFile("img/back.png"))
         return EXIT_FAILURE;
     sf::Sprite sprite(texture);
     // Create a graphical text to display
