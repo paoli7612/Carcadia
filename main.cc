@@ -10,6 +10,10 @@ using namespace sf;
 
 int main()
 {
+    map_t map;
+    map_init(map);
+    map_print(map);
+
     RenderWindow window(VideoMode(WIDTH, HEIGHT), TITLE, Style::Close);
     /*Texture texture;
     if (!texture.loadFromFile("img/back.png"))
