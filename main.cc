@@ -39,7 +39,7 @@ int main()
         return EXIT_FAILURE;
     Sprite sprite(texture);*/
     Font font;
-    if (!font.loadFromFile("arial.ttf"))
+    if (!font.loadFromFile("fonts/arial.ttf"))
         return EXIT_FAILURE;
     Text text("Paoli7612 Carcadia", font, 50);
     text.setPosition(WIDTH/2, HEIGHT/2);
