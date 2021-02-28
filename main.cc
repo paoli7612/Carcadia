@@ -8,6 +8,26 @@ const char TITLE[] = "paoli7612 - Carcadia";
 
 using namespace sf;
 
+void map_draw(sf::RenderWindow &window, map_t &map)
+{
+  sf::Texture texture;
+  texture.loadFromFile("img/wall.png", sf::IntRect(0, 0, 32, 32));
+  sf::Sprite sprite(texture);
+
+  for (int y=0; y<H; y++)
+    for (int x=0; x<W; x++)
+    {
+      code_t &c = map.tiles[y][x].code;
+
+      if (c > 10)
+        continue;
+
+      texture.loadFromFile("img/wall.png", sf::IntRect(T*c, 0, T, T));
+      sprite.setPosition(x*32, y*32);
+      window.draw(sprite);
+    }
+}
+
 int main()
 {
     map_t map;
