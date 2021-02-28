@@ -23,7 +23,7 @@ void map_draw(sf::RenderWindow &window, map_t &map)
       if (c == EMPTY)
         continue;
 
-      texture.loadFromFile("img/wall.png", sf::IntRect(c, 0, T, T));
+      texture.loadFromFile("img/wall.png", sf::IntRect(c*T, 0, T, T));
       sprite.setPosition(x*32, y*32);
       window.draw(sprite);
     }
@@ -32,7 +32,7 @@ void map_draw(sf::RenderWindow &window, map_t &map)
 int main()
 {
     map_t map;
-    map_load(map, "maps/home.dat");
+    map_load(map, "maps/spawn.dat");
 
     RenderWindow window(VideoMode(WIDTH, HEIGHT), TITLE, Style::Close);
 
