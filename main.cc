@@ -22,8 +22,8 @@ int main()
     Font font;
     if (!font.loadFromFile("arial.ttf"))
         return EXIT_FAILURE;
-    Text text("Hello SFML", font, 50);
-
+    Text text("Paoli7612 Carcadia", font, 50);
+    text.setPosition(WIDTH/2, HEIGHT/2);
     while (window.isOpen())
     {
         Event event;
@@ -33,6 +33,7 @@ int main()
                 window.close();
         }
         window.clear(Color(160, 20, 50));
+        map_draw(window, map);
         //window.draw(sprite);
         window.draw(text);
         window.display();

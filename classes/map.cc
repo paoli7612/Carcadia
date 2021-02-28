@@ -26,3 +26,22 @@ void map_print(map_t &map)
     std::cout << std::endl;
   }
 }
+
+void map_draw(sf::RenderWindow &window, map_t &map)
+{
+  sf::Texture texture;
+  texture.loadFromFile("img/wall.png");
+  sf::Sprite sprite(texture);
+
+  for (int y=0; y<H; y++)
+    for (int x=0; x<W; x++)
+    {
+      if (map.tiles[y][x].code == 1)
+      {
+        sprite.setPosition(x*32, y*32);
+        window.draw(sprite);
+      }
+    }
+
+
+}
