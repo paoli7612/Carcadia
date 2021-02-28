@@ -20,8 +20,6 @@ void map_draw(sf::RenderWindow &window, map_t &map)
     {
       code_t &c = map.tiles[y][x].code;
 
-      std::cout << c << ": " << EMPTY << std::endl;
-
       if (c == EMPTY)
         continue;
 
@@ -34,7 +32,7 @@ void map_draw(sf::RenderWindow &window, map_t &map)
 int main()
 {
     map_t map;
-    map_load(map, "maps/spawn.dat");
+    map_load(map, "maps/home.dat");
 
     RenderWindow window(VideoMode(WIDTH, HEIGHT), TITLE, Style::Close);
 

@@ -1,4 +1,2 @@
-SFML/*
-a.out
-.vscode/*
-play
+*.o
+*.out

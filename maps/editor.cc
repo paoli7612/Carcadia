@@ -39,21 +39,18 @@ int main(int argc, char **argv)
   string map_name = argv[1];
   string file_name = "maps/" + map_name + ".dat";
 
-  if (map_name == "spawn")
-  {
-    map_t map;
+  map_t map;
 
-    try {
-      map_load(map, file_name);
-    } catch (int e) {
-      map_init(map);
-    }
-    map_print(map);
-
-    ask_map(map);
-
-    map_save(map, file_name);
+  try {
+    map_load(map, file_name);
+  } catch (int e) {
+    map_init(map);
   }
+  map_print(map);
+
+  ask_map(map);
+
+  map_save(map, file_name);
 
   return 0;
 }
