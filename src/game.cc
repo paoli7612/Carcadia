@@ -89,7 +89,10 @@ void Game::draw_world()
         for (int x=0; x<WIDTH; x++)
         {
             tile_t tile = world.get(x, y);
-            if (tile.code == 2)
-                images.draw(tile.code, x, y);
+
+            if (tile.code == EMPTY)
+                continue;
+
+            images.draw(tile.code, x, y);
         }
 }

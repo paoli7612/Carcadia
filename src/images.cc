@@ -15,6 +15,12 @@ void Images::draw(const int i, const int x, const int y)
 void Images::set_window(sf::RenderWindow &w)
 {
     window = &w;
-    for (int i=0; i<10; i++)
-        terrain[i].loadFromFile("assets/img/terrain.png", sf::IntRect(32*i, 0, 32, 32));
+    std::cout << "Loading textures \n";
+    for (int i=0; i<100; i++)
+    {
+        int riga = i%30;
+        int colonna = i/30;
+        terrain[i].loadFromFile("assets/img/terrain.png", sf::IntRect(32*riga, 32*colonna, 32, 32));
+    }
+    std::cout << "Loading textures completed\n";
 }

@@ -3,7 +3,7 @@
 
 class Images {
     private:
-        sf::Texture terrain[10];
+        sf::Texture terrain[100];
         sf::Sprite sprite;
         sf::RenderWindow *window;
     public:

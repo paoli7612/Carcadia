@@ -18,6 +18,13 @@ void vettore_orizzontale(map_t &map, const int x1, const int x2, const int y, co
         map.tiles[y][x].code = code;
 }
 
+void area(map_t &map, const int x1, const int y1, const int x2, const int y2, const code_t code)
+{
+    for (int x=x1; x<=x2; x++)
+        for (int y=y1; y<=y2; y++)
+            map.tiles[y][x].code = code;
+}
+
 
 int main(int argc, char **argv)
 {
@@ -65,6 +72,7 @@ int main(int argc, char **argv)
                 break;
             case 4:
                 cin >> x1 >> y1 >> x2 >> y2 >> code;
+                area(map, x1, y1, x2, y2, code);
                 break;
             case 7: // Salva
                 cin >> name;
