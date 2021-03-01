@@ -9,5 +9,5 @@ class World {
         World();
         void load(const std::string);
         void create(const std::string);
-        void clear();
+        tile_t get(const int, const int);
 };

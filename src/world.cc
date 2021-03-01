@@ -26,7 +26,7 @@ void World::create(const string name)
     map_save(map, filename);
 }
 
-void World::clear()
+tile_t World::get(const int x, const int y)
 {
-    
+    return map.tiles[y][x];
 }

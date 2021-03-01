@@ -3,12 +3,14 @@
 #include "window.h"
 #include "world.h"
 #include "player.h"
+#include "images.h"
 
 class Game {
     private:
         Window window;
         World world;
         Player player;
+        Images images;
 
         void draw_world();
 

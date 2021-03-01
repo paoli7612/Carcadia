@@ -1,4 +1,3 @@
-#include <iostream>
 
 #include "game.h"
 
@@ -12,7 +11,7 @@ void Game::start()
 {
     world.load("spawn");
     window.start(WIDTH*TILE, HEIGHT*TILE);
-
+    images.set_window(window);
     loop();
 }
 
@@ -49,7 +48,7 @@ void Game::event()
         switch (event.type)
         {
             case sf::Event::MouseMoved: {
-                std::cout << event.mouseMove.x << std::endl;
+                //std::cout << event.mouseMove.x << std::endl;
                 break;
             }
             case sf::Event::KeyPressed: {
@@ -89,6 +88,8 @@ void Game::draw_world()
     for (int y=0; y<HEIGHT; y++)
         for (int x=0; x<WIDTH; x++)
         {
-            
+            tile_t tile = world.get(x, y);
+            if (tile.code == 2)
+                images.draw(tile.code, x, y);
         }
 }

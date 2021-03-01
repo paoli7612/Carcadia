@@ -1,10 +1,11 @@
 run: play.out
 	./play.out
 
-play.out: src/window.o src/game.o src/world.o src/map.o src/player.o src/sprite.o
+play.out: src/window.o src/game.o src/world.o src/map.o src/player.o src/sprite.o src/images.o
 	g++ src/main.cc \
 		src/window.o src/game.o src/world.o src/map.o \
 		src/player.o src/sprite.o \
+		src/images.o \
 		-lsfml-graphics -lsfml-window -lsfml-system \
 				-o play.out
 
@@ -25,6 +26,9 @@ src/player.o: src/player.cc
 
 src/sprite.o: src/sprite.cc
 	g++ src/sprite.cc -c -o src/sprite.o
+
+src/images.o: src/images.cc
+	g++ src/images.cc -c -o src/images.o
 
 editor: editor.out
 	./editor.out

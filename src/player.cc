@@ -9,6 +9,13 @@ Player::Player()
 
 void Player::update()
 {
-
     move(dx, dy);
+
+    sf::Vector2f pos = getPosition();
+    if (pos.x < 0)
+        pos.x = 400;
+    if (pos.y < 0)
+        pos.y = 400;
+    setPosition(pos);
+
 }
