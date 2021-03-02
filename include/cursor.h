@@ -20,7 +20,7 @@ class Cursor : public Sprite {
         void right();
 
         void change(const int);
-        void set(const int);
+        void set(const int, const int);
 
 };
 

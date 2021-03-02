@@ -5,6 +5,13 @@ using namespace std;
 
 Editor::Editor()
 {
+    tools.create(sf::VideoMode(32*32, 32*32), "Tools", sf::Style::Titlebar);
+    sf::Texture texture;
+    texture.loadFromFile("img/terrain.png");
+    sf::Sprite sprite(texture);
+    tools.clear(sf::Color(50, 50, 50));
+    tools.draw(sprite);
+    tools.display();
 }
 
 void Editor::start()
@@ -32,14 +39,23 @@ void Editor::loop()
 void Editor::event()
 {
     sf::Event event;
+    while (tools.pollEvent(event))
+    {
+        switch (event.type)
+        {
+            case sf::Event::MouseButtonPressed: {
+                sf::Vector2i pos = sf::Mouse::getPosition(tools);
+                int x = pos.x/32*32;
+                int y = pos.y/32*32;
+                std::cout << x << " " << y << "\n";
+                cursor.set(x, y);
+            }
+        }
+    }
     while (window.pollEvent(event))
     {
         switch (event.type)
         {
-            case sf::Event::MouseMoved: {
-                //std::cout << event.mouseMove.x << std::endl;
-                break;
-            }
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
                     case sf::Keyboard::Up:

@@ -11,6 +11,8 @@ class Editor {
         float dt;
 
         Window window;
+        sf::RenderWindow tools;
+
         World world;
         Cursor cursor;
         Images images;

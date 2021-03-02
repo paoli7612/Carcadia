@@ -43,9 +43,10 @@ void Cursor::change(const int n)
     code += n;
 }
 
-void Cursor::set(const int n)
+void Cursor::set(const int x, const int y)
 {
-    code = n;
+    code = x/32+y;
+    std::cout << code << "\n";
 }
 
 
