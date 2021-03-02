@@ -3,22 +3,14 @@
 #include <cstring>
 
 #include "../include/errors.h"
-
 #include "../include/map.h"
 
-void map_print(const map_t &map)
+void map_load(map_t &map, const std::string &name)
 {
-    for (int y=0; y<HEIGHT; y++)
-    {
-        for (int x=0; x<WIDTH; x++)
-            std::cout << map.tiles[y][x].code << "\t";
-        std::cout << "\n";
-    }
-}
-
-void map_load(map_t &map, const std::string &filename)
-{
+    std::string filename = "maps/" + name + ".dat";
     std::ifstream file(filename);
+
+    std::cout << "Load: " << filename << std::endl;
 
     if (! file)
         throw errors::FILE_OPEN_READ;
@@ -28,9 +20,12 @@ void map_load(map_t &map, const std::string &filename)
     file.close();
 }
 
-void map_save(const map_t &map, const std::string &filename)
+void map_save(const map_t &map, const std::string &name)
 {
+    std::string filename = "maps/" + name + ".dat";
     std::ofstream file(filename);
+
+    std::cout << "Save: " << filename << std::endl;
 
     if (! file)
         throw errors::FILE_OPEN_WRITE;
@@ -44,5 +39,6 @@ void map_init(map_t &map)
 {
     for (int y=0; y<HEIGHT; y++)
         for (int x=0; x<WIDTH; x++)
-            map.tiles[y][x].code = EMPTY;
+            for (int z=0; z<DEPTH; z++)
+                map.tiles[y][x].image[z] = EMPTY;
 }

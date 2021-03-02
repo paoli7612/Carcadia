@@ -1,12 +1,11 @@
 #include <iostream>
 #include <cstring>
+#include <SFML/Graphics.hpp>
 
-#include "sprite.h"
-
-class Player : public Sprite {
+class Player : public sf::Sprite {
     private:
     public:
-        short dx = 0, dy = 0;
         Player();
+        short dx = 0, dy = 0;
         void update();
 };

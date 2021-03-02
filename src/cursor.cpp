@@ -3,14 +3,14 @@
 
 Cursor::Cursor()
 {
-    texture.loadFromFile("img/cursor.png");
-    setTexture(texture);
+    sf::Texture *texture = new sf::Texture;
+    texture->loadFromFile("img/cursor.png");
+    setTexture(*texture);
     setPosition(0, 0);
 }
 
 void Cursor::update()
 {
-    
     move(dx, dy);
 }
 
@@ -38,15 +38,12 @@ void Cursor::left()
     x--;
 }
 
-void Cursor::change(const int n)
-{
-    code += n;
-}
-
 void Cursor::set(const int x, const int y)
 {
-    code = x/32+y;
-    std::cout << code << "\n";
+    cx = x/32;
+    cy = y/32;
+    std::cout << cx << " " << cy << "\n";
 }
+
 
 

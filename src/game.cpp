@@ -9,7 +9,6 @@ Game::Game()
 
 void Game::start()
 {
-    world.load("spawn");
     window.start(WIDTH*TILE, HEIGHT*TILE);
     images.set_window(window);
     loop();
@@ -89,10 +88,10 @@ void Game::draw_world()
         for (int x=0; x<WIDTH; x++)
         {
             tile_t tile = world.get(x, y);
-
-            if (tile.code == EMPTY)
-                continue;
-
-            images.draw(tile.code, x, y);
+            for (int z=0; z<DEPTH; z++)
+            {
+                images.draw(x, y, tile.image[z].x, tile.image[z].y);
+            }
         }
+            
 }

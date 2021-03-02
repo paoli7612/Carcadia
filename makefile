@@ -47,6 +47,9 @@ bin/editor.o: src/editor.cpp
 
 bin/cursor.o: src/cursor.cpp
 	g++ src/cursor.cpp -c -o bin/cursor.o
-	
+
+test: bin/map.o
+	g++ tests/create_map.cpp bin/map.o -o bin/create_map.out
+
 clean:
 	rm bin/*
