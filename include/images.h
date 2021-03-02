@@ -9,5 +9,5 @@ class Images {
     public:
         Images();
         void set_window(sf::RenderWindow &);
-        void draw(const int, const int, const int);
+        void draw(const int, const int, const int, const int);
 };

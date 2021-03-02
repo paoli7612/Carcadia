@@ -8,22 +8,12 @@ using namespace std;
 World::World()
 {
     load("spawn");
-    load("home");
-}
-
-void World::load(const string name)
-{
-    string filename = "maps/" + name + ".dat";
-    
-    map_load(map, filename);
 }
 
 void World::create(const string name)
 {
-    string filename = "maps/" + name + ".dat";
-
     map_init(map);
-    map_save(map, filename);
+    map_save(map, name);
 }
 
 tile_t World::get(const int x, const int y)
@@ -31,12 +21,18 @@ tile_t World::get(const int x, const int y)
     return map.tiles[y][x];
 }
 
-void World::set(const int x, const int y, const code_t code)
+void World::set(const int x, const int y, const int z, const int cx, const int cy)
 {
-    map.tiles[y][x].code = code;
+    map.tiles[y][x].image[z].x = cx;
+    map.tiles[y][x].image[z].y = cy;
 }
 
-void World::save()
+void World::save(const std::string name)
 {
-    map_save(map, "maps/spawn.dat");
+    map_save(map, name);
+}
+
+void World::load(const string name)
+{
+    map_load(map, name);
 }

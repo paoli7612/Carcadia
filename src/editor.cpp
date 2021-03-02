@@ -45,10 +45,7 @@ void Editor::event()
         {
             case sf::Event::MouseButtonPressed: {
                 sf::Vector2i pos = sf::Mouse::getPosition(tools);
-                int x = pos.x/32*32;
-                int y = pos.y/32*32;
-                std::cout << x << " " << y << "\n";
-                cursor.set(x, y);
+                cursor.set(pos.x, pos.y);
             }
         }
     }
@@ -72,17 +69,11 @@ void Editor::event()
                         break;
                     
                     case sf::Keyboard::Space:
-                        world.set(cursor.x, cursor.y, cursor.code);
+                        world.set(cursor.x, cursor.y, 1, cursor.cx, cursor.cy);
                         break;
                     
-                    case sf::Keyboard::Q:
-                        cursor.change(1);
-                        break;
-                    case sf::Keyboard::A:
-                        cursor.change(-1);
-                        break;
                     case sf::Keyboard::S:
-                        world.save();
+                        world.save("spawn");
                         break;
                 }
                 break;
@@ -119,10 +110,10 @@ void Editor::draw_world()
         for (int x=0; x<WIDTH; x++)
         {
             tile_t tile = world.get(x, y);
-
-            if (tile.code == EMPTY)
-                continue;
-
-            images.draw(tile.code, x, y);
+            for (int z=0; z<DEPTH; z++)
+            {
+                images.draw(x, y, tile.image[z].x, tile.image[z].y);
+            }
         }
+            
 }
