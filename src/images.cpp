@@ -1,4 +1,4 @@
-#include "images.h"
+#include "../include/images.h"
 
 Images::Images()
 {
@@ -20,7 +20,7 @@ void Images::set_window(sf::RenderWindow &w)
     {
         int riga = i%30;
         int colonna = i/30;
-        terrain[i].loadFromFile("assets/img/terrain.png", sf::IntRect(32*riga, 32*colonna, 32, 32));
+        terrain[i].loadFromFile("img/terrain.png", sf::IntRect(32*riga, 32*colonna, 32, 32));
     }
     std::cout << "Loading textures completed\n";
 }

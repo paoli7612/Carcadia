@@ -2,9 +2,9 @@
 #include <fstream>
 #include <cstring>
 
-#include "errors.h"
+#include "../include/errors.h"
 
-#include "map.h"
+#include "../include/map.h"
 
 void map_print(const map_t &map)
 {

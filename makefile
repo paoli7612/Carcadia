@@ -1,40 +1,33 @@
-run: play.out
-	./play.out
+run: bin/play.out
+	./bin/play.out
 
-play.out: src/window.o src/game.o src/world.o src/map.o src/player.o src/sprite.o src/images.o
-	g++ src/main.cc \
-		src/window.o src/game.o src/world.o src/map.o \
-		src/player.o src/sprite.o \
-		src/images.o \
+./bin/play.out: bin/map.o bin/game.o bin/window.o bin/world.o bin/player.o bin/images.o
+	g++ src/main.cpp \
+		bin/map.o \
+		bin/game.o \
+		bin/window.o bin/world.o \
+		bin/images.o \
+		bin/player.o \
 		-lsfml-graphics -lsfml-window -lsfml-system \
-				-o play.out
+			-o bin/play.out
 
-src/window.o: src/window.cc
-	g++ src/window.cc -c -o src/window.o
+bin/map.o: src/map.cpp
+	g++ src/map.cpp -c -o bin/map.o
 
-src/game.o: src/game.cc
-	g++ src/game.cc -c -o src/game.o
+bin/game.o: src/game.cpp
+	g++ src/game.cpp -c -o bin/game.o
 
-src/world.o: src/world.cc
-	g++ src/world.cc -c -o src/world.o
+bin/window.o: src/window.cpp
+	g++ src/window.cpp -c -o bin/window.o
 
-src/map.o: src/map.cc
-	g++ src/map.cc -c -o src/map.o
+bin/world.o: src/world.cpp
+	g++ src/world.cpp -c -o bin/world.o
 
-src/player.o: src/player.cc
-	g++ src/player.cc -c -o src/player.o
+bin/player.o: src/player.cpp
+	g++ src/player.cpp -c -o bin/player.o
 
-src/sprite.o: src/sprite.cc
-	g++ src/sprite.cc -c -o src/sprite.o
-
-src/images.o: src/images.cc
-	g++ src/images.cc -c -o src/images.o
-
-editor: editor.out
-	./editor.out
-
-editor.out: src/map.o
-	g++ editor/main.cc src/map.o -o editor.out
+bin/images.o: src/images.cpp
+	g++ src/images.cpp -c -o bin/images.o
 
 clean:
-	rm *.out src/*.o
+	rm bin/*

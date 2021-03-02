@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 
-#include "world.h"
+#include "../include/world.h"
 
 using namespace std;
 
