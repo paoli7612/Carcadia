@@ -30,3 +30,13 @@ tile_t World::get(const int x, const int y)
 {
     return map.tiles[y][x];
 }
+
+void World::set(const int x, const int y, const code_t code)
+{
+    map.tiles[y][x].code = code;
+}
+
+void World::save()
+{
+    map_save(map, "maps/spawn.dat");
+}

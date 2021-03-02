@@ -1,9 +1,11 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+const int TOT = 32*7;
+
 class Images {
     private:
-        sf::Texture terrain[100];
+        sf::Texture terrain[TOT];
         sf::Sprite sprite;
         sf::RenderWindow *window;
     public:

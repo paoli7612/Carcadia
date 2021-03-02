@@ -1,7 +1,10 @@
 run: bin/play.out
 	./bin/play.out
 
-./bin/play.out: bin/map.o bin/game.o bin/window.o bin/world.o bin/player.o bin/images.o
+editor: bin/editor.out
+	./bin/editor.out
+
+bin/play.out: bin/map.o bin/game.o bin/window.o bin/world.o bin/player.o bin/images.o
 	g++ src/main.cpp \
 		bin/map.o \
 		bin/game.o \
@@ -10,6 +13,16 @@ run: bin/play.out
 		bin/player.o \
 		-lsfml-graphics -lsfml-window -lsfml-system \
 			-o bin/play.out
+
+bin/editor.out: bin/map.o bin/editor.o bin/window.o bin/world.o bin/cursor.o bin/images.o
+	g++ src/main2.cpp \
+		bin/map.o \
+		bin/editor.o \
+		bin/window.o bin/world.o \
+		bin/images.o \
+		bin/cursor.o \
+		-lsfml-graphics -lsfml-window -lsfml-system \
+			-o bin/editor.out
 
 bin/map.o: src/map.cpp
 	g++ src/map.cpp -c -o bin/map.o
@@ -29,5 +42,11 @@ bin/player.o: src/player.cpp
 bin/images.o: src/images.cpp
 	g++ src/images.cpp -c -o bin/images.o
 
+bin/editor.o: src/editor.cpp
+	g++ src/editor.cpp -c -o bin/editor.o
+
+bin/cursor.o: src/cursor.cpp
+	g++ src/cursor.cpp -c -o bin/cursor.o
+	
 clean:
 	rm bin/*
