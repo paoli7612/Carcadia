@@ -4,7 +4,7 @@ run: bin/play.out
 editor: bin/editor.out
 	./bin/editor.out
 
-bin/play.out: bin/map.o bin/game.o bin/window.o bin/world.o bin/player.o bin/images.o
+bin/play.out: bin/map.o bin/game.o bin/window.o bin/world.o bin/player.o bin/images.o 
 	g++ src/main.cpp \
 		bin/map.o \
 		bin/game.o \
@@ -14,11 +14,11 @@ bin/play.out: bin/map.o bin/game.o bin/window.o bin/world.o bin/player.o bin/ima
 		-lsfml-graphics -lsfml-window -lsfml-system \
 			-o bin/play.out
 
-bin/editor.out: bin/map.o bin/editor.o bin/window.o bin/world.o bin/cursor.o bin/images.o
+bin/editor.out: bin/map.o bin/editor.o bin/window.o bin/world.o bin/cursor.o bin/images.o bin/tools.o
 	g++ src/main2.cpp \
 		bin/map.o \
 		bin/editor.o \
-		bin/window.o bin/world.o \
+		bin/window.o bin/tools.o bin/world.o \
 		bin/images.o \
 		bin/cursor.o \
 		-lsfml-graphics -lsfml-window -lsfml-system \
@@ -48,10 +48,15 @@ bin/editor.o: src/editor.cpp
 bin/cursor.o: src/cursor.cpp
 	g++ src/cursor.cpp -c -o bin/cursor.o
 
+bin/tools.o: src/tools.cpp
+	g++ src/tools.cpp -c -o bin/tools.o
+
 test: bin/map.o
 	g++ tests/create_map.cpp bin/map.o -o bin/create_map.out
 	g++ tests/reset_map.cpp bin/map.o -o bin/reset_map.out
 	g++ tests/editor_cli.cpp bin/map.o -o bin/editor_cli.out
+	g++ tests/fill_map.cpp bin/map.o -o bin/fill_map.out
+	
 
 clean:
 	rm bin/*

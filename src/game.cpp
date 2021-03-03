@@ -46,10 +46,7 @@ void Game::event()
     {
         switch (event.type)
         {
-            case sf::Event::MouseMoved: {
-                //std::cout << event.mouseMove.x << std::endl;
-                break;
-            }
+
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
                 }

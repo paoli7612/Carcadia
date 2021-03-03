@@ -38,12 +38,5 @@ void Cursor::left()
     x--;
 }
 
-void Cursor::set(const int x, const int y)
-{
-    cx = x/32;
-    cy = y/32;
-    std::cout << cx << " " << cy << "\n";
-}
-
 
 

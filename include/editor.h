@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "window.h"
+#include "tools.h"
 #include "world.h"
 #include "cursor.h"
 #include "images.h"
@@ -11,7 +12,7 @@ class Editor {
         float dt;
 
         Window window;
-        sf::RenderWindow tools;
+        Tools tools;
 
         World world;
         Cursor cursor;

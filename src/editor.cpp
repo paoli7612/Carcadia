@@ -5,19 +5,15 @@ using namespace std;
 
 Editor::Editor()
 {
-    tools.create(sf::VideoMode(32*32, 32*32), "Tools", sf::Style::Titlebar);
-    sf::Texture texture;
-    texture.loadFromFile("img/terrain.png");
-    sf::Sprite sprite(texture);
-    tools.clear(sf::Color(50, 50, 50));
-    tools.draw(sprite);
-    tools.display();
 }
 
 void Editor::start()
 {
     world.load("spawn");
+
     window.start(WIDTH*TILE, HEIGHT*TILE);
+    tools.start();
+
     images.set_window(window);
     loop();
 }
@@ -39,20 +35,27 @@ void Editor::loop()
 void Editor::event()
 {
     sf::Event event;
-    while (tools.pollEvent(event))
-    {
-        switch (event.type)
-        {
-            case sf::Event::MouseButtonPressed: {
-                sf::Vector2i pos = sf::Mouse::getPosition(tools);
-                cursor.set(pos.x, pos.y);
-            }
-        }
-    }
+    while (tools.pollEvent(event)){}
     while (window.pollEvent(event))
     {
         switch (event.type)
         {
+            case sf::Event::MouseMoved: {
+                sf::Vector2i pos = sf::Mouse::getPosition(window);
+                int x = pos.x/32;
+                int y = pos.y/32;
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+                    world.set(x, y, cursor.z, cursor.x, cursor.y);
+                break;
+            }
+            case sf::Event::MouseButtonPressed: {
+                sf::Vector2i pos = sf::Mouse::getPosition(window);
+                int x = pos.x/32;
+                int y = pos.y/32;
+
+                world.set(x, y, cursor.z, cursor.x, cursor.y);
+                break;
+            }
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
                     case sf::Keyboard::Up:
@@ -68,14 +71,17 @@ void Editor::event()
                         cursor.left();
                         break;
                     
-                    case sf::Keyboard::Space:
-                        world.set(cursor.x, cursor.y, 1, cursor.cx, cursor.cy);
-                        world.print();
+                    case sf::Keyboard::Q:
+                        cursor.z = 2;
                         break;
-                    case sf::Keyboard::M:
-                        world.set(cursor.x, cursor.y, 0, cursor.cx, cursor.cy);
+                    case sf::Keyboard::A:
+                        cursor.z = 1;
                         break;
-                                            
+                    case sf::Keyboard::Z:
+                        cursor.z = 0;
+                        break;
+                    
+                    
                     case sf::Keyboard::S:
                         world.save("spawn");
                         break;
@@ -100,12 +106,16 @@ void Editor::update()
 
 void Editor::draw()
 {
+    // WINDOW
     window.clear();
-    //window.draw(world);
-    //window.draw(text);
     draw_world();
-    window.draw(cursor);
     window.display();
+
+    // TOOLS
+    tools.clear();
+    tools.background();
+    tools.draw(cursor);
+    tools.display();
 }
 
 void Editor::draw_world()

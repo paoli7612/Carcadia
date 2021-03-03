@@ -5,9 +5,9 @@
 class Cursor : public sf::Sprite {
     private:
     public:
+        short int z = 1;
         short int dx = 0, dy = 0;
         int x = 0, y = 0;
-        int cx = 0, cy = 0;
 
         int code = 10;
 
