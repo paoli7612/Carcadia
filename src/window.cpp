@@ -16,3 +16,8 @@ void Window::start(const int width, const int height)
     setIcon(size.x, size.y, icon.getPixelsPtr());
 }
 
+void Window::interface()
+{
+    draw(text);
+}
+

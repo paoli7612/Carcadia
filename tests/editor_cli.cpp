@@ -24,7 +24,6 @@ int main(int argc, char **argv)
 
     while (run)
     {
-        system("clear");
         map_print(map);
 
         int choice;
@@ -41,14 +40,9 @@ int main(int argc, char **argv)
         case 2:
         {
             cin >> x >> y >> z >> cx >> cy;
-            image_t &image = map.tiles[y][x].image[z];
-            cout << image.x << " - " << image.y << "->";
-            image.x = cx;
-            image.y = cy;
-            cout << image.x << " - " << image.y << endl;
+            map_change(map, x, y, z, cx, cy);
             break;
         }
-        
         case 0:
             run = false;
         default:

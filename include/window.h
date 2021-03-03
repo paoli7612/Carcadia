@@ -9,4 +9,5 @@ class Window : public sf::RenderWindow {
         sf::Image icon;
     public:
         void start(const int, const int);
+        void interface();
 };

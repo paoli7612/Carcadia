@@ -75,10 +75,10 @@ void Game::update()
 void Game::draw()
 {
     window.clear();
-    //window.draw(world);
-    //window.draw(text);
     draw_world();
     window.draw(player);
+    window.interface();
+
     window.display();
 }
 

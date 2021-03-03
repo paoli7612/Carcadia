@@ -8,21 +8,13 @@
 void map_print(map_t &map)
 {
     for (int z=0; z<DEPTH; z++){
-        std::cout << "_________________________________z: " << z << std::endl;
         for (int y=0; y<HEIGHT; y++){
             for (int x=0; x<WIDTH; x++)
-            {
-                image_t &image = map.tiles[y][x].image[z];
-                if (image.x == 7612)
-                    std::cout << "   \t";
-                else std::cout << image.x << " " << image.y << "\t";
-            }
-        std::cout << std::endl;
+                std::cout << map.tiles[y][x].image[z].x << " - " << map.tiles[y][x].image[z].y << "\t";
+            std::cout << std::endl;
         }
-    std::cout << std::endl;
+    std::cout << std::endl << std::endl;
     }
-       
-
 }
 
 void map_load(map_t &map, const std::string &name)

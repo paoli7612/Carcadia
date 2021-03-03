@@ -8,15 +8,15 @@ struct image_t {
     unsigned short int x, y;
 };
 
-const image_t EMPTY = {7612, 7612};
-
 struct tile_t {
     image_t image[DEPTH];
 };
 
 struct map_t {
-    tile_t tiles[WIDTH][HEIGHT];
+    tile_t tiles[HEIGHT][WIDTH];
 };
+
+const image_t EMPTY = {5, 5};
 
 void map_print(map_t &);
 void map_load(map_t &, const std::string &);

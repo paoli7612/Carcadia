@@ -18,7 +18,6 @@ int main(int argc, char **argv)
         name = argv[1];
     }
 
-
     map_t map;
 
     map_init(map);
