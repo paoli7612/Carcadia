@@ -50,6 +50,8 @@ bin/cursor.o: src/cursor.cpp
 
 test: bin/map.o
 	g++ tests/create_map.cpp bin/map.o -o bin/create_map.out
+	g++ tests/reset_map.cpp bin/map.o -o bin/reset_map.out
+	g++ tests/editor_cli.cpp bin/map.o -o bin/editor_cli.out
 
 clean:
 	rm bin/*

@@ -23,8 +23,7 @@ tile_t World::get(const int x, const int y)
 
 void World::set(const int x, const int y, const int z, const int cx, const int cy)
 {
-    map.tiles[y][x].image[z].x = cx;
-    map.tiles[y][x].image[z].y = cy;
+    map_change(map, x, y, z, cx, cy);
 }
 
 void World::save(const std::string name)
@@ -35,4 +34,9 @@ void World::save(const std::string name)
 void World::load(const string name)
 {
     map_load(map, name);
+}
+
+void World::print()
+{
+    map_print(map);
 }

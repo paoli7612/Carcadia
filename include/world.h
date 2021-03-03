@@ -13,4 +13,6 @@ class World {
         tile_t get(const int, const int);
         void set(const int, const int, const int, const int, const int);
         void create(const std::string);
+
+        void print();
 };

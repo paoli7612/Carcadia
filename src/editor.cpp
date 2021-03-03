@@ -70,8 +70,12 @@ void Editor::event()
                     
                     case sf::Keyboard::Space:
                         world.set(cursor.x, cursor.y, 1, cursor.cx, cursor.cy);
+                        world.print();
                         break;
-                    
+                    case sf::Keyboard::M:
+                        world.set(cursor.x, cursor.y, 0, cursor.cx, cursor.cy);
+                        break;
+                                            
                     case sf::Keyboard::S:
                         world.save("spawn");
                         break;
