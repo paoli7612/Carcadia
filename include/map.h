@@ -25,3 +25,4 @@ void map_init(map_t &);
 
 void map_change(map_t &, const int, const int, const int, const int, const int);
 void map_fill(map_t &, const image_t &, const int z);
+void map_clear(map_t &, const int, const int);

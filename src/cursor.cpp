@@ -3,15 +3,9 @@
 
 Cursor::Cursor()
 {
-    sf::Texture *texture = new sf::Texture;
-    texture->loadFromFile("img/cursor.png");
-    setTexture(*texture);
+    texture.loadFromFile("img/cursor.png");
+    setTexture(texture);
     setPosition(0, 0);
-}
-
-void Cursor::update()
-{
-    move(dx, dy);
 }
 
 void Cursor::up()

@@ -8,6 +8,8 @@ using namespace std;
 World::World()
 {
     load("spawn");
+    px = 0;
+    py = 0;
 }
 
 void World::create(const string name)
@@ -23,7 +25,10 @@ tile_t World::get(const int x, const int y)
 
 void World::set(const int x, const int y, const int z, const int cx, const int cy)
 {
-    map_change(map, x, y, z, cx, cy);
+    if (z == -1)
+        map_clear(map, x, y);
+    else
+        map_change(map, x, y, z, cx, cy);
 }
 
 void World::save(const std::string name)
@@ -39,4 +44,10 @@ void World::load(const string name)
 void World::print()
 {
     map_print(map);
+}
+
+void World::move(const int x, const int y)
+{
+    px = x;
+    py = y;
 }

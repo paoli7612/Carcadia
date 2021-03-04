@@ -4,22 +4,16 @@
 
 class Cursor : public sf::Sprite {
     private:
+        sf::Texture texture;
+        
     public:
-        short int z = 1;
-        short int dx = 0, dy = 0;
-        int x = 0, y = 0;
-
-        int code = 10;
+        int x = 0, y = 0, z = 0;
 
         Cursor();
-        void update();
 
         void up();
         void down();
         void left();
         void right();
-
-        void set(const int, const int);
-
 };
 

@@ -5,6 +5,7 @@
 class World {
     private:
         map_t map;
+        int px, py;
     public:
         World();
         void load(const std::string);
@@ -15,4 +16,5 @@ class World {
         void create(const std::string);
 
         void print();
+        void move(const int, const int);
 };

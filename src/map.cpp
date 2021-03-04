@@ -2,7 +2,6 @@
 #include <fstream>
 #include <cstring>
 
-#include "../include/errors.h"
 #include "../include/map.h"
 
 void map_print(map_t &map)
@@ -25,7 +24,7 @@ void map_load(map_t &map, const std::string &name)
     std::cout << "Load: " << filename << std::endl;
 
     if (! file)
-        throw errors::FILE_OPEN_READ;
+        throw "Errore lettura file mappa: " + name;
 
     file.read((char*)&map, sizeof(map_t));
 
@@ -40,7 +39,7 @@ void map_save(const map_t &map, const std::string &name)
     std::cout << "Save: " << filename << std::endl;
 
     if (! file)
-        throw errors::FILE_OPEN_WRITE;
+        throw "Errore scrittura file mappa: " + name;
 
     file.write((char*)&map, sizeof(map_t));
 
@@ -64,4 +63,10 @@ void map_fill(map_t &map, const image_t &image, const int z)
     for (int y=0; y<HEIGHT; y++)
         for (int x=0; x<WIDTH; x++)
             map.tiles[y][x].image[z] = image;
+}
+
+void map_clear(map_t &map, const int x, const int y)
+{
+    for (int z=0; z<DEPTH; z++)
+        map.tiles[y][x].image[z] = EMPTY;
 }

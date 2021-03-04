@@ -80,7 +80,9 @@ void Editor::event()
                     case sf::Keyboard::Z:
                         cursor.z = 0;
                         break;
-                    
+                    case sf::Keyboard::W:
+                        cursor.z = -1;
+                        break;
                     
                     case sf::Keyboard::S:
                         world.save("spawn");
@@ -101,7 +103,6 @@ void Editor::event()
 
 void Editor::update()
 {
-    cursor.update();
 }
 
 void Editor::draw()
