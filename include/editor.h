@@ -1,27 +1,36 @@
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
-#include "window.h"
-#include "tools.h"
-#include "world.h"
-#include "cursor.h"
-#include "images.h"
+#include "map.h"
+
+class Selector : public sf::Sprite {
+    public:
+        int ix = 0, iy = 0, iz = 0;
+    public:
+        sf::Texture texture;
+};
 
 class Editor {
     private:
         sf::Clock clock;
         float dt;
 
-        Window window;
-        Tools tools;
+        map_t map;
 
-        World world;
-        Cursor cursor;
-        Images images;
+        bool running;
+        sf::RenderWindow window, tools;
 
-        void draw_world();
+        sf::Texture textures[3];
+        sf::Sprite tools_back_sprite;
+        kind_t tools_kind = TERRAIN;
+        
+        sf::Sprite tile[3];
 
+        void click();
+        void change_kind();
     public:
-        Editor();
+        Selector selector;
+
         void start();
         void loop();
 

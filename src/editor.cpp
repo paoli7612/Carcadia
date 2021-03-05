@@ -1,31 +1,41 @@
 
 #include "../include/editor.h"
 
-using namespace std;
-
-Editor::Editor()
-{
-}
-
 void Editor::start()
 {
-    world.load("spawn");
+    map_load(map, "spawn");
 
-    window.start(WIDTH*TILE, HEIGHT*TILE);
-    tools.start();
+    window.create(sf::VideoMode(32*40, 32*25), "Carcadia - editor", sf::Style::Close);
+    tools.create(sf::VideoMode(32*32, 32*32), "Carcadia", sf::Style::Titlebar);
 
-    images.set_window(window);
+    textures[INTERIOR].loadFromFile("img/interior.png");
+    textures[OUTSIDE].loadFromFile("img/outside.png");
+    textures[TERRAIN].loadFromFile("img/terrain.png");
+
+    tools_back_sprite.setTexture(textures[tools_kind]);
+    tools_back_sprite.setPosition(0, 0);
+    //tools_back_sprite.setScale(0.8, 0.8);
+
+    selector.texture.loadFromFile("img/cursor.png");
+    selector.setTexture(selector.texture);
+    selector.setPosition(0, 0);
+
+    for (int i=0; i<3; i++)
+        tile[i].setTexture(textures[i]);
+
     loop();
 }
 
 void Editor::loop()
 {
-    while (window.isOpen())
+    while (running)
     {
+        // Tick
         if (clock.getElapsedTime().asSeconds() >= 1.0f / 60){
             dt = clock.getElapsedTime().asSeconds();
             clock.restart();
         } else continue;
+
         event();
         update();
         draw();
@@ -35,100 +45,117 @@ void Editor::loop()
 void Editor::event()
 {
     sf::Event event;
-    while (tools.pollEvent(event)){}
+    // tools
+    while (tools.pollEvent(event));
+    
+    // window
     while (window.pollEvent(event))
     {
         switch (event.type)
         {
-            case sf::Event::MouseMoved: {
-                sf::Vector2i pos = sf::Mouse::getPosition(window);
-                int x = pos.x/32;
-                int y = pos.y/32;
-                if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-                    world.set(x, y, cursor.z, cursor.x, cursor.y);
-                break;
-            }
-            case sf::Event::MouseButtonPressed: {
-                sf::Vector2i pos = sf::Mouse::getPosition(window);
-                int x = pos.x/32;
-                int y = pos.y/32;
-
-                world.set(x, y, cursor.z, cursor.x, cursor.y);
-                break;
-            }
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
                     case sf::Keyboard::Up:
-                        cursor.up();
+                        if (selector.iy)
+                        {
+                            selector.move(0, -32);
+                            selector.iy -= 1;
+                        }
                         break;
                     case sf::Keyboard::Down:
-                        cursor.down();
+                        if (selector.iy < 31)
+                        {
+                            selector.move(0, 32);
+                            selector.iy += 1;
+                        }
                         break;
                     case sf::Keyboard::Right:
-                        cursor.right();
+                        if (selector.ix < 31)
+                        {
+                            selector.move(32, 0);
+                            selector.ix += 1;
+                        } 
                         break;
                     case sf::Keyboard::Left:
-                        cursor.left();
-                        break;
-                    
-                    case sf::Keyboard::Q:
-                        cursor.z = 2;
-                        break;
-                    case sf::Keyboard::A:
-                        cursor.z = 1;
-                        break;
-                    case sf::Keyboard::Z:
-                        cursor.z = 0;
-                        break;
-                    case sf::Keyboard::W:
-                        cursor.z = -1;
+                        if (selector.ix)
+                        {
+                            selector.move(-32, 0);
+                            selector.ix -= 1;
+                        }
                         break;
                     
                     case sf::Keyboard::S:
-                        world.save("spawn");
+                        map_save(map, "spawn");
                         break;
                 }
                 break;
             }
-            case sf::Event::Closed: {
-                window.close();
+         
+            case sf::Event::MouseMoved: {
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+                    click();
                 break;
             }
-
+            case sf::Event::MouseButtonPressed:
+                if (event.mouseButton.button == sf::Mouse::Left)
+                    click();
+                else if (event.mouseButton.button == sf::Mouse::Right)
+                    change_kind();
+                break;
         }
-      
     }
-  
+}
+
+void Editor::click()
+{
+    sf::Vector2i pos = sf::Mouse::getPosition(window);
+    int x = pos.x/32;
+    int y = pos.y/32;
+
+    std::cout << x << " " << y << std::endl;
+    std::cout << selector.ix << " " << selector.iy << std::endl;
+
+    map.tiles[y][x].image[0].ix = selector.ix;
+    map.tiles[y][x].image[0].iy = selector.iy;
+    map.tiles[y][x].image[0].kind = tools_kind;
+}
+
+void Editor::change_kind()
+{
+    tools_kind = (kind_t)((tools_kind+1)%3);
+    tools_back_sprite.setTexture(textures[tools_kind]);
 }
 
 void Editor::update()
 {
+
 }
 
 void Editor::draw()
 {
-    // WINDOW
-    window.clear();
-    draw_world();
-    window.display();
-
-    // TOOLS
+    // tools
     tools.clear();
-    tools.background();
-    tools.draw(cursor);
+    tools.draw(tools_back_sprite);
+    tools.draw(selector);
     tools.display();
-}
+    // window
+    window.clear();
 
-void Editor::draw_world()
-{
     for (int y=0; y<HEIGHT; y++)
         for (int x=0; x<WIDTH; x++)
         {
-            tile_t tile = world.get(x, y);
+            tile_t t = map.tiles[y][x];
             for (int z=0; z<DEPTH; z++)
             {
-                images.draw(x, y, tile.image[z].x, tile.image[z].y);
+                image_t image = t.image[z];
+                if (image.ix == 7612 && image.iy == 7612)
+                    continue;
+                kind_t kind = image.kind;
+                tile[kind].setTextureRect(sf::IntRect(image.ix*32, image.iy*32, 32, 32));
+                tile[kind].setPosition(x*32, y*32);
+                window.draw(tile[kind]);
             }
         }
-            
+
+    window.display();
 }
