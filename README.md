@@ -1,7 +1,6 @@
 # Carcadia
 
 - *bin*
-- *doc*
 - *fonts*
 - *img*
 - *include*
