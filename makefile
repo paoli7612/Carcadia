@@ -19,6 +19,7 @@ bin/editor.out: bin/map.o bin/editor.o
 
 tests: bin/map.o
 	g++ tests/create_map.cpp bin/map.o -o bin/create_map.out
+	g++ tests/grass_map.cpp bin/map.o -o bin/grass_map.out
 
 bin/map.o: src/map.cpp
 	g++ src/map.cpp -c -o bin/map.o

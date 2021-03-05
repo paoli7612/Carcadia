@@ -5,7 +5,7 @@
 
 class Selector : public sf::Sprite {
     public:
-        int ix = 0, iy = 0, iz = 0;
+        unsigned short int ix = 0, iy = 0, iz = 0;
     public:
         sf::Texture texture;
 };
@@ -26,7 +26,7 @@ class Editor {
         
         sf::Sprite tile[3];
 
-        void click();
+        void click(bool);
         void change_kind();
     public:
         Selector selector;

@@ -31,6 +31,13 @@ void map_save(const map_t &, const std::string &);
 
 /*
 void map_change(map_t &, const int, const int, const int, const int, const int);
-void map_fill(map_t &, const image_t &, const int z);
 void map_clear(map_t &, const int, const int);
 */
+void map_fill(map_t &, const image_t &, const int z);
+void map_fill_random(map_t &, const image_t *, const int, const int);
+
+void map_add_up(map_t &, const int, const int, const image_t);
+void map_add_down(map_t &, const int, const int, const image_t);
+
+bool image_equals(const image_t &, const image_t &);
+void map_down(map_t &, const int, const int);

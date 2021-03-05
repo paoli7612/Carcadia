@@ -93,31 +93,34 @@ void Editor::event()
          
             case sf::Event::MouseMoved: {
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-                    click();
+                    click(true);
                 break;
             }
             case sf::Event::MouseButtonPressed:
                 if (event.mouseButton.button == sf::Mouse::Left)
-                    click();
+                    click(true);
                 else if (event.mouseButton.button == sf::Mouse::Right)
+                    click(false);
+                else if (event.mouseButton.button == sf::Mouse::Middle)
                     change_kind();
                 break;
         }
     }
 }
 
-void Editor::click()
+void Editor::click(bool isRight)
 {
     sf::Vector2i pos = sf::Mouse::getPosition(window);
+
     int x = pos.x/32;
     int y = pos.y/32;
 
-    std::cout << x << " " << y << std::endl;
-    std::cout << selector.ix << " " << selector.iy << std::endl;
+    image_t image = {selector.ix, selector.iy, tools_kind};
 
-    map.tiles[y][x].image[0].ix = selector.ix;
-    map.tiles[y][x].image[0].iy = selector.iy;
-    map.tiles[y][x].image[0].kind = tools_kind;
+    if (isRight)
+        map_add_up(map, x, y, image);
+    else
+        map_add_down(map, x, y, image);
 }
 
 void Editor::change_kind()
