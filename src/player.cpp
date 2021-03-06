@@ -6,6 +6,7 @@ void Player::start(const int x, const int y)
     texture.loadFromFile("img/player.png");
     setTexture(texture);
     setPosition(x-16, y-16);
+    setTextureRect(sf::IntRect(32, 0, 32, 32));
 }
 
 void Player::update()
@@ -27,9 +28,6 @@ void Player::update()
         case DOWN:
             setTextureRect(sf::IntRect(32, 0, 32, 32));
             oy -= speed;
-            break;
-        case STAND:
-            setTextureRect(sf::IntRect(32, 0, 32, 32));
             break;
     }
 }
