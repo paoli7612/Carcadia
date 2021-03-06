@@ -4,9 +4,11 @@ run: bin/run.out
 editor: bin/editor.out
 	./bin/editor.out
 
-bin/run.out: bin/map.o 
+bin/run.out: bin/map.o bin/game.o bin/player.o
 	g++ src/main_run.cpp \
 		bin/map.o \
+		bin/game.o \
+		bin/player.o \
 		-lsfml-graphics -lsfml-window -lsfml-system \
 			-o bin/run.out
 
@@ -29,6 +31,9 @@ bin/editor.o: src/editor.cpp
 
 bin/game.o: src/game.cpp
 	g++ src/game.cpp -c -o bin/game.o
+
+bin/player.o: src/player.cpp
+	g++ src/player.cpp -c -o bin/player.o
 
 clean:
 	rm bin/*

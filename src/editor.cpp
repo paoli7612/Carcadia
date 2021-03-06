@@ -28,6 +28,7 @@ void Editor::start()
 
 void Editor::loop()
 {
+    running = true;
     while (running)
     {
         // Tick
@@ -103,6 +104,9 @@ void Editor::event()
                     click(false);
                 else if (event.mouseButton.button == sf::Mouse::Middle)
                     change_kind();
+                break;
+            case sf::Event::Closed:
+                running = false;
                 break;
         }
     }

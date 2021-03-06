@@ -20,10 +20,10 @@ class Editor {
         bool running;
         sf::RenderWindow window, tools;
 
-        sf::Texture textures[3];
         sf::Sprite tools_back_sprite;
         kind_t tools_kind = TERRAIN;
         
+        sf::Texture textures[3];
         sf::Sprite tile[3];
 
         void click(bool);
