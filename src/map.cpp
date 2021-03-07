@@ -66,13 +66,17 @@ void map_fill_random(map_t &map, const image_t *images, const int len, const int
             map.tiles[y][x].image[z] = images[rand()%len];
 }
 
+ /*
+  * Sposta verso il basso tutte le immagini in una certa cella
+  * L'immagine piu bassa andrà persa
+  */
 void map_down(map_t &map, const int x, const int y)
 {
     for (int z=0; z<DEPTH-1; z++)
         map.tiles[y][x].image[z] = map.tiles[y][x].image[z+1];
 
     map.tiles[y][x].image[DEPTH-1] = EMPTY;
-}  
+} 
 
 void map_add_up(map_t &map, const int x, const int y, const image_t image)
 {
@@ -97,7 +101,22 @@ void map_add_up(map_t &map, const int x, const int y, const image_t image)
 
 }
 
-void map_add_down(map_t &map, const int x, const int y, const image_t image)
+ /*
+  * Cancella l'immagine piu alta nella cella x y
+  * 
+  */
+void map_remove_up(map_t &map, const int x, const int y)
 {
+    tile_t &tile = map.tiles[y][x];
+    
+    int z;
+    for (z=1; z<DEPTH; z++)
+        if (image_equals(tile.image[z], EMPTY))
+        {
+            tile.image[z-1] = EMPTY; 
+            break;
+        }
 
+    if (z == DEPTH)
+        tile.image[DEPTH-1] = EMPTY;
 }

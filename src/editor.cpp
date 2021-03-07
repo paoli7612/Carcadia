@@ -1,9 +1,15 @@
 
 #include "../include/editor.h"
 
-void Editor::start()
+void Editor::start(const std::string &name)
 {
-    map_load(map, "spawn");
+    map_name = name;
+    try {
+        map_load(map, map_name);
+    } catch (const std::string e) {
+        map_init(map, map_name);
+    }
+    
 
     window.create(sf::VideoMode(32*40, 32*25), "Carcadia - editor", sf::Style::Close);
     tools.create(sf::VideoMode(32*32, 32*32), "Carcadia", sf::Style::Titlebar);
@@ -47,7 +53,23 @@ void Editor::event()
 {
     sf::Event event;
     // tools
-    while (tools.pollEvent(event));
+    while (tools.pollEvent(event))
+    {
+        switch (event.type)
+        {
+            case sf::Event::MouseButtonPressed:{
+                sf::Vector2i pos = sf::Mouse::getPosition(tools);
+
+                int x = pos.x/32;
+                int y = pos.y/32;
+
+                selector.ix = x;
+                selector.iy = y;
+
+                selector.setPosition(sf::Vector2f(x*32, y*32));
+            }
+        }
+    }
     
     // window
     while (window.pollEvent(event))
@@ -86,7 +108,10 @@ void Editor::event()
                         break;
                     
                     case sf::Keyboard::S:
-                        map_save(map, "spawn");
+                        map_save(map, map_name);
+                        break;
+                    case sf::Keyboard::Escape:
+                        running = false;
                         break;
                 }
                 break;
@@ -95,6 +120,8 @@ void Editor::event()
             case sf::Event::MouseMoved: {
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
                     click(true);
+                else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
+                    click(false);
                 break;
             }
             case sf::Event::MouseButtonPressed:
@@ -124,7 +151,7 @@ void Editor::click(bool isRight)
     if (isRight)
         map_add_up(map, x, y, image);
     else
-        map_add_down(map, x, y, image);
+        map_remove_up(map, x, y);
 }
 
 void Editor::change_kind()

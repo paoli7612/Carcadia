@@ -12,6 +12,8 @@ class Selector : public sf::Sprite {
 
 class Editor {
     private:
+        std::string map_name;
+    
         sf::Clock clock;
         float dt;
 
@@ -31,7 +33,7 @@ class Editor {
     public:
         Selector selector;
 
-        void start();
+        void start(const std::string &);
         void loop();
 
         void event();
