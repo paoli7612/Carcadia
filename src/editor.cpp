@@ -26,6 +26,8 @@ void Editor::start(const std::string &name)
     selector.setTexture(selector.texture);
     selector.setPosition(0, 0);
 
+    high_sprite.setTexture(selector.texture);
+
     for (int i=0; i<3; i++)
         tile[i].setTexture(textures[i]);
 
@@ -113,6 +115,10 @@ void Editor::event()
                     case sf::Keyboard::Escape:
                         running = false;
                         break;
+                    
+                    case sf::Keyboard::Q:
+                        change_solid = !change_solid;
+                        break;
                 }
                 break;
             }
@@ -139,7 +145,7 @@ void Editor::event()
     }
 }
 
-void Editor::click(bool isRight)
+void Editor::click(bool isLeft)
 {
     sf::Vector2i pos = sf::Mouse::getPosition(window);
 
@@ -148,10 +154,21 @@ void Editor::click(bool isRight)
 
     image_t image = {selector.ix, selector.iy, tools_kind};
 
-    if (isRight)
-        map_add_up(map, x, y, image);
+    if (change_solid)
+    {
+        if (isLeft)
+            map_set_solid(map, x, y);
+        else
+            map_set_nonsolid(map, x, y);
+    }
     else
-        map_remove_up(map, x, y);
+    {
+        if (isLeft)
+            map_add_up(map, x, y, image);
+        else
+            map_remove_up(map, x, y);
+    }
+    
 }
 
 void Editor::change_kind()
@@ -179,6 +196,8 @@ void Editor::draw()
         for (int x=0; x<WIDTH; x++)
         {
             tile_t t = map.tiles[y][x];
+
+
             for (int z=0; z<DEPTH; z++)
             {
                 image_t image = t.image[z];
@@ -188,6 +207,15 @@ void Editor::draw()
                 tile[kind].setTextureRect(sf::IntRect(image.ix*32, image.iy*32, 32, 32));
                 tile[kind].setPosition(x*32, y*32);
                 window.draw(tile[kind]);
+            }
+            if (change_solid)
+            {
+                if (t.isSolid)
+                {
+                    high_sprite.setPosition(x*32, y*32);
+                    window.draw(high_sprite);
+                }
+    
             }
         }
 

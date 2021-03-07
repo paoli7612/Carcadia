@@ -119,3 +119,13 @@ void map_remove_up(map_t &map, const int x, const int y)
     if (z == DEPTH)
         tile.image[DEPTH-1] = EMPTY;
 }
+
+void map_set_solid(map_t &map, const int x, const int y)
+{
+    map.tiles[y][x].isSolid = true;
+}
+
+void map_set_nonsolid(map_t &map, const int x, const int y)
+{
+    map.tiles[y][x].isSolid = false;
+}

@@ -12,6 +12,10 @@ class Selector : public sf::Sprite {
 
 class Editor {
     private:
+        bool change_solid = false;
+        sf::Sprite high_sprite;
+
+
         std::string map_name;
     
         sf::Clock clock;
