@@ -42,14 +42,14 @@ void Game::event()
     sf::Event event;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-        player.dir = UP;
+        player.up();
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-        player.dir = DOWN;
+        player.down();
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        player.dir = RIGHT;
+        player.right();
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        player.dir = LEFT;
-    else player.dir = STAND;
+        player.left();
+    else player.stand();
 
     while (window.pollEvent(event))
     {
@@ -72,7 +72,7 @@ void Game::event()
 
 void Game::update()
 {
-    player.update();
+    player.update(dt);
 }
 
 void Game::draw()
