@@ -80,7 +80,6 @@ void map_down(map_t &map, const int x, const int y)
 
 void map_add_up(map_t &map, const int x, const int y, const image_t image)
 {
-    std::cout << "Map add up: " << x << y << std::endl;
     tile_t &tile = map.tiles[y][x];
 
     int z;

@@ -41,7 +41,6 @@ void Player::update(const float dt)
 
     if (walking)
     {
-        std::cout << last_frame << std::endl;
         if (last_frame > 0.1)
         {
             rect.left = (32 + rect.left)%96;
