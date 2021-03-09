@@ -78,7 +78,11 @@ void Game::update()
 
 void Game::draw()
 {
+    sf::View view(sf::FloatRect(0.f, 0.f, 1000.f, 600.f));
+    view.setCenter(player.getPosition());
+
     window.clear(sf::Color(100, 50, 120));
+    window.setView(view);
 
     for (int y=0; y<HEIGHT; y++)
         for (int x=0; x<WIDTH; x++)
@@ -96,6 +100,10 @@ void Game::draw()
             }
         }
 
+    window.setView(view);
     window.draw(player);
+
+    view.setCenter(0, 0);
+
     window.display();
 }
