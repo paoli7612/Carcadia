@@ -12,6 +12,8 @@ class Player : public sf::Sprite {
 
         float last_frame;
         bool walking;
+
+        map_t *map;
     public:
         dir_t dir = STAND;
         int x, y; // nella matrice della mappa
@@ -19,7 +21,7 @@ class Player : public sf::Sprite {
 
         void start(const int, const int);
         void update(const float);
-
+        void setMap(map_t &map);
 
         void stand();
         void up();

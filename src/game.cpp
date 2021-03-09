@@ -9,6 +9,7 @@ void Game::start()
     sf::Vector2u size = window.getSize();
 
     player.start(size.x/2, size.y/2);
+    player.setMap(map);
 
     textures[INTERIOR].loadFromFile("img/interior.png");
     textures[OUTSIDE].loadFromFile("img/outside.png");
@@ -90,7 +91,7 @@ void Game::draw()
                     continue;
                 kind_t kind = image.kind;
                 tile[kind].setTextureRect(sf::IntRect(image.ix*32, image.iy*32, 32, 32));
-                tile[kind].setPosition(x*32 + player.ox, y*32 + player.oy);
+                tile[kind].setPosition(x*32, y*32);
                 window.draw(tile[kind]);
             }
         }

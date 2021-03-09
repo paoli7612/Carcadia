@@ -129,3 +129,13 @@ void map_set_nonsolid(map_t &map, const int x, const int y)
 {
     map.tiles[y][x].isSolid = false;
 }
+
+bool map_issolid(const map_t &map, const int x, const int y)
+{
+    std::cout << x << "\t" << y << std::endl;
+    if (x < 0 || x >= WIDTH)
+        return true;
+    if (y < 0 || y >= HEIGHT)
+        return true;
+    return map.tiles[y][x].isSolid;
+}

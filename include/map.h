@@ -44,3 +44,5 @@ void map_down(map_t &, const int, const int);
 
 void map_set_solid(map_t &, const int, const int);
 void map_set_nonsolid(map_t &, const int, const int);
+
+bool map_issolid(const map_t &, const int, const int);

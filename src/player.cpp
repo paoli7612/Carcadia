@@ -10,29 +10,44 @@ void Player::start(const int x, const int y)
     last_frame = 0;
 }
 
+void Player::setMap(map_t &map)
+{
+    this->map = &map;
+}
+
 void Player::update(const float dt)
 {
     last_frame += dt;
 
-    sf::IntRect rect = getTextureRect() ;
+    if (last_frame < 0.2)
+        return;
+    
+    last_frame = 0;
+
+    sf::IntRect rect = getTextureRect();
+    sf::Vector2f pos = getPosition();
 
     switch (dir)
     {
         case UP:
             rect.top = 96;
-            oy += speed * walking;
+            if (!map_issolid(*map, x, y-1))
+                y--;
             break;
         case RIGHT:
             rect.top = 64;
-            ox -= speed * walking;
+            if (!map_issolid(*map, x+1, y))
+                x++;
             break;
         case LEFT:
             rect.top = 32;
-            ox += speed * walking;
+            if (!map_issolid(*map, x-1, y))
+                x--;
             break;
         case DOWN:
             rect.top = 0;
-            oy -= speed * walking;
+            if (!map_issolid(*map, x, y+1))
+                y++;
             break;
         case STAND:
             rect.left = 32;
@@ -47,8 +62,11 @@ void Player::update(const float dt)
             last_frame = 0;
         }
     }
-        
-
+    
+    pos.x = 32*x;
+    pos.y = 32*y;
+    setPosition(pos);
+    
     setTextureRect(rect);
 }
 
