@@ -78,7 +78,7 @@ void Game::update()
 
 void Game::draw()
 {
-    sf::View view(sf::FloatRect(0.f, 0.f, 1000.f, 600.f));
+    sf::View view(sf::FloatRect(0, 0, 800, 500));
     view.setCenter(player.getPosition());
 
     window.clear(sf::Color(100, 50, 120));
