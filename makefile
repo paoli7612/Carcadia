@@ -18,11 +18,13 @@ test: $(MAP_O)
 clean:
 	rm bin/*
 
+SFML = -lsfml-graphics -lsfml-window -lsfml-system
+
 $(GAME_OUT): $(GAME_C) $(MAP_O)
-	g++ $(GAME_C) $(MAP_O) -o $(GAME_OUT) 
+	g++ $(GAME_C) $(MAP_O) -o $(GAME_OUT) $(SFML)
 
 $(EDITOR_OUT): $(EDITOR_C) $(MAP_O)
-	g++ $(EDITOR_C) $(MAP_O) -o $(EDITOR_OUT)
+	g++ $(EDITOR_C) $(MAP_O) -o $(EDITOR_OUT) $(SFML)
 
 $(MAP_O): $(MAP_C)
 	g++ $(MAP_C) -c -o $(MAP_O)
