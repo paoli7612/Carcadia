@@ -71,6 +71,9 @@ void map_add(map_t &map, const int x, const int y, const image_t image)
 {
     tile_t &tile = map.tiles[y][x];
 
+    std::cout << "map_add" << std::endl;
+    std::cout << x << " " << y << std::endl;
+
     int z;
     for (z=0; z<DEPTH; z++)
         if (image_equals(tile.image[z], EMPTY))

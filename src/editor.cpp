@@ -33,7 +33,7 @@ class Editor {
             map_load(map, "spawn");
 
             window.create(sf::VideoMode(WIDTH*32, HEIGHT*32), TITLE);
-            tools.create(sf::VideoMode(512, 216), "", sf::Style::Titlebar);
+            tools.create(sf::VideoMode(512, 216), "tools", sf::Style::Titlebar);
 
             tools_back_texture.loadFromFile("img/tiles.png");
             tools_back_sprite.setTexture(tools_back_texture);
@@ -43,6 +43,8 @@ class Editor {
 
             cursor_texture.loadFromFile("img/cursor.png");
             cursor_sprite.setTexture(cursor_texture);
+            cursor_ix = 0; cursor_iy = 0;
+            
         }
 
         void loop()
@@ -71,10 +73,10 @@ class Editor {
                     case sf::Event::MouseButtonPressed:{
                         sf::Vector2i pos = sf::Mouse::getPosition(tools);
 
-                        int x = pos.x/32;
-                        int y = pos.y/32;
+                        cursor_ix = pos.x/32;
+                        cursor_iy = pos.y/32;
 
-                        cursor_sprite.setPosition(sf::Vector2f(x*32, y*32));
+                        cursor_sprite.setPosition(sf::Vector2f(cursor_ix*32, cursor_iy*32));
                     }
                 }
             }
@@ -136,11 +138,12 @@ class Editor {
             int y = pos.y/32;
 
             image_t image = {cursor_ix, cursor_iy};
-
             if (isLeft)
                 map_add(map, x, y, image);
             else
                 map_remove(map, x, y);
+            
+            std::cout << image.ix << std::endl;
         }
 
         void draw_map()
@@ -150,12 +153,10 @@ class Editor {
                     for (int x=0; x<WIDTH; x++)
                     {
                         image_t &image = map.tiles[y][x].image[z];
-                        if (image_equals(image, EMPTY))
-                            break;
-                        else
+                        if (!image_equals(image, EMPTY))
                         {
                             images_sprite.setTextureRect(sf::IntRect(image.ix*32, image.iy*32, 32, 32));
-                            images_sprite.setPosition(sf::Vector2f(y*32, x*32));
+                            images_sprite.setPosition(sf::Vector2f(x*32, y*32));
                             window.draw(images_sprite);
                         }
                     }
