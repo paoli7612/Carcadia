@@ -1,10 +1,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#define TILE 32
 
 #include "../include/map.h"
-
 
 class Editor {
     private:
@@ -65,27 +63,11 @@ class Editor {
         void draw()
         {
             window.clear();
-            const int vertical_lines = (WIDTH/TILE)*2;
-            const int horizontal_lines = (HEIGHT/TILE)*2;
 
-            sf::Vertex *v_lines = new sf::Vertex[vertical_lines];
-            sf::Vertex *h_lines = new sf::Vertex[horizontal_lines];
-            
-            for (int i=0; i<40; i+=2)
-            {
-                v_lines[i] = sf::Vertex(sf::Vector2f(i*TILE, 0));
-                v_lines[i+1] = sf::Vertex(sf::Vector2f(i*TILE, HEIGHT));
-            }
-            for (int i=0; i<25; i+=2)
-            {
-                h_lines[i] = sf::Vertex(sf::Vector2f(0, i*TILE));
-                h_lines[i+1] = sf::Vertex(sf::Vector2f(WIDTH, i*TILE));
-            }
-
-            window.draw(v_lines, vertical_lines, sf::Lines);
-            window.draw(h_lines, horizontal_lines, sf::Lines);
             window.display();            
         }
+
+        
 };
 
 int main(int argc, char **argv)

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#define TILE 32
 
 const int WIDTH = 40, HEIGHT = 25, DEPTH = 3;
 
