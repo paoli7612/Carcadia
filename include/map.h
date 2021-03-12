@@ -20,4 +20,4 @@ struct map_t {
 
 void map_init(map_t &);
 void map_save(const map_t &);
-void map_load(map_t &);
+void map_load(map_t &, const std::string);
