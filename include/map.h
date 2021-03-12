@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+
 #define TILE 32
 
 const int WIDTH = 40, HEIGHT = 25, DEPTH = 3;
@@ -15,10 +16,16 @@ struct tile_t {
 };
 
 struct map_t {
-    std::string title;
+    char title[10];
     tile_t tiles[HEIGHT][WIDTH];
 };
 
+void map_print(const map_t &);
 void map_init(map_t &, const std::string);
 void map_save(const map_t &);
 void map_load(map_t &, const std::string);
+
+bool image_equals(const image_t, const image_t);
+
+void map_add(map_t &, const int, const int, const image_t);
+void map_remove(map_t &, const int, const int);

@@ -9,6 +9,8 @@ class Game {
         const std::string TITLE = "Carcadia - paoli7612";
         Player player;
 
+        map_t map;
+
         sf::RenderWindow window;
         sf::Clock clock; float dt;
         bool running;
@@ -17,6 +19,12 @@ class Game {
         {
             window.create(sf::VideoMode(WIDTH, HEIGHT), TITLE);
             player.init();
+            map_load(map, "spawn");
+        }
+
+        void start()
+        {
+            loop();
         }
 
         void loop()
@@ -72,7 +80,7 @@ class Game {
         void draw()
         {
             window.clear();
-
+            
             draw_grill();
             window.draw(player);
             window.display();
@@ -106,7 +114,7 @@ int main(int argc, char **argv)
 {
     Game game;
 
-    game.loop();
+    game.start();
 
     return 0;
 }
