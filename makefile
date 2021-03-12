@@ -12,6 +12,9 @@ run: $(GAME_OUT)
 editor: $(EDITOR_OUT)
 	./$(EDITOR_OUT)
 
+test: $(MAP_O)
+	g++ tests/create_map.cpp $(MAP_O) -o bin/create_map.out
+
 clean:
 	rm bin/*
 

@@ -18,6 +18,6 @@ struct map_t {
     tile_t tiles[HEIGHT][WIDTH];
 };
 
-void map_init(map_t &);
+void map_init(map_t &, const std::string);
 void map_save(const map_t &);
 void map_load(map_t &, const std::string);
