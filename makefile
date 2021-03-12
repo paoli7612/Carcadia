@@ -1,4 +1,5 @@
 GAME_C = src/game.cpp
+EDITOR_C = src/editor.cpp
 
 GAME_OUT = bin/game.out
 EDITOR_OUT = bin/editor.out
