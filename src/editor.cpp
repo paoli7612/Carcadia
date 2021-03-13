@@ -33,7 +33,7 @@ class Editor {
             map_load(map, "spawn");
 
             window.create(sf::VideoMode(WIDTH*32, HEIGHT*32), TITLE);
-            tools.create(sf::VideoMode(512, 216), "tools", sf::Style::Titlebar);
+            tools.create(sf::VideoMode(480, 352), "tools", sf::Style::Titlebar);
 
             tools_back_texture.loadFromFile("img/tiles.png");
             tools_back_sprite.setTexture(tools_back_texture);
@@ -105,6 +105,28 @@ class Editor {
                         break;
 
                     case sf::Event::KeyPressed:
+                        switch (event.key.code)
+                        {
+                            case sf::Keyboard::Key::Q:
+                                map_save(map);
+                                break;
+                            case sf::Keyboard::Key::W:
+                                cursor_sprite.move(0, -32);
+                                cursor_iy--;
+                                break;
+                            case sf::Keyboard::Key::A:
+                                cursor_sprite.move(-32, 0);
+                                cursor_ix--;
+                                break;
+                            case sf::Keyboard::Key::S:
+                                cursor_sprite.move(0, 32);
+                                cursor_iy++;
+                                break;
+                            case sf::Keyboard::Key::D:
+                                cursor_sprite.move(32, 0);
+                                cursor_ix++;
+                                break;
+                        }
                         break;
                 }
             }
@@ -119,7 +141,7 @@ class Editor {
         void draw()
         {
             // ________ TOOLS ________
-            tools.clear();
+            tools.clear(sf::Color(90, 90, 90));
             tools.draw(tools_back_sprite);
             tools.draw(cursor_sprite);
             tools.display();
@@ -143,7 +165,6 @@ class Editor {
             else
                 map_remove(map, x, y);
             
-            std::cout << image.ix << std::endl;
         }
 
         void draw_map()
