@@ -1,31 +1,20 @@
-#include <SFML/Graphics.hpp>
 #include <iostream>
+#include <SFML/Graphics.hpp>
+#include <fstream>
 
-#include "map.h"
+#include "../include/map.h"
 
-enum dir_t { STAND, UP, DOWN, LEFT, RIGHT };
+
+struct player_t {
+    int x, y;
+};
 
 class Player : public sf::Sprite {
-    private:
-        sf::Texture texture;
-        int speed = 3;
-
-        float last_frame;
-        bool walking;
-
-        map_t *map;
     public:
-        dir_t dir = STAND;
-        int x, y; // nella matrice della mappa
-        int ox = 0, oy = 0; // offset map in window
+        void init();
 
-        void start(const int, const int);
-        void update(const float);
-        void setMap(map_t &map);
-
-        void stand();
         void up();
         void down();
-        void right();
         void left();
+        void right();
 };

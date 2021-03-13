@@ -1,109 +1,145 @@
+#include <iostream>
+#include <SFML/Graphics.hpp>
 
-#include "../include/game.h"
+#include "../include/player.h"
 
-void Game::start()
-{
-    map_load(map, "spawn");
+class Game {
+    public:
+        const std::string TITLE = "Carcadia - paoli7612";
+        Player player;
 
-    window.create(sf::VideoMode(800, 800), "Carcadia - editor", sf::Style::Fullscreen);
-    sf::Vector2u size = window.getSize();
+        map_t map;
 
-    player.start(size.x/2, size.y/2);
-    player.setMap(map);
+        sf::Texture images_texture;
+        sf::Sprite images_sprite;
 
-    textures[INTERIOR].loadFromFile("img/interior.png");
-    textures[OUTSIDE].loadFromFile("img/outside.png");
-    textures[TERRAIN].loadFromFile("img/terrain.png");
+        sf::RenderWindow window;
+        sf::Clock clock; float dt;
+        bool running;
 
-    for (int i=0; i<3; i++)
-        tile[i].setTexture(textures[i]);
-
-    loop();
-}
-
-void Game::loop()
-{
-    running = true;
-    while (running)
-    {
-        // Tick
-        if (clock.getElapsedTime().asSeconds() >= 1.0f / 60){
-            dt = clock.getElapsedTime().asSeconds();
-            clock.restart();
-        } else continue;
-
-        event();
-        update();
-        draw();
-    }
-}
-
-void Game::event()
-{
-    sf::Event event;
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-        player.up();
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-        player.down();
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        player.right();
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        player.left();
-    else player.stand();
-
-    while (window.pollEvent(event))
-    {
-        switch (event.type)
+        Game()
         {
-            case sf::Event::KeyPressed: {
-                switch (event.key.code) {
-                    case sf::Keyboard::Escape:
+            window.create(sf::VideoMode(WIDTH*32, HEIGHT*32), TITLE);
+            player.init();
+            map_load(map, "spawn");
+
+            images_texture.loadFromFile("img/tiles.png");
+            images_sprite.setTexture(images_texture);
+        }
+
+        void start()
+        {
+            loop();
+        }
+
+        void loop()
+        {
+            
+            running = true;
+            while (running)
+            {
+                if (clock.getElapsedTime().asSeconds() >= 1.0f / 60){
+                    dt = clock.getElapsedTime().asSeconds();
+                    clock.restart();
+                } else continue;
+                event();
+                update();
+                draw();
+            }
+        }
+
+        void event()
+        {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+                player.up();
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+                player.down();
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
+                player.right();
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
+                player.left();
+
+
+            sf::Event event;
+            while (window.pollEvent(event))
+            {  
+                switch (event.type)
+                {
+                    case sf::Event::Closed:
+                        window.close();
                         running = false;
                         break;
+
+                    case sf::Event::KeyPressed:
+                        break;
                 }
-                break;
             }
-            case sf::Event::Closed:
-                running = false;
-                break;
+            
         }
-    }
-}
 
-void Game::update()
-{
-    player.update(dt);
-}
-
-void Game::draw()
-{
-    sf::View view(sf::FloatRect(0, 0, 800, 500));
-    view.setCenter(player.getPosition());
-
-    window.clear(sf::Color(100, 50, 120));
-    window.setView(view);
-
-    for (int y=0; y<HEIGHT; y++)
-        for (int x=0; x<WIDTH; x++)
+        void update()
         {
-            tile_t t = map.tiles[y][x];
-            for (int z=0; z<DEPTH; z++)
-            {
-                image_t image = t.image[z];
-                if (image.ix == 7612 && image.iy == 7612)
-                    continue;
-                kind_t kind = image.kind;
-                tile[kind].setTextureRect(sf::IntRect(image.ix*32, image.iy*32, 32, 32));
-                tile[kind].setPosition(x*32, y*32);
-                window.draw(tile[kind]);
-            }
+
         }
 
-    window.setView(view);
-    window.draw(player);
+        void draw()
+        {
+            window.clear();
+            
+            draw_grill();
+            draw_map();
 
-    view.setCenter(0, 0);
+            window.draw(player);
+            window.display();
+        }
 
-    window.display();
+
+        void draw_map()
+        {
+            for (int z=0; z<DEPTH; z++)
+                for (int y=0; y<HEIGHT; y++)
+                    for (int x=0; x<WIDTH; x++)
+                    {
+                        std::cout << x << std::endl;
+                        image_t &image = map.tiles[y][x].image[z];
+                        if (!image_equals(image, EMPTY))
+                        {
+                            images_sprite.setTextureRect(sf::IntRect(image.ix*32, image.iy*32, 32, 32));
+                            images_sprite.setPosition(sf::Vector2f(x*32, y*32));
+                            window.draw(images_sprite);
+                        }
+                    }
+        }
+
+        void draw_grill()
+        {
+            const int vertical_lines = (WIDTH*32/TILE)*4;
+            const int horizontal_lines = (HEIGHT*32/TILE)*4;
+
+            sf::Vertex *v_lines = new sf::Vertex[vertical_lines];
+            sf::Vertex *h_lines = new sf::Vertex[horizontal_lines];
+            
+            for (int i=0; i<40*2; i+=2)
+            {
+                v_lines[i] = sf::Vertex(sf::Vector2f(i/2*TILE, 0));
+                v_lines[i+1] = sf::Vertex(sf::Vector2f(i/2*TILE, HEIGHT*32));
+            }
+            for (int i=0; i<25*2; i+=2)
+            {
+                h_lines[i] = sf::Vertex(sf::Vector2f(0, i/2*TILE));
+                h_lines[i+1] = sf::Vertex(sf::Vector2f(WIDTH*32, i/2*TILE));
+            }
+
+            window.draw(v_lines, vertical_lines, sf::Lines);
+            window.draw(h_lines, horizontal_lines, sf::Lines);
+        }
+};
+
+int main(int argc, char **argv)
+{
+    Game game;
+
+    game.start();
+
+    return 0;
 }

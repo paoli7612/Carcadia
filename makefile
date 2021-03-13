@@ -1,39 +1,35 @@
-run: bin/run.out
-	./bin/run.out
+GAME_C = src/game.cpp
+EDITOR_C = src/editor.cpp
+MAP_C = src/map.cpp
+PLAYER_C = src/player.cpp
 
-editor: bin/editor.out
-	./bin/editor.out
+GAME_OUT = bin/game.out
+EDITOR_OUT = bin/editor.out
+MAP_O = bin/map.o
+PLAYER_O = bin/player.o
 
-bin/run.out: bin/map.o bin/game.o bin/player.o
-	g++ src/main_run.cpp \
-		bin/map.o \
-		bin/game.o \
-		bin/player.o \
-		-lsfml-graphics -lsfml-window -lsfml-system \
-			-o bin/run.out
+run: $(GAME_OUT)
+	./$(GAME_OUT)
 
-bin/editor.out: bin/map.o bin/editor.o
-	g++ src/main_editor.cpp \
-		bin/map.o \
-		bin/editor.o \
-		-lsfml-graphics -lsfml-window -lsfml-system \
-			-o bin/editor.out
+editor: $(EDITOR_OUT)
+	./$(EDITOR_OUT)
 
-tests: bin/map.o
-	g++ tests/create_map.cpp bin/map.o -o bin/create_map.out
-	g++ tests/grass_map.cpp bin/map.o -o bin/grass_map.out
-
-bin/map.o: src/map.cpp
-	g++ src/map.cpp -c -o bin/map.o
-
-bin/editor.o: src/editor.cpp
-	g++ src/editor.cpp -c -o bin/editor.o
-
-bin/game.o: src/game.cpp
-	g++ src/game.cpp -c -o bin/game.o
-
-bin/player.o: src/player.cpp
-	g++ src/player.cpp -c -o bin/player.o
+test: $(MAP_O)
+	g++ tests/create_map.cpp $(MAP_O) -o bin/create_map.out
 
 clean:
 	rm bin/*
+
+SFML = -lsfml-graphics -lsfml-window -lsfml-system
+
+$(GAME_OUT): $(GAME_C) $(MAP_O) $(PLAYER_O)
+	g++ $(GAME_C) $(MAP_O) $(PLAYER_O) -o $(GAME_OUT) $(SFML)
+
+$(EDITOR_OUT): $(EDITOR_C) $(MAP_O) $(PLAYER_O)
+	g++ $(EDITOR_C) $(MAP_O) $(PLAYER_O) -o $(EDITOR_OUT) $(SFML)
+
+$(MAP_O): $(MAP_C)
+	g++ $(MAP_C) -c -o $(MAP_O)
+
+$(PLAYER_O): $(PLAYER_C)
+	g++ $(PLAYER_C) -c -o $(PLAYER_O)

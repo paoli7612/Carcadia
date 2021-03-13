@@ -1,84 +1,73 @@
 
 #include "../include/map.h"
 
-bool image_equals(const image_t &a, const image_t &b)
+void map_print(const map_t &map)
 {
-    if (a.ix != b.ix)
-        return false;
-    
-    if (a.iy != b.iy)
-        return false;
-    
-    return a.kind == b.kind;
+    for (int z=0; z<DEPTH; z++)
+    {
+        for (int y=0; y<HEIGHT; y++)
+        {
+            for (int x=0; x<WIDTH; x++)
+            {
+                const image_t &image = map.tiles[y][x].image[z];
+                std::cout << "(" << image.ix << "/" << image.iy << ")";
+            }
+            std::cout << std::endl;
+        }
+    }
 }
 
-void map_init(map_t &map, const std::string title="title")
+bool image_equals(const image_t a, const image_t b)
 {
-    
+    return a.ix == b.ix && a.iy == b.iy;
+}
+
+void map_init(map_t &map, const std::string title)
+{
     for (int y=0; y<HEIGHT; y++)
         for (int x=0; x<WIDTH; x++)
         {
+            tile_t &tile = map.tiles[y][x];
+            tile.isSolid = false;
             for (int z=0; z<DEPTH; z++)
-                map.tiles[y][x].image[z] = EMPTY;
-            map.tiles[y][x].isSolid = false;
+                tile.image[z] = EMPTY;
         }
+        
+    int c;
+    for (c=0; title[c]!='\0'; c++)
+        map.title[c] = title[c];
+    map.title[c] = '\0'; 
 }
 
-void map_load(map_t &map, const std::string &name)
+void map_save(const map_t &map)
 {
-    std::string filename = "maps/" + name + ".dat";
-
-    std::ifstream file(filename);
-
-    if (! file)
-        throw "Errore lettura mappa: " + filename;
-    
-    file.read((char *)&map, sizeof(map));
-
-    file.close();    
-}
-
-void map_save(const map_t &map, const std::string &name)
-{
-    std::string filename = "maps/" + name + ".dat";
-
+    std::string filename = "maps/" + (std::string)map.title + ".tomaoli";
     std::ofstream file(filename);
 
-    if (! file)
-        throw "Errore scrittura mappa: " + filename;
-    
-    file.write((char *)&map, sizeof(map));
+    file.write((char*)&map, sizeof(map_t));
 
-    file.close();    
+    file.close();
 }
 
-void map_fill(map_t &map, const image_t &image, const int z)
+void map_load(map_t &map, const std::string title)
 {
-    for (int y=0; y<HEIGHT; y++)
-        for (int x=0; x<WIDTH; x++)
-            map.tiles[y][x].image[z] = image;
+    std::string filename = "maps/" + (std::string)title + ".tomaoli";
+    std::ifstream file(filename);
+
+    file.read((char*)&map, sizeof(map_t));
+
+    file.close();
 }
 
-void map_fill_random(map_t &map, const image_t *images, const int len, const int z)
-{
-    for (int y=0; y<HEIGHT; y++)
-        for (int x=0; x<WIDTH; x++)
-            map.tiles[y][x].image[z] = images[rand()%len];
-}
-
- /*
-  * Sposta verso il basso tutte le immagini in una certa cella
-  * L'immagine piu bassa andrà persa
-  */
 void map_down(map_t &map, const int x, const int y)
 {
     for (int z=0; z<DEPTH-1; z++)
         map.tiles[y][x].image[z] = map.tiles[y][x].image[z+1];
 
     map.tiles[y][x].image[DEPTH-1] = EMPTY;
-} 
+}
 
-void map_add_up(map_t &map, const int x, const int y, const image_t image)
+void map_add(map_t &map, const int x, const int y, const image_t image)
 {
     tile_t &tile = map.tiles[y][x];
 
@@ -100,41 +89,17 @@ void map_add_up(map_t &map, const int x, const int y, const image_t image)
 
 }
 
- /*
-  * Cancella l'immagine piu alta nella cella x y
-  * 
-  */
-void map_remove_up(map_t &map, const int x, const int y)
+void map_remove(map_t &map, const int x, const int y)
 {
     tile_t &tile = map.tiles[y][x];
-    
     int z;
-    for (z=1; z<DEPTH; z++)
-        if (image_equals(tile.image[z], EMPTY))
+    for (z=0; z<DEPTH-1; z++)
+        if (image_equals(tile.image[z+1], EMPTY))
         {
-            tile.image[z-1] = EMPTY; 
+            tile.image[z] = EMPTY;
             break;
         }
-
-    if (z == DEPTH)
-        tile.image[DEPTH-1] = EMPTY;
-}
-
-void map_set_solid(map_t &map, const int x, const int y)
-{
-    map.tiles[y][x].isSolid = true;
-}
-
-void map_set_nonsolid(map_t &map, const int x, const int y)
-{
-    map.tiles[y][x].isSolid = false;
-}
-
-bool map_issolid(const map_t &map, const int x, const int y)
-{
-    if (x < 0 || x >= WIDTH)
-        return true;
-    if (y < 0 || y >= HEIGHT)
-        return true;
-    return map.tiles[y][x].isSolid;
+        
+    if (z == DEPTH-1)
+        tile.image[z] = EMPTY;
 }
