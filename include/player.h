@@ -10,6 +10,9 @@ struct player_t {
 };
 
 class Player : public sf::Sprite {
+    private:
+        int speed;
+        
     public:
         void init();
 

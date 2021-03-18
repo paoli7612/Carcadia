@@ -71,6 +71,9 @@ class Game {
                         break;
 
                     case sf::Event::KeyPressed:
+                        if (event.key.code == sf::Keyboard::Key::Escape){
+                            window.close();
+                            running = false;}
                         break;
                 }
             }
@@ -100,7 +103,6 @@ class Game {
                 for (int y=0; y<HEIGHT; y++)
                     for (int x=0; x<WIDTH; x++)
                     {
-                        std::cout << x << std::endl;
                         image_t &image = map.tiles[y][x].image[z];
                         if (!image_equals(image, EMPTY))
                         {
