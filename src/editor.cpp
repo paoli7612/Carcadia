@@ -33,7 +33,7 @@ class Editor {
             map_load(map, "spawn");
 
             window.create(sf::VideoMode(WIDTH*32, HEIGHT*32), TITLE);
-            tools.create(sf::VideoMode(480, 352), "tools", sf::Style::Titlebar);
+            tools.create(sf::VideoMode(640, 352), "tools", sf::Style::Titlebar);
 
             tools_back_texture.loadFromFile("img/tiles.png");
             tools_back_sprite.setTexture(tools_back_texture);
