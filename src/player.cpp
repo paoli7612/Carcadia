@@ -6,14 +6,17 @@ void Player::init()
     setTexture(sf::Texture());
     setTextureRect(sf::IntRect(0, 0, 32, 32));
     setColor(sf::Color(255, 0, 0));
-    setPosition(sf::Vector2f(0,0));
-    
+    x = 30;
+    y = 12;
+    setPosition(sf::Vector2f(x*32,y*32));
+    end = getPosition();
     speed = 4;
 }
 
 void Player::up()
 {
-    motion(0, -1);
+    if (y > 0)
+        motion(0, -1);
 }
 
 void Player::down()
@@ -23,7 +26,8 @@ void Player::down()
 
 void Player::left()
 {
-    motion(-1, 0);
+    if (x > 0)
+        motion(-1, 0);
 }
 
 void Player::right()
@@ -40,12 +44,7 @@ void Player::motion(int x, int y)
         end.x = pos.x + x*32;
         end.y = pos.y + y*32;
     }
-    else
-    {
-        x = pos.x / 32;
-        y = pos.y / 32;
-        std::cout << "(" << x << " , " << y << ")" << std::endl;
-    }
+   
 
 }
 
@@ -65,4 +64,15 @@ void Player::update(const float dt)
             move(0, -(speed));
     }
     
+    
+        x = pos.x / 32;
+        y = pos.y / 32;
+        std::cout << "(" << x << " , " << y << ")" << std::endl;
+    
+    
+}
+
+void Player::setMap(map_t *map)
+{
+    this->map = map;
 }

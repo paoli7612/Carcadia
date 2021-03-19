@@ -7,6 +7,8 @@
 class Player : public sf::Sprite {
     private:
         int speed;
+
+        map_t *map;
         
         sf::Vector2f end;
 
@@ -20,6 +22,8 @@ class Player : public sf::Sprite {
         void down();
         void left();
         void right();
+
+        void setMap(map_t *);
 
         void update(const float);
 };

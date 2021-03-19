@@ -21,6 +21,7 @@ class Game {
         {
             window.create(sf::VideoMode(WIDTH*32, HEIGHT*32), TITLE);
             player.init();
+            player.setMap(&map);
             map_load(map, "spawn");
 
             images_texture.loadFromFile("img/tiles.png");
