@@ -37,7 +37,6 @@ void Player::motion(int x, int y)
     
     if (pos.x == end.x && pos.y == end.y)
     {
-        std::cout << "ugual" << std::endl;
         end.x = pos.x + x*32;
         end.y = pos.y + y*32;
     }
