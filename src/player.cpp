@@ -8,25 +8,54 @@ void Player::init()
     setColor(sf::Color(255, 0, 0));
     setPosition(sf::Vector2f(0,0));
     
-    speed = TILE/3;
+    speed = 4;
 }
 
 void Player::up()
 {
-    move(0, -speed);
+    motion(0, -1);
 }
 
 void Player::down()
 {
-    move(0, speed);
+    motion(0, 1);
 }
 
 void Player::left()
 {
-    move(-speed, 0);
+    motion(-1, 0);
 }
 
 void Player::right()
 {
-    move(speed, 0);
+    motion(1, 0);
+}
+
+void Player::motion(int x, int y)
+{
+    sf::Vector2f pos = getPosition();
+    
+    if (pos.x == end.x && pos.y == end.y)
+    {
+        std::cout << "ugual" << std::endl;
+        end.x = pos.x + x*32;
+        end.y = pos.y + y*32;
+    }
+}
+
+void Player::update(const float dt)
+{
+    sf::Vector2f pos = getPosition();
+    
+    if (pos != end)
+    {
+        if (end.x > pos.x)
+            move((speed), 0);
+        else if (end.x < pos.x)
+            move(-(speed), 0);
+        else if (end.y > pos.y)
+            move(0, (speed));
+        else if (end.y < pos.y)
+            move(0, -(speed));
+    }
 }

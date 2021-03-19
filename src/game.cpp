@@ -43,7 +43,7 @@ class Game {
                     clock.restart();
                 } else continue;
                 event();
-                update();
+                update(dt);
                 draw();
             }
         }
@@ -80,13 +80,17 @@ class Game {
             
         }
 
-        void update()
+        void update(float dt)
         {
-
+            player.update(dt);
         }
 
         void draw()
         {
+            sf::View view(sf::FloatRect(0.f, 0.f, 1000.f, 600.f));
+            view.setCenter(player.getPosition());
+            window.setView(view);
+
             window.clear();
             
             draw_grill();

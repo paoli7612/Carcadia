@@ -4,15 +4,13 @@
 
 #include "../include/map.h"
 
-
-struct player_t {
-    int x, y;
-};
-
 class Player : public sf::Sprite {
     private:
         int speed;
         
+        sf::Vector2f end;
+
+        void motion(int, int);
     public:
         void init();
 
@@ -20,4 +18,6 @@ class Player : public sf::Sprite {
         void down();
         void left();
         void right();
+
+        void update(const float);
 };
