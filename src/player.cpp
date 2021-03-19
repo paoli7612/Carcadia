@@ -39,10 +39,16 @@ void Player::motion(int x, int y)
 {
     sf::Vector2f pos = getPosition();
     
+    this->x = pos.x / 32;
+    this->y = pos.y / 32;
     if (pos.x == end.x && pos.y == end.y)
     {
-        end.x = pos.x + x*32;
-        end.y = pos.y + y*32;
+        if (!isSolid(*map, this->x + x, this->y + y))
+        {
+            end.x = pos.x + x*32;
+            end.y = pos.y + y*32;
+        }
+        
     }
    
 
@@ -63,13 +69,9 @@ void Player::update(const float dt)
         else if (end.y < pos.y)
             move(0, -(speed));
     }
-    
-    
-        x = pos.x / 32;
-        y = pos.y / 32;
-        std::cout << "(" << x << " , " << y << ")" << std::endl;
-    
-    
+    x = pos.x / 32;
+    y = pos.y / 32;
+    std::cout << "(" << x << " , " << y << ")" << std::endl;   
 }
 
 void Player::setMap(map_t *map)

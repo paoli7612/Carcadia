@@ -103,3 +103,14 @@ void map_remove(map_t &map, const int x, const int y)
     if (z == DEPTH-1)
         tile.image[z] = EMPTY;
 }
+
+bool isSolid(const map_t &map, const int x, const int y)
+{
+    std::cout << "isSolid" << x << " " << y << "\n";
+    if (x < 0 || x >= WIDTH)
+        return true;
+    if (y < 0 || y >= HEIGHT)
+        return true;
+    
+    return map.tiles[y][x].isSolid;
+}

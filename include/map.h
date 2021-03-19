@@ -29,3 +29,5 @@ bool image_equals(const image_t, const image_t);
 
 void map_add(map_t &, const int, const int, const image_t);
 void map_remove(map_t &, const int, const int);
+
+bool isSolid(const map_t &, const int, const int);
