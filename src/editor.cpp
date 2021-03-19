@@ -8,6 +8,8 @@ class Editor {
     private:
         const std::string TITLE = "Carcadia - paoli7612";
 
+        bool solidMode = false;
+
         map_t map;
 
     public:
@@ -110,6 +112,12 @@ class Editor {
                             case sf::Keyboard::Key::Q:
                                 map_save(map);
                                 break;
+
+                            case sf::Keyboard::Key::E:
+                                solidMode = !solidMode;
+                                std::cout << "solidMode: " << solidMode << std::endl;
+                                break;
+
                             case sf::Keyboard::Key::W:
                                 cursor_sprite.move(0, -32);
                                 cursor_iy--;
@@ -149,6 +157,9 @@ class Editor {
             window.clear();
             draw_grill();
             draw_map();
+
+            if (solidMode)
+                draw_solid();
             window.display();            
         }
 
@@ -158,13 +169,20 @@ class Editor {
 
             int x = pos.x/32;
             int y = pos.y/32;
-
-            image_t image = {cursor_ix, cursor_iy};
-            if (isLeft)
-                map_add(map, x, y, image);
-            else
-                map_remove(map, x, y);
             
+            std::cout << "click " << isSolid << "\n";
+            if (solidMode)
+            {
+                map.tiles[y][x].isSolid = isLeft;
+            }
+            else
+            {
+                image_t image = {cursor_ix, cursor_iy};
+                if (isLeft)
+                    map_add(map, x, y, image);
+                else
+                    map_remove(map, x, y);
+            }
         }
 
         void draw_map()
@@ -180,9 +198,7 @@ class Editor {
                             images_sprite.setPosition(sf::Vector2f(x*32, y*32));
                             window.draw(images_sprite);
                         }
-                    }
-                
-            
+                    }            
         }
 
         void draw_grill()
@@ -207,11 +223,33 @@ class Editor {
             window.draw(v_lines, vertical_lines, sf::Lines);
             window.draw(h_lines, horizontal_lines, sf::Lines);
         }
+
+        void draw_solid()
+        {
+            sf::Sprite solid(cursor_texture);
+            for (int y=0; y<HEIGHT; y++)
+                for (int x=0; x<WIDTH; x++)
+                {
+                    tile_t &tile = map.tiles[y][x];
+                    if (tile.isSolid)
+                    {
+                        std::cout << x << " " << y << std::endl;
+                        solid.setPosition(sf::Vector2f(x*32, y*32));
+                        window.draw(solid);
+                    }
+                }
+        }
 };
+
+
 
 int main(int argc, char **argv)
 {
     Editor editor;
+    
+    std::cout << "q: Save map" << std::endl;
+    std::cout << "e: !Solid mode" << std::endl;
+    std::cout << "ESC: Close window" << std::endl;
 
     editor.loop();
 
