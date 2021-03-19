@@ -40,6 +40,13 @@ void Player::motion(int x, int y)
         end.x = pos.x + x*32;
         end.y = pos.y + y*32;
     }
+    else
+    {
+        x = pos.x / 32;
+        y = pos.y / 32;
+        std::cout << "(" << x << " , " << y << ")" << std::endl;
+    }
+
 }
 
 void Player::update(const float dt)
@@ -57,4 +64,5 @@ void Player::update(const float dt)
         else if (end.y < pos.y)
             move(0, -(speed));
     }
+    
 }

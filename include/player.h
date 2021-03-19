@@ -12,6 +12,8 @@ class Player : public sf::Sprite {
 
         void motion(int, int);
     public:
+        int x, y;
+
         void init();
 
         void up();
