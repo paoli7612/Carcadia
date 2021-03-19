@@ -8,8 +8,6 @@
 - *src*
 - *tests*
 
-immagini: https://opengameart.org/content/lpc-tile-atlas2
-
 <img src="doc/003.png">
 <img src="doc/004.png">
 
