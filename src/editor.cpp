@@ -59,10 +59,10 @@ class Editor {
         sf::Sprite cursor_sprite;
         int cursor_ix, cursor_iy;
 
-        Editor()
+        Editor(std::string title)
         {
             //map_init(map, "spawn", 10, 10);
-            map_load(map, "spawn");
+            map_load(map, title);
             map_print(map);
             window.create(sf::VideoMode(map.width*TILE, map.height*TILE), TITLE);
             tools.create(sf::VideoMode(640, 352), "tools", sf::Style::Titlebar);
@@ -194,8 +194,13 @@ void Editor::loop()
 
 int main(int argc, char **argv)
 {
-    Editor editor;
+    using namespace std;
+    
+    string title;
+    cout << "Inserisci titolo della mappa da modificare: ";
+    cin >> title;
 
+    Editor editor(title);
     editor.loop();
 
     return 0;
