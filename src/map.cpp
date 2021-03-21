@@ -37,10 +37,7 @@ void map_init(map_t &map, const std::string title, const int width, const int he
                 tile.image[z] = EMPTY;
         }
 
-    int c;
-    for (c=0; title[c]!='\0'; c++)
-        map.title[c] = title[c];
-    map.title[c] = '\0';
+    map.title = title;
     map.height = height;
     map.width = width;
 }

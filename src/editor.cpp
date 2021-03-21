@@ -21,8 +21,8 @@ class Editor {
             image_t image = {cursor_ix, cursor_iy};
             if (isLeft)
                 map_add(map, x, y, image);
-            //else
-                //map_remove(map, x, y);
+            else
+                map_remove(map, x, y);
         }
 
         void draw_map()
@@ -61,8 +61,24 @@ class Editor {
 
         Editor(std::string title)
         {
-            //map_init(map, "spawn", 10, 10);
-            map_load(map, title);
+            try
+            {
+                map_load(map, title);
+            }
+            catch(const char *e)
+            {
+                std::cout << "Mappa non presente... creiamone una nuova" << std::endl;
+                int x, y;
+                std::cout << "Inserisci larghezza e altezza nuova mappa: ";
+                std::cin >> x >> y;
+                map_init(map, title, x, y);
+                map_addfile(title);
+                map_save(map);
+            }
+            
+            map_print(map);
+
+
             map_print(map);
             window.create(sf::VideoMode(map.width*TILE, map.height*TILE), TITLE);
             tools.create(sf::VideoMode(640, 352), "tools", sf::Style::Titlebar);

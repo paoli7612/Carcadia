@@ -16,15 +16,18 @@ struct tile_t {
 };
 
 struct map_t {
-    char title[10];
+    std::string title;
     int width, height;
     tile_t **tiles;
 };
+
+void map_addfile(const std::string);
 
 void map_init(map_t &, const std::string, const int, const int);
 void map_print(const map_t &);
 
 void map_add(map_t &, const int, const int, const image_t);
+void map_remove(map_t &, const int, const int);
 
 void map_save(const map_t &);
 void map_load(map_t &, const std::string);
