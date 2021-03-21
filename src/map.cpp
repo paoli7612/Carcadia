@@ -65,6 +65,9 @@ void map_load(map_t &map, const std::string title)
     std::string filename = "maps/" + title + ".tomaoli";
     std::ifstream file(filename);
 
+    if (! file)
+        throw "file mappa inesistente";
+
     int w, h;
     file.read((char*)&w, sizeof(int));
     file.read((char*)&h, sizeof(int));
@@ -132,4 +135,25 @@ bool isSolid(const map_t &map, const int x, const int y)
         return true;
 
     return map.tiles[y][x].isSolid;
+}
+
+
+void map_addfile(const std::string title)
+{
+    std::ifstream file("maps/all_maps.txt");
+    int n;
+    file >> n;
+    std::string *nomi = new std::string[n];
+    for (int i=0; i<n; i++)
+        file >> nomi[i];
+    file.close();
+
+    std::ofstream ofile("maps/all_maps.txt");
+    ofile << n+1 << std::endl;
+    for (int i=0; i<n; i++)
+        ofile << nomi[i] << std::endl;
+    
+    ofile << title;
+
+
 }
