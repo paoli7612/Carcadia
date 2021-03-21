@@ -25,6 +25,22 @@ class Editor {
                 //map_remove(map, x, y);
         }
 
+        void draw_map()
+        {
+            for (int z=0; z<DEPTH; z++)
+                for (int y=0; y<map.height; y++)
+                    for (int x=0; x<map.width; x++)
+                    {
+                        image_t &image = map.tiles[y][x].image[z];
+                        if (!image_equals(image, EMPTY))
+                        {
+                            images_sprite.setTextureRect(sf::IntRect(image.ix*32, image.iy*32, 32, 32));
+                            images_sprite.setPosition(sf::Vector2f(x*32, y*32));
+                            window.draw(images_sprite);
+                        }
+                    }            
+        }
+
     public:
         // main window
         sf::RenderWindow window;
@@ -45,7 +61,8 @@ class Editor {
 
         Editor()
         {
-            map_init(map, "spawn", 10, 10);
+            //map_init(map, "spawn", 10, 10);
+            map_load(map, "spawn");
             map_print(map);
             window.create(sf::VideoMode(map.width*TILE, map.height*TILE), TITLE);
             tools.create(sf::VideoMode(640, 352), "tools", sf::Style::Titlebar);
@@ -110,6 +127,10 @@ class Editor {
                                 running = false;
                                 break;
 
+                            case sf::Keyboard::Key::Q:
+                                map_save(map);
+                                break;
+
                             case sf::Keyboard::Key::W:
                                 cursor_sprite.move(0, -32);
                                 cursor_iy--;
@@ -147,6 +168,7 @@ class Editor {
             tools.display();
             // ________ WINDOW _______
             window.clear();
+            draw_map();
 
             window.display(); 
         }

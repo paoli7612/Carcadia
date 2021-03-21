@@ -50,17 +50,30 @@ void map_save(const map_t &map)
     std::string filename = "maps/" + (std::string)map.title + ".tomaoli";
     std::ofstream file(filename);
 
-    file.write((char*)&map, sizeof(map_t));
+    file.write((char*)&map.width, sizeof(int));
+    file.write((char*)&map.height, sizeof(int));
+
+    for (int y=0; y<map.height; y++)
+        for (int x=0; x<map.width; x++)
+            file.write((char*)&map.tiles[y][x], sizeof(tile_t));
 
     file.close();
 }
 
 void map_load(map_t &map, const std::string title)
 {
-    std::string filename = "maps/" + (std::string)title + ".tomaoli";
+    std::string filename = "maps/" + title + ".tomaoli";
     std::ifstream file(filename);
 
-    file.read((char*)&map, sizeof(map_t));
+    int w, h;
+    file.read((char*)&w, sizeof(int));
+    file.read((char*)&h, sizeof(int));
+
+    map_init(map, title, w, h);
+
+    for (int y=0; y<map.height; y++)
+        for (int x=0; x<map.width; x++)
+            file.read((char*)&map.tiles[y][x], sizeof(tile_t));
 
     file.close();
 }
