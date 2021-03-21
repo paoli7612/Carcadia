@@ -47,7 +47,7 @@ class Editor {
         {
             map_init(map, "spawn", 10, 10);
             map_print(map);
-            window.create(sf::VideoMode(1000, 750), TITLE);
+            window.create(sf::VideoMode(map.width*TILE, map.height*TILE), TITLE);
             tools.create(sf::VideoMode(640, 352), "tools", sf::Style::Titlebar);
 
             tools_back_texture.loadFromFile("img/tiles.png");
@@ -106,6 +106,10 @@ class Editor {
                     case sf::Event::KeyPressed:
                         switch (event.key.code)
                         {
+                            case sf::Keyboard::Key::Escape:
+                                running = false;
+                                break;
+
                             case sf::Keyboard::Key::W:
                                 cursor_sprite.move(0, -32);
                                 cursor_iy--;
@@ -121,6 +125,10 @@ class Editor {
                             case sf::Keyboard::Key::D:
                                 cursor_sprite.move(32, 0);
                                 cursor_ix++;
+                                break;
+                            
+                            case sf::Keyboard::Key::P:
+                                map_print(map);
                                 break;
                         }
                         break;
