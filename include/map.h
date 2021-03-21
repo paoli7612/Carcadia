@@ -20,15 +20,3 @@ struct map_t {
     int width, height;
     tile_t **tiles;
 };
-
-void map_print(const map_t &);
-void map_init(map_t &, const std::string, const int, const in);
-void map_save(const map_t &);
-void map_load(map_t &, const std::string);
-
-bool image_equals(const image_t, const image_t);
-
-void map_add(map_t &, const int, const int, const image_t);
-void map_remove(map_t &, const int, const int);
-
-bool isSolid(const map_t &, const int, const int);

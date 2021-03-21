@@ -24,8 +24,8 @@ bool image_equals(const image_t a, const image_t b)
 
 void map_init(map_t &map, const std::string title, const int width, const int height)
 {
-    for (int y=0; y<HEIGHT; y++)
-        for (int x=0; x<WIDTH; x++)
+    for (int y=0; y<height; y++)
+        for (int x=0; x<width; x++)
         {
             tile_t &tile = map.tiles[y][x];
             tile.isSolid = false;
@@ -107,9 +107,9 @@ void map_remove(map_t &map, const int x, const int y)
 bool isSolid(const map_t &map, const int x, const int y)
 {
     std::cout << "isSolid" << x << " " << y << "\n";
-    if (x < 0 || x >= WIDTH)
+    if (x < 0 || x >= map.width)
         return true;
-    if (y < 0 || y >= HEIGHT)
+    if (y < 0 || y >= map.height)
         return true;
 
     return map.tiles[y][x].isSolid;

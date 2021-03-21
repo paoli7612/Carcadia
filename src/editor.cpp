@@ -7,34 +7,47 @@
 class Editor {
     private:
         const std::string TITLE = "Carcadia - paoli7612";
-
-        bool solidMode = false;
-
         map_t map;
+        bool running;
+        sf::Clock clock;
+
+        void click(const bool isLeft)
+        {
+            sf::Vector2i pos = sf::Mouse::getPosition(window);
+
+            int x = pos.x/32;
+            int y = pos.y/32;
+            
+            image_t image = {cursor_ix, cursor_iy};
+            //if (isLeft)
+                //map_add(map, x, y, image);
+            //else
+                //map_remove(map, x, y);
+        }
 
     public:
+        // main window
         sf::RenderWindow window;
-        sf::RenderWindow tools;
 
+        // tools window
+        sf::RenderWindow tools;
         sf::Texture tools_back_texture;
         sf::Sprite tools_back_sprite;
 
+        // tiles image
         sf::Texture images_texture;
         sf::Sprite images_sprite;
 
+        // cursor
         sf::Texture cursor_texture;
         sf::Sprite cursor_sprite;
         int cursor_ix, cursor_iy;
 
-        sf::Clock clock;
-        float dt;
-        bool running;
-
         Editor()
         {
-            map_load(map, "spawn");
+            //map_load(map, "spawn");
 
-            window.create(sf::VideoMode(WIDTH*32, HEIGHT*32), TITLE);
+            window.create(sf::VideoMode(1000, 750), TITLE);
             tools.create(sf::VideoMode(640, 352), "tools", sf::Style::Titlebar);
 
             tools_back_texture.loadFromFile("img/tiles.png");
@@ -46,27 +59,11 @@ class Editor {
             cursor_texture.loadFromFile("img/cursor.png");
             cursor_sprite.setTexture(cursor_texture);
             cursor_ix = 0; cursor_iy = 0;
-            
         }
+    
+        void loop();
 
-        void loop()
-        {
-            
-            running = true;
-            while (running)
-            {
-                if (clock.getElapsedTime().asSeconds() >= 1.0f / 60){
-                    dt = clock.getElapsedTime().asSeconds();
-                    clock.restart();
-                } else continue;
-                event();
-                update();
-                draw();
-            }
-        }
-
-        void event()
-        {
+        void event() {
             sf::Event event;
             while (tools.pollEvent(event))
             {
@@ -109,15 +106,6 @@ class Editor {
                     case sf::Event::KeyPressed:
                         switch (event.key.code)
                         {
-                            case sf::Keyboard::Key::Q:
-                                map_save(map);
-                                break;
-
-                            case sf::Keyboard::Key::E:
-                                solidMode = !solidMode;
-                                std::cout << "solidMode: " << solidMode << std::endl;
-                                break;
-
                             case sf::Keyboard::Key::W:
                                 cursor_sprite.move(0, -32);
                                 cursor_iy--;
@@ -138,16 +126,12 @@ class Editor {
                         break;
                 }
             }
-            
         }
-
-        void update()
-        {
+        
+        void update(const float) {
 
         }
-
-        void draw()
-        {
+        void draw() {
             // ________ TOOLS ________
             tools.clear(sf::Color(90, 90, 90));
             tools.draw(tools_back_sprite);
@@ -155,101 +139,32 @@ class Editor {
             tools.display();
             // ________ WINDOW _______
             window.clear();
-            draw_grill();
-            draw_map();
 
-            if (solidMode)
-                draw_solid();
-            window.display();            
-        }
-
-        void click(const bool isLeft)
-        {
-            sf::Vector2i pos = sf::Mouse::getPosition(window);
-
-            int x = pos.x/32;
-            int y = pos.y/32;
-            
-            std::cout << "click " << isSolid << "\n";
-            if (solidMode)
-            {
-                map.tiles[y][x].isSolid = isLeft;
-            }
-            else
-            {
-                image_t image = {cursor_ix, cursor_iy};
-                if (isLeft)
-                    map_add(map, x, y, image);
-                else
-                    map_remove(map, x, y);
-            }
-        }
-
-        void draw_map()
-        {
-            for (int z=0; z<DEPTH; z++)
-                for (int y=0; y<HEIGHT; y++)
-                    for (int x=0; x<WIDTH; x++)
-                    {
-                        image_t &image = map.tiles[y][x].image[z];
-                        if (!image_equals(image, EMPTY))
-                        {
-                            images_sprite.setTextureRect(sf::IntRect(image.ix*32, image.iy*32, 32, 32));
-                            images_sprite.setPosition(sf::Vector2f(x*32, y*32));
-                            window.draw(images_sprite);
-                        }
-                    }            
-        }
-
-        void draw_grill()
-        {
-            const int vertical_lines = (WIDTH*32/TILE)*4;
-            const int horizontal_lines = (HEIGHT*32/TILE)*4;
-
-            sf::Vertex *v_lines = new sf::Vertex[vertical_lines];
-            sf::Vertex *h_lines = new sf::Vertex[horizontal_lines];
-            
-            for (int i=0; i<40*2; i+=2)
-            {
-                v_lines[i] = sf::Vertex(sf::Vector2f(i/2*TILE, 0));
-                v_lines[i+1] = sf::Vertex(sf::Vector2f(i/2*TILE, HEIGHT*32));
-            }
-            for (int i=0; i<25*2; i+=2)
-            {
-                h_lines[i] = sf::Vertex(sf::Vector2f(0, i/2*TILE));
-                h_lines[i+1] = sf::Vertex(sf::Vector2f(WIDTH*32, i/2*TILE));
-            }
-
-            window.draw(v_lines, vertical_lines, sf::Lines);
-            window.draw(h_lines, horizontal_lines, sf::Lines);
-        }
-
-        void draw_solid()
-        {
-            sf::Sprite solid(cursor_texture);
-            for (int y=0; y<HEIGHT; y++)
-                for (int x=0; x<WIDTH; x++)
-                {
-                    tile_t &tile = map.tiles[y][x];
-                    if (tile.isSolid)
-                    {
-                        std::cout << x << " " << y << std::endl;
-                        solid.setPosition(sf::Vector2f(x*32, y*32));
-                        window.draw(solid);
-                    }
-                }
+            window.display(); 
         }
 };
 
+void Editor::loop()
+{
+    running = true;
+    float dt;
+    while (running)
+    {
+        // clock
+        if (clock.getElapsedTime().asSeconds() >= 1.0f / 60){
+            dt = clock.getElapsedTime().asSeconds();
+            clock.restart();
+        } else continue;
 
+        event();
+        update(dt);
+        draw();
+    }
+}
 
 int main(int argc, char **argv)
 {
     Editor editor;
-    
-    std::cout << "q: Save map" << std::endl;
-    std::cout << "e: !Solid mode" << std::endl;
-    std::cout << "ESC: Close window" << std::endl;
 
     editor.loop();
 
