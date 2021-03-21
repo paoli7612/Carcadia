@@ -27,7 +27,7 @@ void map_init(map_t &map, const std::string title, const int width, const int he
     map.tiles = new tile_t*[height];
     for (int y=0; y<height; y++)
         map.tiles[y] = new tile_t[width];
-        
+
     for (int y=0; y<height; y++)
         for (int x=0; x<width; x++)
         {
@@ -41,6 +41,8 @@ void map_init(map_t &map, const std::string title, const int width, const int he
     for (c=0; title[c]!='\0'; c++)
         map.title[c] = title[c];
     map.title[c] = '\0';
+    map.height = height;
+    map.width = width;
 }
 
 void map_save(const map_t &map)

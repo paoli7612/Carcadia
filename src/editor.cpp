@@ -19,8 +19,8 @@ class Editor {
             int y = pos.y/32;
             
             image_t image = {cursor_ix, cursor_iy};
-            //if (isLeft)
-                //map_add(map, x, y, image);
+            if (isLeft)
+                map_add(map, x, y, image);
             //else
                 //map_remove(map, x, y);
         }
@@ -46,7 +46,7 @@ class Editor {
         Editor()
         {
             map_init(map, "spawn", 10, 10);
-            
+            map_print(map);
             window.create(sf::VideoMode(1000, 750), TITLE);
             tools.create(sf::VideoMode(640, 352), "tools", sf::Style::Titlebar);
 
