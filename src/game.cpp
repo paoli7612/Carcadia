@@ -19,7 +19,7 @@ class Game {
 
         Game()
         {
-            map_load(map, "ciao");
+            map_load(map, "spawn");
             map_print(map);
 
             window.create(sf::VideoMode(map.width*32, map.height*32), TITLE);
@@ -90,17 +90,17 @@ class Game {
 
         void draw()
         {
-            sf::View view(sf::FloatRect(0.f, 0.f, 1000.f, 600.f));
-            view.setCenter(player.getPosition());
-            window.setView(view);
+            //sf::View view(sf::FloatRect(0.f, 0.f, 1000.f, 600.f));
+            //view.setCenter(player.getPosition());
+            //window.setView(view);
 
             window.clear();
             
-            draw_grill();
             draw_map();
-
             window.draw(player);
+
             window.display();
+
         }
 
 
@@ -118,29 +118,6 @@ class Game {
                             window.draw(images_sprite);
                         }
                     }
-        }
-
-        void draw_grill()
-        {
-            const int vertical_lines = (map.width*32/TILE)*4;
-            const int horizontal_lines = (map.height*32/TILE)*4;
-
-            sf::Vertex *v_lines = new sf::Vertex[vertical_lines];
-            sf::Vertex *h_lines = new sf::Vertex[horizontal_lines];
-            
-            for (int i=0; i<40*2; i+=2)
-            {
-                v_lines[i] = sf::Vertex(sf::Vector2f(i/2*TILE, 0));
-                v_lines[i+1] = sf::Vertex(sf::Vector2f(i/2*TILE, map.height*32));
-            }
-            for (int i=0; i<25*2; i+=2)
-            {
-                h_lines[i] = sf::Vertex(sf::Vector2f(0, i/2*TILE));
-                h_lines[i+1] = sf::Vertex(sf::Vector2f(map.width*32, i/2*TILE));
-            }
-
-            window.draw(v_lines, vertical_lines, sf::Lines);
-            window.draw(h_lines, horizontal_lines, sf::Lines);
         }
 };
 

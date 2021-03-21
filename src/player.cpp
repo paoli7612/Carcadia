@@ -6,8 +6,8 @@ void Player::init()
     setTexture(sf::Texture());
     setTextureRect(sf::IntRect(0, 0, 32, 32));
     setColor(sf::Color(255, 0, 0));
-    x = 30;
-    y = 12;
+    x = 2;
+    y = 2;
     setPosition(sf::Vector2f(x*32,y*32));
     end = getPosition();
     speed = 4;
@@ -71,7 +71,6 @@ void Player::update(const float dt)
     }
     x = pos.x / 32;
     y = pos.y / 32;
-    std::cout << "(" << x << " , " << y << ")" << std::endl;   
 }
 
 void Player::setMap(map_t *map)
