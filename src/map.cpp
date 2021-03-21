@@ -5,9 +5,9 @@ void map_print(const map_t &map)
 {
     for (int z=0; z<DEPTH; z++)
     {
-        for (int y=0; y<HEIGHT; y++)
+        for (int y=0; y<map.height; y++)
         {
-            for (int x=0; x<WIDTH; x++)
+            for (int x=0; x<map.width; x++)
             {
                 const image_t &image = map.tiles[y][x].image[z];
                 std::cout << "(" << image.ix << "/" << image.iy << ")";
@@ -22,7 +22,7 @@ bool image_equals(const image_t a, const image_t b)
     return a.ix == b.ix && a.iy == b.iy;
 }
 
-void map_init(map_t &map, const std::string title)
+void map_init(map_t &map, const std::string title, const int width, const int height)
 {
     for (int y=0; y<HEIGHT; y++)
         for (int x=0; x<WIDTH; x++)
@@ -32,11 +32,11 @@ void map_init(map_t &map, const std::string title)
             for (int z=0; z<DEPTH; z++)
                 tile.image[z] = EMPTY;
         }
-        
+
     int c;
     for (c=0; title[c]!='\0'; c++)
         map.title[c] = title[c];
-    map.title[c] = '\0'; 
+    map.title[c] = '\0';
 }
 
 void map_save(const map_t &map)
@@ -76,7 +76,7 @@ void map_add(map_t &map, const int x, const int y, const image_t image)
         if (image_equals(tile.image[z], EMPTY))
         {
             if (z > 0 && image_equals(tile.image[z-1], image))
-                return;    
+                return;
             tile.image[z] = image;
             break;
         }
@@ -99,7 +99,7 @@ void map_remove(map_t &map, const int x, const int y)
             tile.image[z] = EMPTY;
             break;
         }
-        
+
     if (z == DEPTH-1)
         tile.image[z] = EMPTY;
 }
@@ -111,6 +111,6 @@ bool isSolid(const map_t &map, const int x, const int y)
         return true;
     if (y < 0 || y >= HEIGHT)
         return true;
-    
+
     return map.tiles[y][x].isSolid;
 }

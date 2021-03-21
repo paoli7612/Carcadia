@@ -3,7 +3,7 @@
 
 #define TILE 32
 
-const int WIDTH = 40, HEIGHT = 25, DEPTH = 3;
+const int DEPTH = 3;
 
 struct image_t {
     int ix, iy;
@@ -17,11 +17,12 @@ struct tile_t {
 
 struct map_t {
     char title[10];
-    tile_t tiles[HEIGHT][WIDTH];
+    int width, height;
+    tile_t **tiles;
 };
 
 void map_print(const map_t &);
-void map_init(map_t &, const std::string);
+void map_init(map_t &, const std::string, const int, const in);
 void map_save(const map_t &);
 void map_load(map_t &, const std::string);
 
