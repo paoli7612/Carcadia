@@ -16,6 +16,7 @@ editor: $(EDITOR_OUT)
 
 test: $(MAP_O)
 	g++ tests/create_map.cpp $(MAP_O) -o bin/create_map.out
+	g++ tests/know_maps.cpp -o bin/know_maps.out
 
 clean:
 	rm bin/*

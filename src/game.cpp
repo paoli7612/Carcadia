@@ -19,10 +19,12 @@ class Game {
 
         Game()
         {
-            window.create(sf::VideoMode(WIDTH*32, HEIGHT*32), TITLE);
+            map_load(map, "ciao");
+            map_print(map);
+
+            window.create(sf::VideoMode(map.width*32, map.height*32), TITLE);
             player.init();
             player.setMap(&map);
-            map_load(map, "spawn");
 
             images_texture.loadFromFile("img/tiles.png");
             images_sprite.setTexture(images_texture);
@@ -105,8 +107,8 @@ class Game {
         void draw_map()
         {
             for (int z=0; z<DEPTH; z++)
-                for (int y=0; y<HEIGHT; y++)
-                    for (int x=0; x<WIDTH; x++)
+                for (int y=0; y<map.height; y++)
+                    for (int x=0; x<map.width; x++)
                     {
                         image_t &image = map.tiles[y][x].image[z];
                         if (!image_equals(image, EMPTY))
@@ -120,8 +122,8 @@ class Game {
 
         void draw_grill()
         {
-            const int vertical_lines = (WIDTH*32/TILE)*4;
-            const int horizontal_lines = (HEIGHT*32/TILE)*4;
+            const int vertical_lines = (map.width*32/TILE)*4;
+            const int horizontal_lines = (map.height*32/TILE)*4;
 
             sf::Vertex *v_lines = new sf::Vertex[vertical_lines];
             sf::Vertex *h_lines = new sf::Vertex[horizontal_lines];
@@ -129,12 +131,12 @@ class Game {
             for (int i=0; i<40*2; i+=2)
             {
                 v_lines[i] = sf::Vertex(sf::Vector2f(i/2*TILE, 0));
-                v_lines[i+1] = sf::Vertex(sf::Vector2f(i/2*TILE, HEIGHT*32));
+                v_lines[i+1] = sf::Vertex(sf::Vector2f(i/2*TILE, map.height*32));
             }
             for (int i=0; i<25*2; i+=2)
             {
                 h_lines[i] = sf::Vertex(sf::Vector2f(0, i/2*TILE));
-                h_lines[i+1] = sf::Vertex(sf::Vector2f(WIDTH*32, i/2*TILE));
+                h_lines[i+1] = sf::Vertex(sf::Vector2f(map.width*32, i/2*TILE));
             }
 
             window.draw(v_lines, vertical_lines, sf::Lines);
