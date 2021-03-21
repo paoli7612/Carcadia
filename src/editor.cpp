@@ -45,8 +45,8 @@ class Editor {
 
         Editor()
         {
-            //map_load(map, "spawn");
-
+            map_init(map, "spawn", 10, 10);
+            
             window.create(sf::VideoMode(1000, 750), TITLE);
             tools.create(sf::VideoMode(640, 352), "tools", sf::Style::Titlebar);
 

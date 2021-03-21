@@ -20,3 +20,5 @@ struct map_t {
     int width, height;
     tile_t **tiles;
 };
+
+void map_init(map_t &, const std::string, const int, const int);

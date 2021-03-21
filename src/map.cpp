@@ -24,6 +24,10 @@ bool image_equals(const image_t a, const image_t b)
 
 void map_init(map_t &map, const std::string title, const int width, const int height)
 {
+    map.tiles = new tile_t*[height];
+    for (int y=0; y<height; y++)
+        map.tiles[y] = new tile_t[width];
+        
     for (int y=0; y<height; y++)
         for (int x=0; x<width; x++)
         {
