@@ -11,6 +11,8 @@ class Editor {
         bool running;
         sf::Clock clock;
 
+        bool solid_mode = false;
+
         void click(const bool isLeft)
         {
             sf::Vector2i pos = sf::Mouse::getPosition(window);
@@ -18,11 +20,19 @@ class Editor {
             int x = pos.x/32;
             int y = pos.y/32;
             
-            image_t image = {cursor_ix, cursor_iy};
-            if (isLeft)
-                map_add(map, x, y, image);
+            if (solid_mode)
+            {
+                map_setSolid(map, isLeft, x, y);
+            }
             else
-                map_remove(map, x, y);
+            {
+                image_t image = {cursor_ix, cursor_iy};
+                if (isLeft)
+                    map_add(map, x, y, image);
+                else
+                    map_remove(map, x, y);
+            }
+            
         }
 
         void draw_map()
@@ -39,6 +49,18 @@ class Editor {
                             window.draw(images_sprite);
                         }
                     }            
+        }
+
+        void draw_solid()
+        {
+            for (int y=0; y<map.height; y++)
+                for (int x=0; x<map.width; x++)
+                    if (map.tiles[y][x].isSolid)
+                        {
+                            sf::Vector2f pos(x*TILE, y*TILE);
+                            solid_sprite.setPosition(pos);
+                            window.draw(solid_sprite);
+                        }
         }
 
     public:
@@ -59,6 +81,9 @@ class Editor {
         sf::Sprite cursor_sprite;
         int cursor_ix, cursor_iy;
 
+        // solid
+        sf::Sprite solid_sprite; // textur as cursor
+
         Editor(std::string title)
         {
             try
@@ -75,13 +100,9 @@ class Editor {
                 map_addfile(title);
                 map_save(map);
             }
-            
-            map_print(map);
 
-
-            map_print(map);
             window.create(sf::VideoMode(map.width*TILE, map.height*TILE), TITLE);
-            tools.create(sf::VideoMode(640, 352), "tools", sf::Style::Titlebar);
+            tools.create(sf::VideoMode(640, 704), "tools", sf::Style::Titlebar);
 
             tools_back_texture.loadFromFile("img/tiles.png");
             tools_back_sprite.setTexture(tools_back_texture);
@@ -92,6 +113,8 @@ class Editor {
             cursor_texture.loadFromFile("img/cursor.png");
             cursor_sprite.setTexture(cursor_texture);
             cursor_ix = 0; cursor_iy = 0;
+
+            solid_sprite.setTexture(cursor_texture);
         }
     
         void loop();
@@ -146,6 +169,13 @@ class Editor {
                             case sf::Keyboard::Key::Q:
                                 map_save(map);
                                 break;
+                            case sf::Keyboard::Key::E:
+                                solid_mode = !solid_mode;
+                                if (solid_mode)
+                                    std::cout << "Solid mode" << std::endl;
+                                else
+                                    std::cout << "Tile mode" << std::endl;
+                                break;
 
                             case sf::Keyboard::Key::W:
                                 cursor_sprite.move(0, -32);
@@ -185,6 +215,8 @@ class Editor {
             // ________ WINDOW _______
             window.clear();
             draw_map();
+            if (solid_mode)
+                draw_solid();
 
             window.display(); 
         }

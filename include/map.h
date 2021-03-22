@@ -34,3 +34,5 @@ void map_load(map_t &, const std::string);
 
 bool image_equals(const image_t, const image_t);
 bool isSolid(const map_t &, const int, const int);
+
+void map_setSolid(map_t &, const bool, const int, const int);

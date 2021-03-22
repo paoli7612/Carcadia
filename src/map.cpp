@@ -1,6 +1,15 @@
 
 #include "../include/map.h"
 
+bool in_map(const map_t &map, const int x, const int y)
+{
+    if (x < 0 || x >= map.width)
+        return false;
+    if (y < 0 || y >= map.height)
+        return false;
+    return true;
+}
+
 void map_print(const map_t &map)
 {
     for (int z=0; z<DEPTH; z++)
@@ -125,11 +134,8 @@ void map_remove(map_t &map, const int x, const int y)
 
 bool isSolid(const map_t &map, const int x, const int y)
 {
-    std::cout << "isSolid" << x << " " << y << "\n";
-    if (x < 0 || x >= map.width)
-        return true;
-    if (y < 0 || y >= map.height)
-        return true;
+    if (!in_map(map, x, y))
+        return true; // fuori dalla mappa è solido
 
     return map.tiles[y][x].isSolid;
 }
@@ -153,4 +159,11 @@ void map_addfile(const std::string title)
     ofile << title;
 
 
+}
+
+void map_setSolid(map_t &map, const bool isLeft, const int x, const int y){
+    if (!in_map(map, x, y))
+        return;
+    
+    map.tiles[y][x].isSolid = isLeft;
 }
