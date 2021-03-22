@@ -11,8 +11,11 @@ class Player : public sf::Sprite {
         map_t *map;
         
         sf::Vector2f end;
+        sf::Texture texture;
 
         void motion(int, int);
+
+        float dt;
     public:
         int x, y;
 
