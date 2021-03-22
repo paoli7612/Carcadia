@@ -20,9 +20,8 @@ class Game {
         Game()
         {
             map_load(map, "spawn");
-            map_print(map);
 
-            window.create(sf::VideoMode(map.width*32, map.height*32), TITLE);
+            window.create(sf::VideoMode(800, 600), TITLE);
             player.init();
             player.setMap(&map);
 
@@ -90,19 +89,17 @@ class Game {
 
         void draw()
         {
-            //sf::View view(sf::FloatRect(0.f, 0.f, 1000.f, 600.f));
-            //view.setCenter(player.getPosition());
-            //window.setView(view);
+            sf::View view(sf::FloatRect(0.f, 0.f, 400.f, 300.f));
+            view.setCenter(player.getPosition());
+            window.setView(view);
 
             window.clear();
-            
+
             draw_map();
             window.draw(player);
 
             window.display();
-
         }
-
 
         void draw_map()
         {
