@@ -272,12 +272,16 @@ class Editor {
 
 int main(int argc, char **argv)
 {
-    using namespace std;
-    
-    string title;
-    cout << "Inserisci titolo della mappa da modificare: ";
-    cin >> title;
+    std::string title;
 
+    if (argc == 2)
+        title = argv[1];
+    else
+    {
+        std::cout << "Inserisci titolo della mappa da modificare: ";
+        std::cin >> title;
+    }
+    
     Editor editor(title);
     editor.loop();
 
