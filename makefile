@@ -21,6 +21,7 @@ test: $(MAP_O)
 	g++ tests/know_maps.cpp -o bin/know_maps.out
 	g++ tests/addfile_map.cpp $(MAP_O) -o bin/addfile_map.out
 	g++ tests/tile_picker.cpp -o bin/tile_picker.out $(SFML)
+	g++ tests/set_door.cpp $(MAP_O) -o bin/set_door.out
 
 clean:
 	rm bin/*

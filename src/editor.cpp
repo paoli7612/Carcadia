@@ -4,14 +4,20 @@
 
 #include "../include/map.h"
 
+enum Mode { TILEMODE, SOLIDMODE, DOORMODE };
+const char modes_char[][200] = {"Tile mode", "Solid mode", "Door mode"};
+
 class Editor {
     private:
+        sf::Font font;
+        sf::Text text;
+
         const std::string TITLE = "Carcadia - paoli7612";
         map_t map;
         bool running;
         sf::Clock clock;
 
-        bool solid_mode = false;
+        Mode mode = TILEMODE;
 
         void click(const bool isLeft)
         {
@@ -20,17 +26,21 @@ class Editor {
             int x = pos.x/32;
             int y = pos.y/32;
             
-            if (solid_mode)
-            {
-                map_setSolid(map, isLeft, x, y);
-            }
-            else
+            if (mode == TILEMODE)
             {
                 image_t image = {cursor_ix, cursor_iy};
                 if (isLeft)
                     map_add(map, x, y, image);
                 else
                     map_remove(map, x, y);
+            }
+            else if (mode == SOLIDMODE)
+            {
+                map_setSolid(map, isLeft, x, y);
+            }
+            else if (mode == DOORMODE)
+            {
+
             }
             
         }
@@ -66,7 +76,7 @@ class Editor {
     public:
         // main window
         sf::RenderWindow window;
-
+	
         // tools window
         sf::RenderWindow tools;
         sf::Texture tools_back_texture;
@@ -80,6 +90,9 @@ class Editor {
         sf::Texture cursor_texture;
         sf::Sprite cursor_sprite;
         int cursor_ix, cursor_iy;
+
+        // door_cursor
+        sf::Sprite door_cursor_sprite;
 
         // solid
         sf::Sprite solid_sprite; // textur as cursor
@@ -114,10 +127,35 @@ class Editor {
             cursor_sprite.setTexture(cursor_texture);
             cursor_ix = 0; cursor_iy = 0;
 
+            door_cursor_sprite.setTexture(cursor_texture);
+
+            font.loadFromFile("fonts/ostrich-regular.ttf");
+            text.setFont(font);
+            text.setPosition(50, 0);
+            text.setCharacterSize(30);
+            text.setFillColor(sf::Color::White);
+            text.setString(modes_char[mode]);
+
             solid_sprite.setTexture(cursor_texture);
         }
     
-        void loop();
+        void loop()
+        {
+            running = true;
+            float dt;
+            while (running)
+            {
+                // clock
+                if (clock.getElapsedTime().asSeconds() >= 1.0f / 60){
+                    dt = clock.getElapsedTime().asSeconds();
+                    clock.restart();
+                } else continue;
+
+                event();
+                update(dt);
+                draw();
+            }
+        }
 
         void event() {
             sf::Event event;
@@ -170,11 +208,9 @@ class Editor {
                                 map_save(map);
                                 break;
                             case sf::Keyboard::Key::E:
-                                solid_mode = !solid_mode;
-                                if (solid_mode)
-                                    std::cout << "Solid mode" << std::endl;
-                                else
-                                    std::cout << "Tile mode" << std::endl;
+                                mode = (Mode)((mode + 1)%3);
+
+                                text.setString(modes_char[mode]);
                                 break;
 
                             case sf::Keyboard::Key::W:
@@ -204,8 +240,16 @@ class Editor {
         }
         
         void update(const float) {
-
+            if (mode == DOORMODE)
+            {
+                sf::Vector2i mouse = sf::Mouse::getPosition(window);
+                sf::Vector2f pos;
+                pos.x = mouse.x/TILE*TILE;
+                pos.y = mouse.y/TILE*TILE;
+                door_cursor_sprite.setPosition(pos);
+            }
         }
+        
         void draw() {
             // ________ TOOLS ________
             tools.clear(sf::Color(90, 90, 90));
@@ -215,30 +259,16 @@ class Editor {
             // ________ WINDOW _______
             window.clear();
             draw_map();
-            if (solid_mode)
+            if (mode == SOLIDMODE)
                 draw_solid();
+            else if (mode == DOORMODE)
+                window.draw(door_cursor_sprite);
+
+            window.draw(text);
 
             window.display(); 
         }
 };
-
-void Editor::loop()
-{
-    running = true;
-    float dt;
-    while (running)
-    {
-        // clock
-        if (clock.getElapsedTime().asSeconds() >= 1.0f / 60){
-            dt = clock.getElapsedTime().asSeconds();
-            clock.restart();
-        } else continue;
-
-        event();
-        update(dt);
-        draw();
-    }
-}
 
 int main(int argc, char **argv)
 {
