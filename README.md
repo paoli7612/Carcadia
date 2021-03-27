@@ -15,6 +15,4 @@
 
 <img src="doc/005.png">
 
-<video width="320" height="240" controls>
-  <source src="doc/v01.mkv" type="video/mkv">
-</video>
+<a href="doc/v01.mkv"> video 01 </a>
