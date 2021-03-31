@@ -69,7 +69,7 @@ void map_save(const map_t &map)
 void map_load(map_t &map, const std::string title)
 {
     std::string filename = "maps/" + title + ".tomaoli";
-    std::ifstream file(filename);
+    std::ifstream file(filename.c_str());
 
     if (! file)
         throw "file mappa inesistente";
