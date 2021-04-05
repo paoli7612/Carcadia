@@ -54,7 +54,7 @@ void map_init(map_t &map, const std::string title, const int width, const int he
 void map_save(const map_t &map)
 {
     std::string filename = "maps/" + (std::string)map.title + ".tomaoli";
-    std::ofstream file(filename);
+    std::ofstream file(filename.c_str());
 
     file.write((char*)&map.width, sizeof(int));
     file.write((char*)&map.height, sizeof(int));
@@ -69,7 +69,7 @@ void map_save(const map_t &map)
 void map_load(map_t &map, const std::string title)
 {
     std::string filename = "maps/" + title + ".tomaoli";
-    std::ifstream file(filename);
+    std::ifstream file(filename.c_str());
 
     if (! file)
         throw "file mappa inesistente";
