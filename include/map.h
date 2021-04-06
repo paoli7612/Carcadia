@@ -4,6 +4,7 @@
 #define TILE 32
 
 const int DEPTH = 3;
+const int MAXDOORS = 5;
 
 struct image_t {
     int ix, iy;
@@ -28,7 +29,7 @@ struct map_t {
     int width, height;
     tile_t **tiles;
     int n_doors;
-    door_t door[5];
+    door_t door[MAXDOORS];
 };
 
 void map_addfile(const std::string);
