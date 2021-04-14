@@ -1,3 +1,6 @@
+#ifndef INCLUDE_MAP_H_
+#define INCLUDE_MAP_H_
+
 #include <iostream>
 #include <fstream>
 
@@ -19,3 +22,6 @@ struct map_t
     int width, height;
     tile_t **tiles;
 };
+
+#endif /* INCLUDE_MAP_H_ */
+
