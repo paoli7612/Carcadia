@@ -3,8 +3,9 @@
 
 #include <iostream>
 
-class PLAYER {
-
+class Player {
+    public:
+        Player();
 };
 
 #endif /* INCLUDE_PLAYER_H_ */

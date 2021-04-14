@@ -1,5 +1,6 @@
 GAME_C = src/game.cpp
 GAME_OUT = bin/game.out
+
 EDITOR_C = src/editor.cpp
 EDITOR_OUT = bin/editor.out
 
@@ -20,12 +21,15 @@ game: $(GAME_OUT)
 editor: $(EDITOR_OUT)
 	./$(EDITOR_OUT)
 
+clean: 
+	rm bin/*.o bin/*out
+
 
 $(GAME_OUT): $(GAME_C) $(MAP_O) $(LOOP_O) $(PLAYER_O)
 	g++ $(GAME_C) $(MAP_O) $(LOOP_O) $(PLAYER_O) -o $(GAME_OUT) $(SFML)
 
 $(EDITOR_OUT): $(EDITOR_C) $(MAP_O) $(LOOP_O)
-	g++ $(EDITOR_OUT) $(MAP_O) $(LOOP_O) -o $(GAME_OUT) $(SFML)
+	g++ $(EDITOR_C) $(MAP_O) $(LOOP_O) -o $(EDITOR_OUT) $(SFML)
 
 
 $(LOOP_O): $(LOOP_C)

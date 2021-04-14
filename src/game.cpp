@@ -8,12 +8,53 @@
 
 using namespace std;
 
-class Game : Loop {
+void Loop::event()
+{
+    sf::Event event;
+    while (window.pollEvent(event))
+    {  
+        switch (event.type)
+        {
+            case sf::Event::Closed:
+                window.close();
+                running = false;
+                break;
 
+            case sf::Event::KeyPressed:
+                if (event.key.code == sf::Keyboard::Key::Escape)
+                {
+                    window.close();
+                    running = false;
+                }
+                break;
+        }
+    }
+}
+
+void Loop::update(float dt)
+{
+    
+}
+
+void Loop::draw()
+{
+
+}
+
+class Game : public Loop {
+    public:
+        Game()
+        {
+            init(800, 600, "Carcadia");
+        }
 };
 
 int main(int argc, char const *argv[])
 {
-    /* code */
+
+    Game g;
+
+    g.start();
+
     return 0;
 }
