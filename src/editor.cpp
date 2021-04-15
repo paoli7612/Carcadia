@@ -8,7 +8,19 @@
 
 using namespace std;
 
-void Loop::event()
+class Editor : public Loop {
+    public:
+        Editor()
+        {
+            init(800, 600, "Carcadia");
+        }
+
+        void event();
+        void update(float);
+        void draw();
+};
+
+void Editor::event()
 {
     sf::Event event;
     while (window.pollEvent(event))
@@ -31,23 +43,14 @@ void Loop::event()
     }
 }
 
-void Loop::update(float dt)
+void Editor::update(float dt)
 {
-    
 }
 
-void Loop::draw()
+void Editor::draw()
 {
 
 }
-
-class Editor : public Loop {
-    public:
-        Editor()
-        {
-            init(800, 600, "Carcadia");
-        }
-};
 
 int main(int argc, char const *argv[])
 {
