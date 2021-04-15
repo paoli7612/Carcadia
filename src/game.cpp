@@ -8,7 +8,21 @@
 
 using namespace std;
 
-void Loop::event()
+class Game : public Loop {
+    public:
+        Player player;
+
+        Game()
+        {
+            init(800, 600, "Carcadia");
+        }
+
+        void event();
+        void update(float);
+        void draw();
+};
+
+void Game::event()
 {
     sf::Event event;
     while (window.pollEvent(event))
@@ -31,23 +45,15 @@ void Loop::event()
     }
 }
 
-void Loop::update(float dt)
+void Game::update(float dt)
 {
-    
+    player.update(dt);
 }
 
-void Loop::draw()
+void Game::draw()
 {
 
 }
-
-class Game : public Loop {
-    public:
-        Game()
-        {
-            init(800, 600, "Carcadia");
-        }
-};
 
 int main(int argc, char const *argv[])
 {

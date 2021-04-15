@@ -7,17 +7,20 @@
 class Loop {
     private:
         sf::Clock clock;
-        bool running;
         float dt;
-        sf::RenderWindow window;
 
     protected:
+        bool running;
+
+        sf::RenderWindow window;
+
         void init(const int, const int, const char *);
         void set_fun(void *e(void), void *u(float), void *d(void));
+        
     public:
-        void event();
-        void update(float);
-        void draw();
+        virtual void event(){}
+        virtual void update(float){}
+        virtual void draw(){}
 
         void start();
         

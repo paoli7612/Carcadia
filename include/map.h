@@ -12,7 +12,6 @@ struct image_t
     short int x, y;
 };
 
-image_t EMPTY_IMAGE = {-1, -1};
 
 struct tile_t
 {

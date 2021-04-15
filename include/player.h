@@ -6,6 +6,8 @@
 class Player {
     public:
         Player();
+
+        void update(const float);
 };
 
 #endif /* INCLUDE_PLAYER_H_ */

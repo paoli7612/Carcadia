@@ -1,5 +1,8 @@
 #include "../include/map.h"
 
+image_t EMPTY_IMAGE = {-1, -1};
+
+
 void init(map_t &map, const char title[10], const int width, const int height)
 {
     strcpy(map.title, title);
