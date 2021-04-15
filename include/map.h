@@ -12,6 +12,8 @@ struct image_t
     short int x, y;
 };
 
+image_t EMPTY_IMAGE = {-1, -1};
+
 struct tile_t
 {
     image_t images[DEPTH];
@@ -38,8 +40,6 @@ struct map_t
 };
 
 void init(map_t &, const char title[10], const int width, const int height);
-
-void print(const map_t &);
 
 void load(map_t, char title[10]);
 void save(map_t);
