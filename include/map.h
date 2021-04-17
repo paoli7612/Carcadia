@@ -38,10 +38,19 @@ struct map_t
     door_t *doors;
 };
 
-void map_init(map_t &, const char title[10], const int width, const int height);
+void map_init(map_t &map, const char title[10], const int width, const int height);
 
-void map_load(map_t &, char title[10]);
-void map_save(const map_t &);
+void map_load(map_t &map, const char title[10]);
+void map_save(const map_t &map);
+
+void map_add_door(map_t & map, const door_t door);
+void map_add_door(map_t & map,
+                const image_t image, // image of door
+                const int x, // x
+                const int y, // y ... poition door in map
+                const char dest[10], // destination map title
+                const int dx,   // dx
+                const int dy);  // dy ... position in dest
 
 #endif /* INCLUDE_MAP_H_ */
 
