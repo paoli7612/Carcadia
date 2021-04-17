@@ -8,5 +8,7 @@ int main(int argc, char const *argv[])
 
     map_init(map, "spawn", 30, 20);
 
+    map_save(map);
+
     return 0;
 }

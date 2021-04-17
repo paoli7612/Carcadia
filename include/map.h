@@ -40,8 +40,8 @@ struct map_t
 
 void map_init(map_t &, const char title[10], const int width, const int height);
 
-void map_load(map_t, char title[10]);
-void map_save(map_t);
+void map_load(map_t &, char title[10]);
+void map_save(const map_t &);
 
 #endif /* INCLUDE_MAP_H_ */
 
