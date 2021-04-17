@@ -12,6 +12,7 @@ struct image_t
     short int x, y;
 };
 
+bool is_empty(const image_t);
 
 struct tile_t
 {

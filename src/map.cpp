@@ -2,6 +2,10 @@
 
 image_t EMPTY_IMAGE = {-1, -1};
 
+bool is_empty(const image_t image)
+{
+    return (image.x == -1) && (image.y == -1);
+}
 
 void map_init(map_t &map, const char title[10], const int width, const int height)
 {

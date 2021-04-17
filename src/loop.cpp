@@ -19,6 +19,8 @@ void Loop::start()
         } else continue;
         event();
         update(dt);
+
+        window.clear();
         draw_map();
         draw();
         window.display();
@@ -27,9 +29,22 @@ void Loop::start()
 
 void Loop::draw_map()
 {
-    sprite.setPosition(10, 10);
-    
-    sprite.setTextureRect((sf::IntRect){0, 0, 32, 32});
+    for (int y=0; y<map.height; y++)
+        for (int x=0; x<map.width; x++)
+        {
+            tile_t &tile = map.tiles[y][x];
+            sprite.setPosition(x*32, y*32);                 
 
-    window.draw(sprite);
+            for (int z=0; z<DEPTH; z++)
+            {
+                if (is_empty(tile.images[z]))
+                    break;
+                
+                int ix = tile.images[z].x;
+                int iy = tile.images[z].y;
+
+                sprite.setTextureRect((sf::IntRect){ix, iy, ix+32, iy+32});
+                window.draw(sprite);
+            }
+        }
 }
