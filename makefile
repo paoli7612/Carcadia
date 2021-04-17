@@ -23,6 +23,7 @@ editor: $(EDITOR_OUT)
 
 test: $(MAP_O)
 	g++ tests/test_map.cc $(MAP_O) -o bin/test_map.out
+	g++ tests/test_map_door.cc $(MAP_O) -o bin/test_map_door.out
 
 clean: 
 	rm bin/*.o bin/*out
