@@ -3,14 +3,19 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "../include/map.h"
 
 class Loop {
     private:
         sf::Clock clock;
         float dt;
 
+        sf::Texture texture;
+        sf::Sprite sprite;
+
     protected:
         bool running;
+        map_t map;
 
         sf::RenderWindow window;
 
@@ -22,6 +27,7 @@ class Loop {
         virtual void update(float){}
         virtual void draw(){}
 
+        void draw_map();
         void start();
         
 };
