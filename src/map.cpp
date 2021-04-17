@@ -26,7 +26,7 @@ void map_init(map_t &map, const char title[10], const int width, const int heigh
         }
 }
 
-void map_load(map_t &map, char title[10])
+void map_load(map_t &map, const char title[10])
 {
     std::string filename = "maps/" + (std::string)title + ".tomaoli";
     std::ifstream file(filename);
@@ -59,6 +59,7 @@ void map_load(map_t &map, char title[10])
         
     file.close();
 }
+
 void map_save(const map_t &map)
 {
     std::string filename = "maps/" + (std::string)map.title + ".tomaoli";
@@ -86,4 +87,32 @@ void map_save(const map_t &map)
     file.write((char*)&map.doors, sizeof(door_t[map.n_doors]));
         
     file.close();
+}
+
+void map_add_door(map_t &map, const door_t door)
+{
+    if (map.n_doors == 0)
+    {
+        map.doors = new door_t[1];
+        map.doors[0] = door;
+    }
+    else
+    {
+        // copio il puntatore alle porte attuali
+        door_t *old_doors = map.doors;          
+
+        // uso il puntatore della mappa per creare un'array lungo come prima +1
+        map.doors = new door_t[map.n_doors + 1];    
+        
+        // ricopio tutte le porte nel nuovo array
+        for (int i=0; i<map.n_doors; i++)
+            map.doors[i] = old_doors[i];
+        
+        // aggiungo la nuova porta e incremento il contatore delle porte nella mappa
+        map.doors[++map.n_doors] = door;
+
+        // elimino il vecchio array di porte
+        delete [] old_doors;
+    }
+    
 }
