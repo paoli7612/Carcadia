@@ -6,7 +6,7 @@ int main(int argc, char const *argv[])
 {
     map_t map;
 
-    init
+    map_init(map, "spawn", 30, 20);
 
     return 0;
 }

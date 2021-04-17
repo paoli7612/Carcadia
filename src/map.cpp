@@ -3,7 +3,7 @@
 image_t EMPTY_IMAGE = {-1, -1};
 
 
-void init(map_t &map, const char title[10], const int width, const int height)
+void map_init(map_t &map, const char title[10], const int width, const int height)
 {
     strcpy(map.title, title);
 
@@ -26,11 +26,11 @@ void init(map_t &map, const char title[10], const int width, const int height)
         }
 }
 
-void load(map_t, char[10])
+void map_load(map_t, char[10])
 {
 
 }
-void save(map_t)
+void map_save(map_t)
 {
 
 }

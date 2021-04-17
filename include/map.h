@@ -38,10 +38,10 @@ struct map_t
     door_t *doors;
 };
 
-void init(map_t &, const char title[10], const int width, const int height);
+void map_init(map_t &, const char title[10], const int width, const int height);
 
-void load(map_t, char title[10]);
-void save(map_t);
+void map_load(map_t, char title[10]);
+void map_save(map_t);
 
 #endif /* INCLUDE_MAP_H_ */
 

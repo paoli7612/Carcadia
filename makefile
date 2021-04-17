@@ -21,6 +21,9 @@ game: $(GAME_OUT)
 editor: $(EDITOR_OUT)
 	./$(EDITOR_OUT)
 
+test: $(MAP_O)
+	g++ tests/test_map.cc $(MAP_O) -o bin/test_map.out
+
 clean: 
 	rm bin/*.o bin/*out
 
