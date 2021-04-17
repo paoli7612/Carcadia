@@ -2,6 +2,8 @@
 
 void Loop::init(const int width, const int height, const char * title)
 {
+    map_load(map, "spawn");
+
     window.create(sf::VideoMode(width, height), title);
 
     texture.loadFromFile("img/tiles.png");
@@ -39,11 +41,11 @@ void Loop::draw_map()
             {
                 if (is_empty(tile.images[z]))
                     break;
-                
-                int ix = tile.images[z].x;
-                int iy = tile.images[z].y;
 
-                sprite.setTextureRect((sf::IntRect){ix, iy, ix+32, iy+32});
+                int ix = tile.images[z].x*32;
+                int iy = tile.images[z].y*32;
+
+                sprite.setTextureRect((sf::IntRect){ix, iy, 32, 32});
                 window.draw(sprite);
             }
         }

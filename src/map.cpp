@@ -7,6 +7,11 @@ bool is_empty(const image_t image)
     return (image.x == -1) && (image.y == -1);
 }
 
+bool in_map(const map_t &map, const int x, const int y)
+{
+    return !(x < 0 || y < 0 || x >= map.width || y >= map.height);
+}
+
 void map_init(map_t &map, const char title[10], const int width, const int height)
 {
     strcpy(map.title, title);
@@ -119,4 +124,21 @@ void map_add_door(map_t &map, const door_t door)
         delete [] old_doors;
     }
     
+}
+
+void map_add_image(map_t &map, const int x, const int y, const image_t image)
+{
+    if (!in_map(map, x, y))
+        return;
+    
+    tile_t &tile = map.tiles[y][x];
+
+    // parte dalla prima immagine della tile e sale finche non trova una immagine vuota
+    int z = 0;
+    for (; ((z<DEPTH) && (!is_empty(tile.images[z]))); z++);
+
+    if (z < DEPTH)
+        tile.images[z] = image;
+    else
+        ; // cella piena di immagini
 }
