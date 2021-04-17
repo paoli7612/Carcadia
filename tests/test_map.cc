@@ -2,6 +2,11 @@
 
 #include "../include/map.h"
 
+   /*
+    *   Crea una nuova mappa a determinate dimensioni
+    *   
+    */
+
 int main(int argc, char const *argv[])
 {
     map_t map;
