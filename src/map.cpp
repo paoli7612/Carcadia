@@ -19,6 +19,11 @@ int top(const image_t image[DEPTH])
     return i;
 }
 
+bool equals(const image_t a, const image_t b)
+{
+    return (a.x == b.x) && (a.y == b.y);
+}
+
 void map_init(map_t &map, const char title[10], const int width, const int height)
 {
     strcpy(map.title, title);
@@ -143,8 +148,7 @@ void map_add_image(map_t &map, const int x, const int y, const image_t image)
     // parte dalla prima immagine della tile e sale finche non trova una immagine vuota
     int z = top(tile.images);
 
-
-    if (z < DEPTH)
+    if (z < DEPTH && !(z > 0 && equals(tile.images[z-1], image)))
         tile.images[z] = image;
     else
         ; // cella piena di immagini
