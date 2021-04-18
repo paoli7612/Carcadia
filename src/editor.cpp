@@ -10,7 +10,7 @@ using namespace std;
 
 class Editor : public Loop {
     private:
-        void click(bool);
+        void click(const bool, const int, const int);
 
     public:
         Editor()
@@ -46,21 +46,17 @@ class Editor : public Loop {
         sf::Sprite tilesSpriteSelector; // cursorTexture
 };
 
-void Editor::click(bool isLeft)
+void Editor::click(bool isLeft, const int x, const int y)
 {
-    sf::Vector2i mouse = sf::Mouse::getPosition(window);
-    mouse.x /= TILE;
-    mouse.y /= TILE;
-
     if (isLeft)
     {
         sf::Vector2i pos = (sf::Vector2i)tilesSpriteSelector.getPosition();
         image_t image = {pos.x/TILE, pos.y/TILE};
-        map_add_image(map, mouse.x, mouse.y, image);
+        map_add_image(map, x, y, image);
     }
     else
     {
-        map_rem_image(map, mouse.x, mouse.y);
+        map_rem_image(map, x, y);
     }
 }
 
@@ -102,21 +98,32 @@ void Editor::event()
                 }
                 break;
             
-            case sf::Event::MouseMoved:
-                {
-                    sf::Vector2i m = sf::Mouse::getPosition(window);
-                    int x = m.x/TILE*32;
-                    int y = m.y/TILE*32;
-                    cursorSprite.setPosition(x, y);
-                }
-                break;
-            
             case sf::Event::MouseButtonPressed:
+            {
+                sf::Vector2i m = sf::Mouse::getPosition(window);
+                int x = m.x/TILE;
+                int y = m.y/TILE;
+
                 if (event.mouseButton.button == sf::Mouse::Left)
-                    click(true);
+                    click(true, x, y);
                 else if (event.mouseButton.button == sf::Mouse::Right)
-                    click(false);                
+                    click(false, x, y);                
                 break;
+            }
+            
+            case sf::Event::MouseMoved:
+            {
+                sf::Vector2i m = sf::Mouse::getPosition(window);
+                int x = m.x/TILE;
+                int y = m.y/TILE;
+                cursorSprite.setPosition(x*32, y*32);
+
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+                    click(true, x, y);
+                else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
+                    click(false, x, y);
+                break;
+            }
         }
     }
 }
