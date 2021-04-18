@@ -24,6 +24,8 @@ class Editor : public Loop {
             tilesTextureBackground.loadFromFile("img/tiles.png");
             tilesSpriteBackground.setTexture(tilesTextureBackground);
             tilesSpriteSelector.setTexture(cursorTexture);
+
+            tilesSpriteSelector.setPosition(0, 0);
         }
 
         void event();
@@ -48,8 +50,8 @@ void Editor::event()
         {
             case sf::Event::MouseButtonPressed:
                 sf::Vector2i m = sf::Mouse::getPosition(tilesWindow);
-                int x = m.x/32*32;
-                int y = m.y/32*32;
+                int x = m.x/TILE*32;
+                int y = m.y/TILE*32;
                 tilesSpriteSelector.setPosition(x, y);
                 break;
         }
@@ -64,19 +66,37 @@ void Editor::event()
                 break;
 
             case sf::Event::KeyPressed:
-                if (event.key.code == sf::Keyboard::Key::Escape)
+                switch (event.key.code)
                 {
-                    window.close();
-                    running = false;
+                    case sf::Keyboard::Key::Escape:
+                        window.close();
+                        running = false;
+                        break;
+                    
+                    case sf::Keyboard::Key::Q:
+                        map_save(map);
+                        break;
                 }
                 break;
             
             case sf::Event::MouseMoved:
                 {
                     sf::Vector2i m = sf::Mouse::getPosition(window);
-                    int x = m.x/32*32;
-                    int y = m.y/32*32;
+                    int x = m.x/TILE*32;
+                    int y = m.y/TILE*32;
                     cursorSprite.setPosition(x, y);
+                }
+                break;
+            
+            case sf::Event::MouseButtonPressed:
+                {
+                    sf::Vector2f pos = tilesSpriteSelector.getPosition();
+
+                    image_t image = {pos.x/TILE, pos.y/TILE};
+
+                    sf::Vector2i mouse = sf::Mouse::getPosition(window);
+                    map_add_image(map, mouse.x/TILE, mouse.y/TILE, image);
+
                 }
                 break;
         }

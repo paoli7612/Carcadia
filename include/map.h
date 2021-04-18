@@ -1,6 +1,8 @@
 #ifndef INCLUDE_MAP_H_
 #define INCLUDE_MAP_H_
 
+#define TILE 32
+
 #include <iostream>
 #include <fstream>
 #include <cstring>
