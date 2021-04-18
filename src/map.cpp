@@ -143,7 +143,6 @@ void map_add_image(map_t &map, const int x, const int y, const image_t image)
     // parte dalla prima immagine della tile e sale finche non trova una immagine vuota
     int z = top(tile.images);
 
-    std::cout << z << std::endl;
 
     if (z < DEPTH)
         tile.images[z] = image;

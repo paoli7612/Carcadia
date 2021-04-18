@@ -57,7 +57,6 @@ void Editor::click(bool isLeft)
         sf::Vector2i pos = (sf::Vector2i)tilesSpriteSelector.getPosition();
         image_t image = {pos.x/TILE, pos.y/TILE};
         map_add_image(map, mouse.x, mouse.y, image);
-        std::cout << image.x << " " << image.y << std::endl;
     }
     else
     {
