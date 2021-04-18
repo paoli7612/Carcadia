@@ -44,6 +44,15 @@ void Editor::event()
                     running = false;
                 }
                 break;
+            
+            case sf::Event::MouseMoved:
+                {
+                    sf::Vector2i m = sf::Mouse::getPosition(window);
+                    int x = m.x/32*32;
+                    int y = m.y/32*32;
+                    cursorSprite.setPosition(x, y);
+                }
+                break;
         }
     }
 }
