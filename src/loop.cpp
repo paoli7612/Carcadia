@@ -2,8 +2,6 @@
 
 void Loop::init(const int width, const int height, const char * title)
 {
-    map_load(map, "spawn");
-
     window.create(sf::VideoMode(width, height), title);
 
     texture.loadFromFile("img/tiles.png");
