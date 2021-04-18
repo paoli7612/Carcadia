@@ -13,11 +13,16 @@ class Editor : public Loop {
         Editor()
         {
             init(800, 600, "Carcadia");
+            cursorTexture.loadFromFile("img/cursor.png");
+            cursorSprite.setTexture(cursorTexture);
         }
 
         void event();
         void update(float);
         void draw();
+
+        sf::Texture cursorTexture;
+        sf::Sprite cursorSprite;
 };
 
 void Editor::event()
@@ -49,7 +54,7 @@ void Editor::update(float dt)
 
 void Editor::draw()
 {
-
+    window.draw(cursorSprite);
 }
 
 int main(int argc, char const *argv[])
