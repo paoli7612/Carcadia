@@ -9,6 +9,9 @@
 using namespace std;
 
 class Editor : public Loop {
+    private:
+        void click(bool);
+
     public:
         Editor()
         {
@@ -26,6 +29,8 @@ class Editor : public Loop {
             tilesSpriteSelector.setTexture(cursorTexture);
 
             tilesSpriteSelector.setPosition(0, 0);
+
+            std::cout << "Use Q key to save map" << std::endl;
         }
 
         void event();
@@ -40,6 +45,25 @@ class Editor : public Loop {
         sf::Sprite tilesSpriteBackground; 
         sf::Sprite tilesSpriteSelector; // cursorTexture
 };
+
+void Editor::click(bool isLeft)
+{
+    sf::Vector2i mouse = sf::Mouse::getPosition(window);
+    mouse.x /= TILE;
+    mouse.y /= TILE;
+
+    if (isLeft)
+    {
+        sf::Vector2i pos = (sf::Vector2i)tilesSpriteSelector.getPosition();
+        image_t image = {pos.x/TILE, pos.y/TILE};
+        map_add_image(map, mouse.x, mouse.y, image);
+        std::cout << image.x << " " << image.y << std::endl;
+    }
+    else
+    {
+        map_rem_image(map, mouse.x, mouse.y);
+    }
+}
 
 void Editor::event()
 {
@@ -89,15 +113,10 @@ void Editor::event()
                 break;
             
             case sf::Event::MouseButtonPressed:
-                {
-                    sf::Vector2f pos = tilesSpriteSelector.getPosition();
-
-                    image_t image = {pos.x/TILE, pos.y/TILE};
-
-                    sf::Vector2i mouse = sf::Mouse::getPosition(window);
-                    map_add_image(map, mouse.x/TILE, mouse.y/TILE, image);
-
-                }
+                if (event.mouseButton.button == sf::Mouse::Left)
+                    click(true);
+                else if (event.mouseButton.button == sf::Mouse::Right)
+                    click(false);                
                 break;
         }
     }

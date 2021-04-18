@@ -11,7 +11,7 @@ const int DEPTH = 3;
 
 struct image_t
 {
-    short int x, y;
+    int x, y;
 };
 
 bool is_empty(const image_t);
@@ -41,8 +41,6 @@ struct map_t
     door_t *doors;
 };
 
-bool in_map(const map_t &map, const int x, const int y);
-
 void map_init(map_t &map, const char title[10], const int width, const int height);
 
 void map_load(map_t &map, const char title[10]);
@@ -58,7 +56,7 @@ void map_add_door(map_t & map,
                 const int dy);  // dy ... position in dest
 
 void map_add_image(map_t &map, const int x, const int y, const image_t image);
-
+void map_rem_image(map_t &map, const int x, const int y);
 
 #endif /* INCLUDE_MAP_H_ */
 

@@ -12,6 +12,13 @@ bool in_map(const map_t &map, const int x, const int y)
     return !(x < 0 || y < 0 || x >= map.width || y >= map.height);
 }
 
+int top(const image_t image[DEPTH])
+{
+    int i=0;
+    for (; i<DEPTH && (!is_empty(image[i])); i++) ;
+    return i;
+}
+
 void map_init(map_t &map, const char title[10], const int width, const int height)
 {
     strcpy(map.title, title);
@@ -134,11 +141,25 @@ void map_add_image(map_t &map, const int x, const int y, const image_t image)
     tile_t &tile = map.tiles[y][x];
 
     // parte dalla prima immagine della tile e sale finche non trova una immagine vuota
-    int z = 0;
-    for (; ((z<DEPTH) && (!is_empty(tile.images[z]))); z++);
+    int z = top(tile.images);
+
+    std::cout << z << std::endl;
 
     if (z < DEPTH)
         tile.images[z] = image;
     else
         ; // cella piena di immagini
+}
+
+void map_rem_image(map_t &map, const int x, const int y)
+{
+    if (!in_map(map, x, y))
+        return;
+
+    tile_t &tile = map.tiles[y][x];
+
+    int z = top(tile.images);
+
+    if (z)
+        tile.images[z-1] = EMPTY_IMAGE;
 }
