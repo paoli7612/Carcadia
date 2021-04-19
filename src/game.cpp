@@ -11,15 +11,13 @@ using namespace std;
 class Game : public Loop {
     public:
         Player player;
-        sf::View view;
 
 
         Game()
         {
             init(800, 600, "Carcadia");
             map_load(map, "spawn");
-            view.setSize((sf::Vector2f){400, 400});
-            window.setView(view);
+            
         }
 
         void event();
@@ -53,16 +51,18 @@ void Game::event()
 void Game::update(float dt)
 {
     player.update(dt);
+
+    sf::View view;
+    view.setSize((sf::Vector2f){400, 400});
+    view.setCenter(player.getPosition());
+            window.setView(view);
+
+    player.move(10, 10);
 }
 
 void Game::draw()
 {
-
-    
-
-
-    window.display();
-
+    window.draw(player);
 }
 
 int main(int argc, char const *argv[])

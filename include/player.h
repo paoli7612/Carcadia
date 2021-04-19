@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-class Player : sf::Sprite {
+class Player : public sf::Sprite {
     private:
         sf::Texture texture;
     public:
