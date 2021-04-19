@@ -1,9 +1,11 @@
 #ifndef INCLUDE_PLAYER_H_
 #define INCLUDE_PLAYER_H_
 
-#include <iostream>
+#include <SFML/Graphics.hpp>
 
-class Player {
+class Player : sf::Sprite {
+    private:
+        sf::Texture texture;
     public:
         Player();
 
