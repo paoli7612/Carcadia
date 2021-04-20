@@ -12,12 +12,10 @@ class Game : public Loop {
     public:
         Player player;
 
-
         Game()
         {
             init(800, 600, "Carcadia");
             map_load(map, "spawn");
-            
         }
 
         void event();
@@ -27,6 +25,15 @@ class Game : public Loop {
 
 void Game::event()
 {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+        player.up();
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+        player.down();
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
+        player.right();
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
+        player.left();
+
     sf::Event event;
     while (window.pollEvent(event))
     {  
@@ -51,17 +58,15 @@ void Game::event()
 void Game::update(float dt)
 {
     player.update(dt);
-
-    sf::View view;
-    view.setSize((sf::Vector2f){400, 400});
-    view.setCenter(player.getPosition());
-            window.setView(view);
-
-    player.move(10, 10);
 }
 
 void Game::draw()
 {
+    sf::View view(sf::FloatRect(0.f, 0.f, 400.f, 300.f));
+    view.setCenter(player.getPosition());
+    window.setView(view);
+    window.clear();
+    draw_map();
     window.draw(player);
 }
 
