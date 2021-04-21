@@ -8,12 +8,8 @@
 
 using namespace std;
 
-enum mode_t { TILE_MODE, SOLID_MODE };
 
 class Game : public Loop {
-    private:
-        mode_t mode;
-
     public:
         Player player;
 
@@ -21,7 +17,6 @@ class Game : public Loop {
         {
             init(800, 600, "Carcadia");
             map_load(map, "spawn");
-            mode = TILE_MODE;
         }
 
         void event();

@@ -8,14 +8,18 @@
 
 using namespace std;
 
+enum mode_t { TILE_MODE, SOLID_MODE };
+
 class Editor : public Loop {
     private:
+        mode_t mode;
         void click(const bool, const int, const int);
 
     public:
         Editor()
         {
             map_load(map, "spawn");
+            mode = TILE_MODE;
 
             // main window
             init(map.width*32, map.height*32, "Carcadia");          
