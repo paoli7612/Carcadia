@@ -52,16 +52,25 @@ class Editor : public Loop {
 
 void Editor::click(bool isLeft, const int x, const int y)
 {
-    if (isLeft)
+    switch (mode)
     {
-        sf::Vector2i pos = (sf::Vector2i)tilesSpriteSelector.getPosition();
-        image_t image = {pos.x/TILE, pos.y/TILE};
-        map_add_image(map, x, y, image);
+    case TILE_MODE:
+        if (isLeft)
+        {
+            sf::Vector2i pos = (sf::Vector2i)tilesSpriteSelector.getPosition();
+            image_t image = {pos.x/TILE, pos.y/TILE};
+            map_add_image(map, x, y, image);
+        }
+        else
+            map_rem_image(map, x, y);
+        break;
+    
+    case SOLID_MODE:
+        
+        break;
+
     }
-    else
-    {
-        map_rem_image(map, x, y);
-    }
+    
 }
 
 void Editor::event()
