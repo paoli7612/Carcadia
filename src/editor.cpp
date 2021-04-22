@@ -66,7 +66,7 @@ void Editor::click(bool isLeft, const int x, const int y)
         break;
     
     case SOLID_MODE:
-        
+        map_set_solid(map, x, y, isLeft);
         break;
 
     }

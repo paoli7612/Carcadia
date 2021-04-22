@@ -179,3 +179,11 @@ void map_rem_image(map_t &map, const int x, const int y)
     if (z)
         tile.images[z-1] = EMPTY_IMAGE;
 }
+
+void map_set_solid(map_t &map, const int x, const int y, const bool col=true)
+{
+    if (! in_map(map, x, y))
+        return;
+
+    map.tiles[y][x].isCollide = col;
+}

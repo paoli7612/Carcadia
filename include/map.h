@@ -58,5 +58,7 @@ void map_add_door(map_t & map,
 void map_add_image(map_t &map, const int x, const int y, const image_t image);
 void map_rem_image(map_t &map, const int x, const int y);
 
+void map_set_solid(map_t &map, const int x, const int y, const bool col);
+
 #endif /* INCLUDE_MAP_H_ */
 
