@@ -8,7 +8,6 @@
 
 using namespace std;
 
-
 class Game : public Loop {
     public:
         Player player;

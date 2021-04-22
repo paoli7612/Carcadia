@@ -6,6 +6,10 @@ void Loop::init(const int width, const int height, const char * title)
 
     texture.loadFromFile("img/tiles.png");
     sprite.setTexture(texture);
+
+    // solid
+    solidTexture.loadFromFile("img/solid.png");
+    solidSprite.setTexture(solidTexture);
 }
 
 void Loop::start()
@@ -47,4 +51,15 @@ void Loop::draw_map()
                 window.draw(sprite);
             }
         }
+}
+
+void Loop::draw_solid()
+{
+    for (int y=0; y<map.height; y++)
+        for (int x=0; x<map.width; x++)
+            if (map.tiles[y][x].isCollide)
+                {
+                    solidSprite.setPosition(x*32, y*32);                 
+                    window.draw(solidSprite);
+                }
 }

@@ -8,12 +8,12 @@
 
 using namespace std;
 
-enum mode_t { TILE_MODE, SOLID_MODE };
+enum editor_mode { TILE_MODE, SOLID_MODE };
 
 class Editor : public Loop {
     private:
-        mode_t mode;
-        void click(const bool, const int, const int);
+        editor_mode mode;
+        void click(const bool isLeft, const int x, const int y);
 
     public:
         Editor()
@@ -96,6 +96,12 @@ void Editor::event()
                         running = false;
                         break;
                     
+                    // E -> change editor mode
+                    case sf::Keyboard::Key::E:
+                        mode = (editor_mode)((mode+1)%2);
+                        break;
+
+                    // Q -> save map
                     case sf::Keyboard::Key::Q:
                         map_save(map);
                         break;
@@ -138,7 +144,10 @@ void Editor::update(float dt)
 
 void Editor::draw()
 {
+    if (mode == SOLID_MODE)
+        draw_solid();
     window.draw(cursorSprite);
+
 
     // tiles
 

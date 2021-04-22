@@ -13,6 +13,9 @@ class Loop {
         sf::Texture texture;
         sf::Sprite sprite;
 
+        sf::Texture solidTexture;
+        sf::Sprite solidSprite;
+
     protected:
         bool running;
         map_t map;
@@ -28,6 +31,7 @@ class Loop {
         virtual void draw(){}
 
         void draw_map();
+        void draw_solid();
         void start();
         
 };
