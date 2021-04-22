@@ -59,7 +59,7 @@ void map_add_image(map_t &map, const int x, const int y, const image_t image);
 void map_rem_image(map_t &map, const int x, const int y);
 
 void map_set_solid(map_t &map, const int x, const int y, const bool col);
-bool is_solid(const map_t &map, const int x, const int y);
+bool map_is_solid(const map_t &map, const int x, const int y);
 
 
 #endif /* INCLUDE_MAP_H_ */

@@ -65,7 +65,6 @@ void Player::left()
 void Player::right()
 {
     motion(1, 0);
-    std::cout << "asd\n";
 }
 
 void Player::motion(int x, int y)
@@ -76,13 +75,15 @@ void Player::motion(int x, int y)
     this->y = pos.y / 32;
     if (pos.x == end.x && pos.y == end.y)
     {
+        if (map_is_solid(*map, this->x+x, this->y+y))
+            return;
         sf::IntRect rect = getTextureRect();
 
         if (false) int a;
-        else if (x > 0) rect.top = 64;
-        else if (x < 0) rect.top = 32;
-        else if (y > 0) rect.top = 0;
-        else if (y < 0) rect.top = 96;
+        else if (x > 0) rect.top = 64;  // destra
+        else if (x < 0) rect.top = 32;  // sinistra
+        else if (y > 0) rect.top = 0;   // sopra
+        else if (y < 0) rect.top = 96;  // sotto
 
         setTextureRect(rect);
 

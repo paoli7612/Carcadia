@@ -16,6 +16,7 @@ class Game : public Loop {
         {
             init(800, 600, "Carcadia");
             map_load(map, "spawn");
+            player.set_map(map);
         }
 
         void event();
