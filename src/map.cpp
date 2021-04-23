@@ -89,9 +89,11 @@ void map_load(map_t &map, const char title[10])
     // int n_doors;
     file.read((char*)&map.n_doors, sizeof(int));
 
+    map.doors = new door_t[map.n_doors];
+
     // door_t *doors;
     file.read((char*)&map.doors, sizeof(door_t[map.n_doors]));
-        
+    
     file.close();
 }
 
@@ -130,6 +132,7 @@ void map_add_door(map_t &map, const door_t door)
     {
         map.doors = new door_t[1];
         map.doors[0] = door;
+        map.n_doors = 1;
     }
     else
     {
