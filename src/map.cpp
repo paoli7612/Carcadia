@@ -31,6 +31,15 @@ void tile_down(tile_t &tile)
     tile.images[DEPTH-1] = EMPTY_IMAGE;
 }
 
+void map_allocate(map_t &map, const int width, const int height, const int n_doors)
+{
+    map.tiles = new tile_t*[height];
+    for (int y=0; y<height; y++)
+        map.tiles[y] = new tile_t[width];
+    
+    map.doors = new door_t[n_doors];
+}
+
 void map_init(map_t &map, const char title[10], const int width, const int height)
 {
     strcpy(map.title, title);
@@ -40,9 +49,7 @@ void map_init(map_t &map, const char title[10], const int width, const int heigh
 
     map.n_doors = 0;
 
-    map.tiles = new tile_t*[height];
-    for (int y=0; y<height; y++)
-        map.tiles[y] = new tile_t[width];
+    map_allocate(map, width, height, 0);
     
     for (int y=0; y<map.height; y++)
         for (int x=0; x<map.width; x++)
