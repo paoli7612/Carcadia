@@ -23,7 +23,6 @@ class Loop {
         sf::RenderWindow window;
 
         void init(const int, const int, const char *);
-        void set_fun(void *e(void), void *u(float), void *d(void));
         
     public:
         virtual void event(){}

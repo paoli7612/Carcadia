@@ -14,7 +14,13 @@ int main(int argc, char const *argv[])
 
     map_load(map, "spawn");
 
-    // QUI
+    door_t door {
+        {2, 2}, //image
+        5, 5, // pos
+        "paswn", // dest
+        10, 10 // dest pos
+    };
+    map_add_door(map, door);
 
     map_save(map);
 
