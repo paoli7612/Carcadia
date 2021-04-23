@@ -75,8 +75,7 @@ void Player::motion(int x, int y)
     this->y = pos.y / 32;
     if (pos.x == end.x && pos.y == end.y)
     {
-        if (map_is_solid(*map, this->x+x, this->y+y))
-            return;
+        
         sf::IntRect rect = getTextureRect();
 
         if (false) int a;
@@ -87,9 +86,11 @@ void Player::motion(int x, int y)
 
         setTextureRect(rect);
 
-        end.x = pos.x + x*32;
-        end.y = pos.y + y*32;
-        
+        if (!map_is_solid(*map, this->x+x, this->y+y))
+        {
+            end.x = pos.x + x*32;
+            end.y = pos.y + y*32;
+        }
     }
    
 
