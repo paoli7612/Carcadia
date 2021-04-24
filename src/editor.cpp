@@ -16,9 +16,9 @@ class Editor : public Loop {
         void click(const bool isLeft, const int x, const int y);
 
     public:
-        Editor()
+        Editor(const char title[10])
         {
-            map_load(map, "asd");
+            map_load(map, title);
             mode = TILE_MODE;
 
             // main window
@@ -168,10 +168,17 @@ void Editor::draw()
 
 int main(int argc, char const *argv[])
 {
-
-    Editor e;
-
-    e.start();
+    if (argc == 2)
+    {
+        Editor e(argv[1]);
+        e.start();
+    }
+    else
+    {
+        Editor e("spawn");
+        e.start();
+    }
+    
 
 
     return 0;

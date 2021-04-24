@@ -15,8 +15,7 @@ class Game : public Loop {
         Game()
         {
             init(800, 600, "Carcadia");
-            map_load(map, "asd");
-            std::cout << "asd" << std::endl;
+            map_load(map, "spawn");
             player.set_map(map);
         }
 
