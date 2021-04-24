@@ -8,7 +8,7 @@
 
 using namespace std;
 
-enum editor_mode { TILE_MODE, SOLID_MODE };
+enum editor_mode { TILE_MODE, SOLID_MODE, DOOR_MODE };
 
 class Editor : public Loop {
     private:
@@ -52,25 +52,40 @@ class Editor : public Loop {
 
 void Editor::click(bool isLeft, const int x, const int y)
 {
+    sf::Vector2i pos = (sf::Vector2i)tilesSpriteSelector.getPosition();
+    image_t image = {pos.x/TILE, pos.y/TILE};
     switch (mode)
     {
-    case TILE_MODE:
-        if (isLeft)
-        {
-            sf::Vector2i pos = (sf::Vector2i)tilesSpriteSelector.getPosition();
-            image_t image = {pos.x/TILE, pos.y/TILE};
-            map_add_image(map, x, y, image);
-        }
-        else
-            map_rem_image(map, x, y);
-        break;
-    
-    case SOLID_MODE:
-        map_set_solid(map, x, y, isLeft);
-        break;
+        case TILE_MODE:
+            if (isLeft)
+                map_add_image(map, x, y, image);
+            else
+                map_rem_image(map, x, y);
+            break;
+        
+        case SOLID_MODE:
+            map_set_solid(map, x, y, isLeft);
+            break;
 
+        case DOOR_MODE:
+            if (isLeft)
+            {
+                door_t door;
+                door.x = x;
+                door.y = y;
+                door.image = image; 
+                std::cout << "dest: ";
+                std::cin >> door.dest;
+                std::cout << "(dx - dy): ";
+                std::cin >> door.dx >> door.dy;
+                map_add_door(map, door);
+            }
+            else
+            {
+                
+            }
+            break;
     }
-    
 }
 
 void Editor::event()
@@ -107,7 +122,7 @@ void Editor::event()
                     
                     // E -> change editor mode
                     case sf::Keyboard::Key::E:
-                        mode = (editor_mode)((mode+1)%2);
+                        mode = (editor_mode)((mode+1)%3);
                         break;
 
                     // Q -> save map
