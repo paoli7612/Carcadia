@@ -26,10 +26,10 @@ test: $(MAP_O)
 	g++ tests/test_map_door.cc $(MAP_O) -o bin/test_map_door.out
 	g++ tests/test_map_tile.cc $(MAP_O) -o bin/test_map_tile.out
 	g++ tests/test_map_read.cc $(MAP_O) -o bin/test_map_read.out
+	g++ tests/test_map_print.cc $(MAP_O) -o bin/test_map_print.out
 
 clean: 
 	rm bin/*.o bin/*out
-
 
 $(GAME_OUT): $(GAME_C) $(MAP_O) $(LOOP_O) $(PLAYER_O)
 	g++ $(GAME_C) $(MAP_O) $(LOOP_O) $(PLAYER_O) -o $(GAME_OUT) $(SFML)

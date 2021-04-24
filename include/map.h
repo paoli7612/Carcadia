@@ -41,9 +41,11 @@ struct map_t
     door_t *doors;
 };
 
-void map_allocate(map_t &map, const int width, const int height, const int n_doors);
+void map_allocate_tiles(map_t &map, const int width, const int height);
+void map_allocate_doors(map_t &map, const int n_doors);
 
 void map_init(map_t &map, const char title[10], const int width, const int height);
+void map_print(const map_t &map);
 
 void map_load(map_t &map, const char title[10]);
 void map_save(const map_t &map);

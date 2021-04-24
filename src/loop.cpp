@@ -51,6 +51,18 @@ void Loop::draw_map()
                 window.draw(sprite);
             }
         }
+    
+    
+    for (int i=0; i<map.n_doors; i++)
+    {
+        door_t &door = map.doors[i];
+        sprite.setPosition(door.x*32, door.y*32);    
+
+        image_t &image = door.image;    
+        sprite.setTextureRect((sf::IntRect){image.x, image.y, 32, 32});
+        window.draw(sprite);
+    }
+    
 }
 
 void Loop::draw_solid()

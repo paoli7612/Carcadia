@@ -18,7 +18,7 @@ class Editor : public Loop {
     public:
         Editor()
         {
-            map_load(map, "spawn");
+            map_load(map, "asd");
             mode = TILE_MODE;
 
             // main window
