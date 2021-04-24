@@ -11,7 +11,7 @@ int main(int argc, char const *argv[])
 {
     if (argc != 2)
     {
-        std::cerr << "Inserisci il nome di una mappa come argomento" << std::endl;
+        std::cerr << "use [make map_editor MAP=\"spawn\"]" << std::endl;
         return 1;
     }
 

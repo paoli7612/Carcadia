@@ -78,9 +78,15 @@ void map_print(const map_t &map)
             porta.x porta.y
     */
     std::cout << map.title << std::endl;
-    std::cout << "\t" << map.width << " x " << map.height << std::endl;
+    std::cout << "\t[size] " << map.width << " x " << map.height << std::endl;
+    std::cout << "\t[doors] #" << map.n_doors << std::endl;
     for (int i=0; i<map.n_doors; i++)
-        std::cout << "\t\t" << map.doors[i].x << " x " << map.doors[i].y << std::endl;
+    {
+        door_t &d = map.doors[i];
+        std::cout << "\t\t[pos] (" << d.x << " x " << d.y << ") ";
+        std::cout << "[dest] " << d.dest << std::endl;
+    }
+        
 }
 
 void map_load(map_t &map, const char title[10])

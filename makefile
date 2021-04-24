@@ -13,20 +13,29 @@ MAP_O = bin/map.o
 PLAYER_C = src/player.cpp
 PLAYER_O = bin/player.o
 
+MAP_PRINT_OUT = bin/map_print.out
+
 SFML = -lsfml-graphics -lsfml-window -lsfml-system
 
 game: $(GAME_OUT)
 	./$(GAME_OUT)
 
 editor: $(EDITOR_OUT)
-	./$(EDITOR_OUT)
+	./$(EDITOR_OUT) $(map)
+
+# make map_print MAP="spawn"
+map_print: $(MAP_PRINT_OUT)
+	./$(MAP_PRINT_OUT) $(map)
+
+$(MAP_PRINT_OUT): $(MAP_O)
+	g++ tests/map_print.cc $(MAP_O) -o $(MAP_PRINT_OUT)
+
 
 test: $(MAP_O)
 	g++ tests/test_map.cc $(MAP_O) -o bin/test_map.out
 	g++ tests/test_map_door.cc $(MAP_O) -o bin/test_map_door.out
 	g++ tests/test_map_tile.cc $(MAP_O) -o bin/test_map_tile.out
 	g++ tests/test_map_read.cc $(MAP_O) -o bin/test_map_read.out
-	g++ tests/test_map_print.cc $(MAP_O) -o bin/test_map_print.out
 
 clean: 
 	rm bin/*.o bin/*out

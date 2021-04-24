@@ -168,16 +168,13 @@ void Editor::draw()
 
 int main(int argc, char const *argv[])
 {
-    if (argc == 2)
+    if (argc != 2)
     {
-        Editor e(argv[1]);
-        e.start();
+        std::cerr << "use [make editor map=\"spawn\"]" << std::endl;
+        return 1;
     }
-    else
-    {
-        Editor e("spawn");
-        e.start();
-    }
+    Editor e(argv[1]);
+    e.start();
     
 
 
