@@ -16,6 +16,13 @@ void Player::set_map(map_t &map)
 
 void Player::update(const float dt)
 {
+    int dd = map_get_door(*map, this->x, this->y);
+    if (dd >= 0)
+    {
+        // sto calpestando una door
+        map_load(*map, map->doors[dd].dest);
+    }
+
     this->dt += dt;
 
     sf::Vector2f pos = getPosition();

@@ -66,6 +66,7 @@ void map_set_solid(map_t &map, const int x, const int y, const bool col);
 bool map_is_solid(const map_t &map, const int x, const int y);
 
 void map_rem_door(map_t &map);
+int map_get_door(map_t &map, const int x, const int y);
 
 #endif /* INCLUDE_MAP_H_ */
 

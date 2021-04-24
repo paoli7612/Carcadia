@@ -240,3 +240,18 @@ void map_rem_door(map_t &map)
     delete [] map.doors;
     map.n_doors = 0;
 }
+
+int map_get_door(map_t &map, const int x, const int y)
+{
+    std::cout << x << " " << std::endl;
+    // ritorna la posizione nell'array delle door della door a posizione x y
+    // ... se non sono presenti doors a quella posizione ritorna -1
+    for (int i=0; i<map.n_doors; i++)
+    {
+        door_t &door = map.doors[i];
+        std::cout << "d: " << door.x << " " << door.y << std::endl;
+        if (door.x == x && door.y == y)
+            return i;
+    }
+    return -1;
+}
