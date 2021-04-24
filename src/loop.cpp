@@ -59,7 +59,7 @@ void Loop::draw_map()
         sprite.setPosition(door.x*32, door.y*32);    
 
         image_t &image = door.image;    
-        sprite.setTextureRect((sf::IntRect){image.x, image.y, 32, 32});
+        sprite.setTextureRect((sf::IntRect){image.x*32, image.y*32, 32, 32});
         window.draw(sprite);
     }
     

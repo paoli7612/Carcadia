@@ -91,6 +91,7 @@ void map_print(const map_t &map)
 
 void map_load(map_t &map, const char title[10])
 {
+    std::cout << "map_loat(" << title << ")" << std::endl;
     std::string filename = "maps/" + (std::string)title + ".tomaoli";
     std::ifstream file(filename);
 
@@ -123,6 +124,16 @@ void map_load(map_t &map, const char title[10])
     std::cout << map.doors[0].x << std::endl;
 
     file.close();
+}
+
+void map_reload(map_t &map, const char title[10])
+{
+    
+    delete[] map.doors;
+    for (int y=0; y<map.height; y++)
+        delete[] map.tiles[y];
+
+    map_load(map, title);
 }
 
 void map_save(const map_t &map)

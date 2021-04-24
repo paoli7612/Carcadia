@@ -47,6 +47,7 @@ void map_allocate_doors(map_t &map, const int n_doors);
 void map_init(map_t &map, const char title[10], const int width, const int height);
 void map_print(const map_t &map);
 
+void map_reload(map_t &map, const char title[10]);
 void map_load(map_t &map, const char title[10]);
 void map_save(const map_t &map);
 

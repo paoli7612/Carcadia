@@ -2,7 +2,6 @@
 
 Player::Player()
 {
-    setPosition(0, 0);
     texture.loadFromFile("img/npc.png");
     setTexture(texture);
     setPosition(0, 0);
@@ -19,8 +18,11 @@ void Player::update(const float dt)
     int dd = map_get_door(*map, this->x, this->y);
     if (dd >= 0)
     {
+        door_t &door = map->doors[dd];
         // sto calpestando una door
-        map_load(*map, map->doors[dd].dest);
+        map_reload(*map, door.dest);
+        setPosition(door.dx*32, door.dy*32);
+        end = getPosition();
     }
 
     this->dt += dt;
