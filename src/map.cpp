@@ -234,3 +234,9 @@ bool map_is_solid(const map_t &map, const int x, const int y)
     
     return map.tiles[y][x].isCollide;
 }
+
+void map_rem_door(map_t &map)
+{
+    delete [] map.doors;
+    map.n_doors = 0;
+}

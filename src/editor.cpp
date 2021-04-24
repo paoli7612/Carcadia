@@ -82,7 +82,7 @@ void Editor::click(bool isLeft, const int x, const int y)
             }
             else
             {
-                
+                map_rem_door(map);
             }
             break;
     }
