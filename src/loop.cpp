@@ -52,10 +52,10 @@ void Loop::draw_map()
             }
         }
     
-    
+    // draw doors
     for (int i=0; i<map.n_doors; i++)
     {
-        door_t &door = map.doors[i];
+        door_t &door = map.doors[i]; // per ogni door
         sprite.setPosition(door.x*32, door.y*32);    
 
         image_t &image = door.image;    
