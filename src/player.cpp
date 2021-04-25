@@ -4,7 +4,7 @@ Player::Player()
 {
     texture.loadFromFile("img/npc.png");
     setTexture(texture);
-    setPosition(0, 64);
+    setPosition(512, 64);
     end = getPosition();
     setTextureRect(sf::IntRect({0, 0, 32, 32}));
 }

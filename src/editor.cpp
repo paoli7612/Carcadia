@@ -27,7 +27,7 @@ class Editor : public Loop {
             cursorSprite.setTexture(cursorTexture);
 
             // tiles window
-            tilesWindow.create(sf::VideoMode(640, 704), "tiles", sf::Style::Titlebar);
+            tilesWindow.create(sf::VideoMode(704, 704), "tiles", sf::Style::Titlebar);
             tilesTextureBackground.loadFromFile("img/tiles.png");
             tilesSpriteBackground.setTexture(tilesTextureBackground);
             tilesSpriteSelector.setTexture(cursorTexture);
