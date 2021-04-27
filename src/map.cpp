@@ -132,8 +132,16 @@ void map_reload(map_t &map, const char title[10])
     delete[] map.doors;
     for (int y=0; y<map.height; y++)
         delete[] map.tiles[y];
-
-    map_load(map, title);
+    try
+    {
+        map_load(map, title);
+    }
+    catch(const std::exception& e)
+    {
+        std::cout << title << " ] inseistente";
+    }
+    
+    
 }
 
 void map_save(const map_t &map)
@@ -164,6 +172,12 @@ void map_save(const map_t &map)
         file.write((char*)&map.doors[i], sizeof(door_t));
         
     file.close();
+}
+
+void map_delete(const char title[10])
+{
+    std::string filename = "maps/" + (std::string)title + ".tomaoli";
+    std::remove(filename.c_str());
 }
 
 void map_add_door(map_t &map, const door_t door)

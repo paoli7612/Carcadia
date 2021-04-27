@@ -15,6 +15,7 @@ PLAYER_O = bin/player.o
 
 MAP_PRINT_OUT = bin/map_print.out
 MAP_NEW_OUT = bin/map_new.out
+MAP_DELETE_OUT = bin/map_delete.out
 
 SFML = -lsfml-graphics -lsfml-window -lsfml-system
 
@@ -32,12 +33,18 @@ map_print: $(MAP_PRINT_OUT)
 map_new: $(MAP_NEW_OUT)
 	./$(MAP_NEW_OUT) $(map)
 
+# make map_print MAP="home"
+map_delete: $(MAP_DELETE_OUT)
+	./$(MAP_DELETE_OUT) $(map)
+
 $(MAP_PRINT_OUT): $(MAP_O)
 	g++ tests/map_print.cc $(MAP_O) -o $(MAP_PRINT_OUT)
 
 $(MAP_NEW_OUT): $(MAP_O)
 	g++ tests/map_new.cc $(MAP_O) -o $(MAP_NEW_OUT)
 
+$(MAP_DELETE_OUT): $(MAP_O)
+	g++ tests/map_delete.cc $(MAP_O) -o $(MAP_DELETE_OUT)
 
 test: $(MAP_O)
 	g++ tests/test_map.cc $(MAP_O) -o bin/test_map.out
