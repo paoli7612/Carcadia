@@ -24,8 +24,8 @@ int main(int argc, char const *argv[])
     const char menu[] =
     "____MENU___\n"
         "\t1. add new door...\n"
-        "\t2. edit door...\n"
-        "\t3. delete door...\n";
+        "\t3. delete door...\n"
+        "\t4. save and exit\n";
 
     bool runnning = true;
     while (runnning)
@@ -56,9 +56,13 @@ int main(int argc, char const *argv[])
                     map_add_door(map, door);
                 }
                 break;
-            case 2: // edit
-                break;
             case 3: // delete
+                {
+                    int n;
+                    cout << "n: ";
+                    cin >> n;
+                    
+                }
                 break;
 
             case 4: // save and exit
