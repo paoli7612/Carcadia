@@ -16,6 +16,7 @@ PLAYER_O = bin/player.o
 MAP_PRINT_OUT = bin/map_print.out
 MAP_NEW_OUT = bin/map_new.out
 MAP_DELETE_OUT = bin/map_delete.out
+MAP_DOOR_OUT = bin/map_door.out
 
 SFML = -lsfml-graphics -lsfml-window -lsfml-system
 
@@ -25,17 +26,21 @@ game: $(GAME_OUT)
 editor: $(EDITOR_OUT)
 	./$(EDITOR_OUT) $(map)
 
-# make map_print MAP="spawn"
+# make map_print map="spawn"
 map_print: $(MAP_PRINT_OUT)
 	./$(MAP_PRINT_OUT) $(map)
 
-# make map_print MAP="home"
+# make map_new map="home"
 map_new: $(MAP_NEW_OUT)
 	./$(MAP_NEW_OUT) $(map)
 
-# make map_print MAP="home"
+# make map_delete map="home"
 map_delete: $(MAP_DELETE_OUT)
 	./$(MAP_DELETE_OUT) $(map)
+
+# max map_door map="spawn"
+map_door: $(MAP_DOOR_OUT)
+	./$(MAP_DOOR_OUT) $(map)
 
 $(MAP_PRINT_OUT): $(MAP_O)
 	g++ tests/map_print.cc $(MAP_O) -o $(MAP_PRINT_OUT)
@@ -45,6 +50,9 @@ $(MAP_NEW_OUT): $(MAP_O)
 
 $(MAP_DELETE_OUT): $(MAP_O)
 	g++ tests/map_delete.cc $(MAP_O) -o $(MAP_DELETE_OUT)
+
+$(MAP_DOOR_OUT): $(MAP_O)
+	g++ tests/map_door.cc $(MAP_O) -o $(MAP_DOOR_OUT)
 
 test: $(MAP_O)
 	g++ tests/test_map.cc $(MAP_O) -o bin/test_map.out
