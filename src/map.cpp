@@ -194,18 +194,24 @@ void map_add_door(map_t &map, const door_t door)
     }
     else
     {
+        std::cout << "door_t *old_doors = map.doors;" << std::endl;
         // copio il puntatore alle porte attuali
         door_t *old_doors = map.doors;          
 
+        std::cout << "map.doors = new door_t[map.n_doors + 1];" << std::endl;
         // uso il puntatore della mappa per creare un'array lungo come prima +1
         map.doors = new door_t[map.n_doors + 1];    
         
+        std::cout << "map.doors[i] = old_doors[i];" << std::endl;
         // ricopio tutte le porte nel nuovo array
         for (int i=0; i<map.n_doors; i++)
             map.doors[i] = old_doors[i];
         
-        // aggiungo la nuova porta e incremento il contatore delle porte nella mappa
-        map.doors[++map.n_doors] = door;
+        // aggiungo la nuova porta e 
+        map.doors[map.n_doors] = door;
+
+        //incremento il contatore delle porte nella mappa
+        map.n_doors++;
 
         // elimino il vecchio array di porte
         delete [] old_doors;
