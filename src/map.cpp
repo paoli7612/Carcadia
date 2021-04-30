@@ -269,9 +269,11 @@ bool map_is_solid(const map_t &map, const int x, const int y)
 
 void map_rem_door(map_t &map, const int x, const int y)
 {
+
     int dd = map_get_door(map, x, y);
     if (dd < 0)
         return;
+    std::cout << map.n_doors << " " << dd << std::endl;
     
     if (map.n_doors == 1)
     {
