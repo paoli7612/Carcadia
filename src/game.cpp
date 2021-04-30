@@ -15,7 +15,7 @@ class Game : public Loop {
         Game()
         {
             init(800, 600, "Carcadia");
-            map_load(map, "mat_1");
+            map_load(map, "spawn");
             player.set_map(map);
         }
 
@@ -59,6 +59,7 @@ void Game::event()
 void Game::update(float dt)
 {
     player.update(dt);
+    window.setTitle(map.title);
 }
 
 void Game::draw()
