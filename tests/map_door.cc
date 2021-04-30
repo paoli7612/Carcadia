@@ -61,6 +61,8 @@ int main(int argc, char const *argv[])
                     int n;
                     cout << "n: ";
                     cin >> n;
+
+                    map_rem_door(map, n);
                 }
                 break;
 
