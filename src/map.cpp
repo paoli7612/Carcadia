@@ -95,7 +95,6 @@ void map_print(const map_t &map)
 
 void map_load(map_t &map, const char title[10])
 {
-    std::cout << "map_loat(" << title << ")" << std::endl;
     std::string filename = "maps/" + (std::string)title + ".tomaoli";
     std::ifstream file(filename);
 
@@ -125,7 +124,6 @@ void map_load(map_t &map, const char title[10])
     for (int i=0; i<map.n_doors; i++)
         file.read((char*)&map.doors[i], sizeof(door_t));
 
-    std::cout << map.doors[0].x << std::endl;
 
     file.close();
 }
@@ -273,7 +271,6 @@ void map_rem_door(map_t &map, const int x, const int y)
     int dd = map_get_door(map, x, y);
     if (dd < 0)
         return;
-    std::cout << map.n_doors << " " << dd << std::endl;
     
     if (map.n_doors == 1)
     {
@@ -304,13 +301,11 @@ void map_rem_door(map_t &map, const int x, const int y)
 
 int map_get_door(map_t &map, const int x, const int y)
 {
-    std::cout << x << " " << std::endl;
     // ritorna la posizione nell'array delle door della door a posizione x y
     // ... se non sono presenti doors a quella posizione ritorna -1
     for (int i=0; i<map.n_doors; i++)
     {
         door_t &door = map.doors[i];
-        std::cout << "d: " << door.x << " " << door.y << std::endl;
         if (door.x == x && door.y == y)
             return i;
     }
