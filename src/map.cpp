@@ -194,15 +194,12 @@ void map_add_door(map_t &map, const door_t door)
     }
     else
     {
-        std::cout << "door_t *old_doors = map.doors;" << std::endl;
         // copio il puntatore alle porte attuali
         door_t *old_doors = map.doors;          
 
-        std::cout << "map.doors = new door_t[map.n_doors + 1];" << std::endl;
         // uso il puntatore della mappa per creare un'array lungo come prima +1
         map.doors = new door_t[map.n_doors + 1];    
         
-        std::cout << "map.doors[i] = old_doors[i];" << std::endl;
         // ricopio tutte le porte nel nuovo array
         for (int i=0; i<map.n_doors; i++)
             map.doors[i] = old_doors[i];
@@ -270,10 +267,37 @@ bool map_is_solid(const map_t &map, const int x, const int y)
     return map.tiles[y][x].isCollide;
 }
 
-void map_rem_door(map_t &map)
+void map_rem_door(map_t &map, const int x, const int y)
 {
-    delete [] map.doors;
-    map.n_doors = 0;
+    int dd = map_get_door(map, x, y);
+    if (dd < 0)
+        return;
+    
+    if (map.n_doors == 1)
+    {
+        delete [] map.doors;
+        map.n_doors = 0;
+    }
+
+    // copio il puntatore alle porte attuali
+    door_t *old_doors = map.doors;          
+
+    // uso il puntatore della mappa per creare un'array lungo come prima -1
+    map.doors = new door_t[map.n_doors - 1];    
+    
+    // ricopio tutte le porte precedenti a quella eliminata
+    for (int i=0; i<dd; i++)
+        map.doors[i] = old_doors[i];
+    
+    // ricopio tutte le porte dopo quella eliminata
+    for (int i=dd; i<map.n_doors; i++)
+        map.doors[i] = old_doors[i+1];
+    
+    //decremento il contatore delle porte nella mappa
+    map.n_doors--;
+
+    // elimino il vecchio array di porte
+    delete [] old_doors;
 }
 
 int map_get_door(map_t &map, const int x, const int y)
