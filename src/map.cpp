@@ -4,23 +4,11 @@
 #include "map/files.cpp"
 #include "map/image.cpp"
 #include "map/solid.cpp"
+#include "map/memory.cpp"
 
 bool in_map(const map_t &map, const int x, const int y)
 {
     return !(x < 0 || y < 0 || x >= map.width || y >= map.height);
-}
-
-void map_allocate_tiles(map_t &map, const int width, const int height)
-{
-    // alloca la memoria per tutte le tile della mappa
-    map.tiles = new tile_t*[height];
-    for (int y=0; y<height; y++)
-        map.tiles[y] = new tile_t[width];
-}
-
-void map_allocate_doors(map_t &map, const int n_doors)
-{
-    map.doors = new door_t[n_doors];
 }
 
 void map_init(map_t &map, const char title[10], const int width, const int height)
