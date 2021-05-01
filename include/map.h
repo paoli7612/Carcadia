@@ -22,10 +22,6 @@ struct tile_t
     bool isCollide;
 };
 
-/**
- * @brief structure rapresenting each door
- * 
- */
 struct door_t {
     image_t image;
     int x, y;
@@ -40,16 +36,24 @@ struct door_t {
  */
 struct map_t 
 {
-    char title[10];
+    char title[10];     //!< title of map
 
-    int width, height;
-    tile_t **tiles;
+    int width, height;  //!< dimension of matrix-tiles
+    tile_t **tiles;     //!< matrix of map tiles
 
-    int n_doors;
-    door_t *doors;
+    int n_doors;        //!< number of doors in map
+    door_t *doors;      //!< array of doors
 };
 
+/**
+ * @brief allocate memory that contain tiles
+ * 
+ * @param map 
+ * @param width 
+ * @param height 
+ */
 void map_allocate_tiles(map_t &map, const int width, const int height);
+
 void map_allocate_doors(map_t &map, const int n_doors);
 
 void map_init(map_t &map, const char title[10], const int width, const int height);
