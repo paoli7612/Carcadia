@@ -52,5 +52,4 @@ void map_print(const map_t &map)
         std::cout << "\t\t[image] " << d.image.x << " x " << d.image.y;
         std::cout <<"\t}" << std::endl << std::endl;
     }
-        
 }
