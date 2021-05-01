@@ -1,6 +1,5 @@
 #include "../../include/map.h"
 
-
 void map_load(map_t &map, const char title[10])
 {
     std::string filename = "maps/" + (std::string)title + ".tomaoli";

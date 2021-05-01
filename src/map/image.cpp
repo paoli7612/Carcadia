@@ -2,6 +2,16 @@
 
 image_t EMPTY_IMAGE = {-1, -1};
 
+bool equals(const image_t a, const image_t b)
+{
+    // true -> le due immagini sono uguali
+    return (a.x == b.x) && (a.y == b.y);
+}
+
+bool is_empty(const image_t image)
+{
+    return equals(image, EMPTY_IMAGE);
+}
 
 int top(const image_t image[DEPTH])
 {
@@ -20,7 +30,6 @@ void tile_down(tile_t &tile)
         tile.images[i] = tile.images[i+1];
     tile.images[DEPTH-1] = EMPTY_IMAGE;
 }
-
 
 void map_add_image(map_t &map, const int x, const int y, const image_t image)
 {

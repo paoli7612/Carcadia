@@ -3,21 +3,11 @@
 #include "map/door.cpp"
 #include "map/files.cpp"
 #include "map/image.cpp"
-
-bool is_empty(const image_t image)
-{
-    return (image.x == -1) && (image.y == -1);
-}
+#include "map/solid.cpp"
 
 bool in_map(const map_t &map, const int x, const int y)
 {
     return !(x < 0 || y < 0 || x >= map.width || y >= map.height);
-}
-
-bool equals(const image_t a, const image_t b)
-{
-    // true -> le due immagini sono uguali
-    return (a.x == b.x) && (a.y == b.y);
 }
 
 void map_allocate_tiles(map_t &map, const int width, const int height)
@@ -75,21 +65,4 @@ void map_print(const map_t &map)
         std::cout <<"\t}" << std::endl << std::endl;
     }
         
-}
-
-
-void map_set_solid(map_t &map, const int x, const int y, const bool col=true)
-{
-    if (! in_map(map, x, y))
-        return;
-
-    map.tiles[y][x].isCollide = col;
-}
-
-bool map_is_solid(const map_t &map, const int x, const int y)
-{
-    if (! in_map(map, x, y))
-        return true;
-    
-    return map.tiles[y][x].isCollide;
 }
