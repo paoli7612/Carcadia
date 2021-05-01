@@ -18,13 +18,14 @@ class Loop {
 
     protected:
         bool running;
-        map_t map;
 
         sf::RenderWindow window;
 
         void init(const int, const int, const char *);
         
     public:
+        map_t map;
+
         virtual void event(){}
         virtual void update(float){}
         virtual void draw(){}

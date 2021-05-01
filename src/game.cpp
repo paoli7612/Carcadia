@@ -2,27 +2,16 @@
 
 #include <iostream>
 
-#include "../include/loop.h"
-#include "../include/map.h"
-#include "../include/player.h"
+#include "../include/game.h"
 
 using namespace std;
 
-class Game : public Loop {
-    public:
-        Player player;
-
-        Game()
-        {
-            init(800, 600, "Carcadia");
-            map_load(map, "spawn");
-            player.set_map(map);
-        }
-
-        void event();
-        void update(float);
-        void draw();
-};
+Game::Game()
+{
+    init(800, 600, "Carcadia");
+    map_load(map, "spawn");
+    player.set_map(&map);
+}
 
 void Game::event()
 {

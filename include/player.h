@@ -1,3 +1,4 @@
+
 #ifndef INCLUDE_PLAYER_H_
 #define INCLUDE_PLAYER_H_
 
@@ -6,6 +7,7 @@
 
 class Player : public sf::Sprite {
     private:
+
         // sprite
         sf::Texture texture;
 
@@ -15,7 +17,8 @@ class Player : public sf::Sprite {
         float dt;
 
         map_t *map;
-        
+
+
     public:
         int x, y;
         Player();
@@ -27,7 +30,8 @@ class Player : public sf::Sprite {
         void left();
         void right();
 
-        void set_map(map_t &map);
+        void set_map(map_t *map);
+
         
 
 };

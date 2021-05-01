@@ -9,11 +9,6 @@ Player::Player()
     setTextureRect(sf::IntRect({0, 0, 32, 32}));
 }
 
-void Player::set_map(map_t &map)
-{
-    this->map = &map;
-}
-
 void Player::update(const float dt)
 {
     int dd = map_get_door(*map, this->x, this->y);
@@ -84,7 +79,6 @@ void Player::motion(int x, int y)
     this->y = pos.y / 32;
     if (pos.x == end.x && pos.y == end.y)
     {
-        
         sf::IntRect rect = getTextureRect();
 
         if (false) int a;
@@ -101,6 +95,9 @@ void Player::motion(int x, int y)
             end.y = pos.y + y*32;
         }
     }
-   
+}
 
+void Player::set_map(map_t *map)
+{
+    this->map = map;
 }
