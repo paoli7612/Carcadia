@@ -1,4 +1,4 @@
 *.o
 *.out
 .vscode*
-Documentation/html/
+doc/html/
