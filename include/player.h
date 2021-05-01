@@ -18,7 +18,6 @@ class Player : public sf::Sprite {
 
         map_t *map;
 
-
     public:
         int x, y;
         Player();

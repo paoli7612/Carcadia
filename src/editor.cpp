@@ -4,50 +4,30 @@
 
 #include "../include/loop.h"
 #include "../include/map.h"
+#include "../include/editor.h"
 
 using namespace std;
 
-enum editor_mode { TILE_MODE, SOLID_MODE, DOOR_MODE };
+Editor::Editor(const char title[10])
+{
+    map_load(map, title);
+    mode = TILE_MODE;
 
-class Editor : public Loop {
-    private:
-        editor_mode mode;
-        void click(const bool isLeft, const int x, const int y);
+    // main window
+    init(map.width*32, map.height*32, "Carcadia");          
+    cursorTexture.loadFromFile("img/cursor.png");
+    cursorSprite.setTexture(cursorTexture);
 
-    public:
-        Editor(const char title[10])
-        {
-            map_load(map, title);
-            mode = TILE_MODE;
+    // tiles window
+    tilesWindow.create(sf::VideoMode(704, 704), "tiles", sf::Style::Titlebar);
+    tilesTextureBackground.loadFromFile("img/tiles.png");
+    tilesSpriteBackground.setTexture(tilesTextureBackground);
+    tilesSpriteSelector.setTexture(cursorTexture);
 
-            // main window
-            init(map.width*32, map.height*32, "Carcadia");          
-            cursorTexture.loadFromFile("img/cursor.png");
-            cursorSprite.setTexture(cursorTexture);
+    tilesSpriteSelector.setPosition(0, 0);
 
-            // tiles window
-            tilesWindow.create(sf::VideoMode(704, 704), "tiles", sf::Style::Titlebar);
-            tilesTextureBackground.loadFromFile("img/tiles.png");
-            tilesSpriteBackground.setTexture(tilesTextureBackground);
-            tilesSpriteSelector.setTexture(cursorTexture);
-
-            tilesSpriteSelector.setPosition(0, 0);
-
-            std::cout << "Use Q key to save map" << std::endl;
-        }
-
-        void event();
-        void update(float);
-        void draw();
-        
-        sf::Texture cursorTexture;
-        sf::Sprite cursorSprite;
-
-        sf::RenderWindow tilesWindow;
-        sf::Texture tilesTextureBackground; // background
-        sf::Sprite tilesSpriteBackground; 
-        sf::Sprite tilesSpriteSelector; // cursorTexture
-};
+    std::cout << "Use Q key to save map" << std::endl;
+}
 
 void Editor::click(bool isLeft, const int x, const int y)
 {

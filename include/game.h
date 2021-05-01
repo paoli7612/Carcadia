@@ -5,6 +5,10 @@
 #include "../include/loop.h"
 #include "../include/player.h"
 
+/**
+ * @brief 
+ * 
+ */
 class Game : public Loop {
     private:
         Player player;

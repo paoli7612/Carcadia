@@ -22,6 +22,10 @@ struct tile_t
     bool isCollide;
 };
 
+/**
+ * @brief structure rapresenting each door
+ * 
+ */
 struct door_t {
     image_t image;
     int x, y;
@@ -30,6 +34,10 @@ struct door_t {
     int dx, dy;
 };
 
+/**
+ * @brief structure representing each map
+ * 
+ */
 struct map_t 
 {
     char title[10];

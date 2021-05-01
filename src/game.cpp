@@ -9,7 +9,7 @@ using namespace std;
 Game::Game()
 {
     init(800, 600, "Carcadia");
-    map_load(map, "spawn");
+    map_load(map, "sabato");
     player.set_map(&map);
 }
 
