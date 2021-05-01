@@ -6,7 +6,7 @@
 #include "map/solid.cpp"
 #include "map/memory.cpp"
 
-bool in_map(const map_t &map, const int x, const int y)
+bool map_in(const map_t &map, const int x, const int y)
 {
     return !(x < 0 || y < 0 || x >= map.width || y >= map.height);
 }
@@ -23,9 +23,8 @@ void map_init(map_t &map, const char title[10], const int width, const int heigh
     
     for (int y=0; y<map.height; y++)
         for (int x=0; x<map.width; x++)
-        { // per ogni tile della matrice
+        {
             tile_t &tile = map.tiles[y][x];
-            // ... imposta le immagini vuote
             for (int z=0; z<DEPTH; z++)
                 tile.images[z] = EMPTY_IMAGE;
             tile.isCollide = false;    
@@ -34,15 +33,9 @@ void map_init(map_t &map, const char title[10], const int width, const int heigh
 
 void map_print(const map_t &map)
 {
-    /*
-    title
-        map.width x map.height
-        & for door in map.doors:
-            door.x door.y door.dest door.dx door.dy
-    */
     std::cout << map.title << std::endl;
     std::cout << "\t[size] " << map.width << " x " << map.height << std::endl;
-    std::cout << "\t[doors] #" << map.n_doors << std::endl;
+    std::cout << "\t[#doors]" << map.n_doors << std::endl;
     for (int i=0; i<map.n_doors; i++)
     {
         std::cout <<"\t" << i << "] {";

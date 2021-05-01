@@ -33,7 +33,7 @@ void tile_down(tile_t &tile)
 
 void map_add_image(map_t &map, const int x, const int y, const image_t image)
 {
-    if (!in_map(map, x, y))
+    if (!map_in(map, x, y))
         return;
     
     tile_t &tile = map.tiles[y][x];
@@ -55,7 +55,7 @@ void map_add_image(map_t &map, const int x, const int y, const image_t image)
 
 void map_rem_image(map_t &map, const int x, const int y)
 {
-    if (!in_map(map, x, y))
+    if (!map_in(map, x, y))
         return;
 
     tile_t &tile = map.tiles[y][x];

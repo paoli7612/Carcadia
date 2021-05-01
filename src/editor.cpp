@@ -4,7 +4,6 @@
 
 #include "../include/loop.h"
 #include "../include/map.h"
-#include "../include/player.h"
 
 using namespace std;
 
@@ -189,7 +188,5 @@ int main(int argc, char const *argv[])
     Editor e(argv[1]);
     e.start();
     
-
-
     return 0;
 }

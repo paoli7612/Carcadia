@@ -73,7 +73,7 @@ void map_rem_door(map_t &map, const int n);
 
 int map_get_door(map_t &map, const int x, const int y);
 
-bool in_map(const map_t &map, const int x, const int y);
+bool map_in(const map_t &map, const int x, const int y);
 
 #endif /* INCLUDE_MAP_H_ */
 
