@@ -15,10 +15,15 @@ class Editor : public Loop {
         void click(const bool isLeft, const int x, const int y);
 
     public:
+        /**
+         * @brief Construct a new Editor object
+         * 
+         * @param title title of map to edit
+         */
         Editor(const char title[10]);
 
         void event();
-        void update(float);
+        void update(float dt);
         void draw();
         
         sf::Texture cursorTexture;
@@ -27,7 +32,7 @@ class Editor : public Loop {
         sf::RenderWindow tilesWindow;
         sf::Texture tilesTextureBackground; // background
         sf::Sprite tilesSpriteBackground; 
-        sf::Sprite tilesSpriteSelector; // cursorTexture
+        sf::Sprite tilesSpriteSelector; // using cursorTexture
 };
 
 #endif /* INCLUDE_EDITOR_H_ */
