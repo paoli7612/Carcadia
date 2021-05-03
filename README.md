@@ -9,6 +9,7 @@
 - *tests*
 
 <img src="doc/006.png">
+<img src="doc/0010.png">
 
 <img src="doc/003.png">
 <img src="doc/004.png">
