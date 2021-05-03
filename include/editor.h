@@ -26,11 +26,11 @@ class Editor : public Loop {
         void update(float dt);
         void draw();
         
-        sf::Texture cursorTexture;
-        sf::Sprite cursorSprite;
+        sf::Texture cursorTexture; /// texture of red square. It follow mouse
+        sf::Sprite cursorSprite; /// sprite that really follow mouse
 
-        sf::RenderWindow tilesWindow;
-        sf::Texture tilesTextureBackground; // background
+        sf::RenderWindow tilesWindow; /// secondary window that contain all tiles selectable
+        sf::Texture tilesTextureBackground; /// texture of all tiles. Using like background of @tilesWindow
         sf::Sprite tilesSpriteBackground; 
         sf::Sprite tilesSpriteSelector; // using cursorTexture
 };
