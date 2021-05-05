@@ -15,8 +15,8 @@ void Player::update(const float dt)
     if (dd >= 0) // sto calpestando una door
     {
         door_t &door = map->doors[dd];
-        map_reload(*map, door.dest);
         setPosition(door.dx*32, door.dy*32);
+        map_reload(*map, door.dest);
         end = getPosition();
     }
 
