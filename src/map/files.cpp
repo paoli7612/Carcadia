@@ -48,6 +48,7 @@ void map_reload(map_t &map, const char title[10])
     catch(const std::exception& e)
     {
         std::cerr << title << " ] inseistente";
+        exit(1);
     }
     
     
