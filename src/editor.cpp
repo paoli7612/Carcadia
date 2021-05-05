@@ -105,6 +105,7 @@ void Editor::event()
                     // Q -> save map
                     case sf::Keyboard::Key::Q:
                         map_save(map);
+                        std::cout << "[!] map saved [!]" << std::endl;
                         break;
                 }
                 break;
