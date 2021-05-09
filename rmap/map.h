@@ -4,7 +4,23 @@
 #include <iostream>
 #include <fstream>
 
+struct tile_t {
+
+};
+
+struct door_t {
+
+};
+
 struct map_t {
+
+    char title[10];
+
+    int width, height;
+    tile_t **tiles;
+
+    int n_doors;
+    door_t *doors;
 
 };
 
