@@ -11,7 +11,15 @@ int main(int argc, char const *argv[])
 
     map_init(map, "prima", {20, 20});
 
-    map_save(map);
+    try
+    {
+        map_save(map);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    
 
     return 0;
 }
