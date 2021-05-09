@@ -6,6 +6,8 @@
 
 const int DEPTH = 3;
 
+typedef char title_t[10];
+
 struct image_t {
     int ix, iy;
 };
@@ -22,11 +24,14 @@ struct tile_t {
 struct door_t {
     image_t image;
     pos_t pos;
+
+    title_t dest;
+    pos_t d_pos;
 };
 
 struct map_t {
 
-    char title[10];
+    title_t title;
 
     int width, height;
     tile_t **tiles;
