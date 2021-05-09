@@ -16,7 +16,7 @@ void map_init(map_t &map, const title_t title, const dim_t dim)
     map.n_doors = 0;
 }
 
-void map_load(map_t &map, title_t title)
+void map_load(map_t &map, const title_t title)
 {
     std::string filename = "maps/" + (std::string)title + ".tomaoli";
     std::ifstream file(filename);
