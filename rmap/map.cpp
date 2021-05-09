@@ -1,5 +1,11 @@
 #include "map.h"
 
+void map_init(map_t &map, const title_t title, const dimension_t dimension)
+{
+
+
+}
+
 void map_load(map_t &map, title_t title)
 {
     std::string filename = "maps/" + (std::string)title + ".tomaoli";

@@ -8,6 +8,10 @@ const int DEPTH = 3;
 
 typedef char title_t[10];
 
+struct dimension_t {
+    int width, height;
+};
+
 struct image_t {
     int ix, iy;
 };
@@ -42,6 +46,8 @@ struct map_t {
 };
 
 void map_print(const map_t &map);
+
+void map_init(map_t &map, const title_t title, const dimension_t dimension);
 
 void map_save(const map_t &map);
 void map_load(map_t &map, title_t title);
