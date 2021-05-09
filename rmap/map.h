@@ -43,4 +43,7 @@ struct map_t {
 
 void map_print(const map_t &map);
 
+void map_save(const map_t &map);
+void map_load(map_t &map, title_t title);
+
 #endif /* INCLUDE_MAP_H_ */
