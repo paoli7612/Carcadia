@@ -4,12 +4,24 @@
 #include <iostream>
 #include <fstream>
 
-struct tile_t {
+const int DEPTH = 3;
 
+struct image_t {
+    int ix, iy;
+};
+
+struct pos_t {
+    int x, y;
+};
+
+struct tile_t {
+    image_t image[DEPTH];
+    bool is_collide;
 };
 
 struct door_t {
-
+    image_t image;
+    pos_t pos;
 };
 
 struct map_t {
